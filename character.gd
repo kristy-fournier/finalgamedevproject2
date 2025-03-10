@@ -1,13 +1,10 @@
 extends Node2D
 
-signal move_right
-signal move_left
-signal move_down
-signal move_up
-var pressed
+
+var current_floor
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pressed = 0
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

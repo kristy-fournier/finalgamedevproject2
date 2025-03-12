@@ -5,7 +5,7 @@ var current_floor
 
 var desired_position
 var moving
-signal Change_floors
+signal Detected_item
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	moving = false
@@ -30,4 +30,5 @@ func _process(delta: float) -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	Change_floors.emit()
+	Detected_item.emit()
+	print("hi")

@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=4 uid="uid://relj4dfmpf2x"]
+
+[ext_resource type="Texture2D" uid="uid://bmt4hx0sbaqu5" path="res://SpriteSheet_2.png" id="1_g7wix"]
+[ext_resource type="Script" path="res://level_1.gd" id="1_u114y"]
+[ext_resource type="Texture2D" uid="uid://bfjme5qxlbmoe" path="res://2025-03-10_SpriteSheet.png" id="3_rm1nd"]
+[ext_resource type="TileSet" uid="uid://bm3ndhx0mqefn" path="res://2025-03-10_SpriteSheet.tres" id="3_rmk61"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w1wxt"]
+texture = ExtResource("3_rm1nd")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:0/0/custom_data_0 = true
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+4:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_3tjci"]
+physics_layer_0/collision_layer = 2
+custom_data_layer_0/name = "Wall"
+custom_data_layer_0/type = 1
+sources/2 = SubResource("TileSetAtlasSource_w1wxt")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w0xwc"]
+texture = ExtResource("1_g7wix")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+0:4/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_miqp0"]
+sources/0 = SubResource("TileSetAtlasSource_w0xwc")
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_u114y")
+
+[node name="Floor A" type="Node2D" parent="."]
+
+[node name="Floor" type="TileMapLayer" parent="Floor A"]
+tile_map_data = PackedByteArray("AAABAAEAAgABAAEAAAABAAIAAgABAAEAAAABAAMAAgABAAEAAAABAAQAAgABAAEAAAACAAQAAgABAAEAAAADAAQAAgABAAEAAAAEAAQAAgABAAEAAAAEAAMAAgABAAEAAAADAAMAAgABAAEAAAACAAMAAgABAAEAAAACAAIAAgABAAEAAAADAAIAAgABAAEAAAADAAEAAgABAAEAAAAEAAEAAgABAAEAAAAEAAIAAgABAAEAAAA=")
+tile_set = ExtResource("3_rmk61")
+
+[node name="Wall" type="TileMapLayer" parent="Floor A"]
+tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAAQAAgAAAAAAAAAEAAAAAgAAAAAAAAADAAAAAgAAAAAAAAACAAAAAgAAAAAAAAABAAAAAgAAAAAAAAACAAMAAgAAAAAAAAACAAEAAgAAAAAAAAACAAIAAgAAAAAAAAAFAAAAAgAAAAAAAAAFAAEAAgAAAAAAAAAFAAIAAgAAAAAAAAAFAAMAAgAAAAAAAAAFAAQAAgAAAAAAAAAFAAUAAgAAAAAAAAAEAAUAAgAAAAAAAAADAAUAAgAAAAAAAAACAAUAAgAAAAAAAAABAAUAAgAAAAAAAAAAAAUAAgAAAAAAAAA=")
+tile_set = SubResource("TileSet_3tjci")
+
+[node name="Items" type="TileMapLayer" parent="Floor A"]
+tile_map_data = PackedByteArray("AAAEAAEAAgAEAAMAAAA=")
+tile_set = ExtResource("3_rmk61")
+
+[node name="Floor B" type="Node2D" parent="."]
+visible = false
+
+[node name="Floor_Wall" type="TileMapLayer" parent="Floor B"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAADAAAAAAADAAQAAAADAAAAAAAEAAQAAAADAAAAAAAEAAMAAAADAAAAAAAEAAIAAAADAAAAAAAEAAEAAAADAAAAAAAEAAAAAAAAAAAAAAADAAAAAAAAAAAAAAACAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAADAAAAAAABAAIAAAADAAAAAAABAAMAAAADAAAAAAACAAMAAAAAAAAAAAADAAMAAAADAAAAAAADAAIAAAADAAAAAAADAAEAAAADAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAADAAUAAAAAAAAAAAACAAUAAAAAAAAAAAABAAUAAAAAAAAAAAAAAAUAAAAAAAAAAAACAAQAAAADAAAAAAA=")
+tile_set = SubResource("TileSet_miqp0")
+
+[node name="Items" type="TileMapLayer" parent="Floor B"]
+tile_map_data = PackedByteArray("AAAEAAEAAgACAAEAAAABAAEAAgADAAQAAAA=")
+tile_set = ExtResource("3_rmk61")

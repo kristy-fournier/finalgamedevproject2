@@ -1,0 +1,40 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bm3ndhx0mqefn"]
+
+[ext_resource type="Texture2D" uid="uid://bfjme5qxlbmoe" path="res://2025-03-10_SpriteSheet.png" id="1_c5mfk"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kyw2r"]
+texture = ExtResource("1_c5mfk")
+0:0/0 = 0
+0:0/0/custom_data_0 = "wall"
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+4:3/0 = 0
+4:3/0/custom_data_0 = "ladderUp"
+
+[resource]
+custom_data_layer_0/name = "Name"
+custom_data_layer_0/type = 4
+sources/2 = SubResource("TileSetAtlasSource_kyw2r")

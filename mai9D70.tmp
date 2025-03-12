@@ -7,11 +7,7 @@
 [node name="MainScene" type="Node"]
 script = ExtResource("1_lbvci")
 
-[node name="CurrentLevelContent" type="Node2D" parent="."]
-position = Vector2(80, 15)
-scale = Vector2(2, 2)
+[node name="Level1" parent="." instance=ExtResource("1_vn6iq")]
 
-[node name="Level1" parent="CurrentLevelContent" instance=ExtResource("1_vn6iq")]
-
-[node name="Character" parent="CurrentLevelContent" instance=ExtResource("1_8wdd1")]
+[node name="Character" parent="." instance=ExtResource("1_8wdd1")]
 position = Vector2(24, 24)

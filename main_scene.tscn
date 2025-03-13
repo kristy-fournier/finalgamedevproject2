@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://uwj3kh3et7ci" path="res://Character.tscn" id="1_8wdd1"]
 [ext_resource type="Script" path="res://main_scene.gd" id="1_lbvci"]
-[ext_resource type="PackedScene" uid="uid://relj4dfmpf2x" path="res://level_1.tscn" id="1_vn6iq"]
+[ext_resource type="PackedScene" uid="uid://cs3wumu5jkdbn" path="res://level_1.tscn" id="1_vn6iq"]
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_lbvci")
@@ -16,4 +16,4 @@ scale = Vector2(2, 2)
 [node name="Character" parent="CurrentLevelContent" instance=ExtResource("1_8wdd1")]
 position = Vector2(24, 24)
 
-[connection signal="Change_floors" from="CurrentLevelContent/Character" to="." method="_on_character_change_floors"]
+[connection signal="Detected_item" from="CurrentLevelContent/Character" to="." method="_on_character_detected_item"]

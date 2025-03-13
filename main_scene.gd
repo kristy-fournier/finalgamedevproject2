@@ -1,23 +1,35 @@
 extends Node
+var item_map
+var character
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$"CurrentLevelContent/Level1/Floor B".visible = false
+	item_map = $"CurrentLevelContent/Level1/Floor A/Items"
+	character = $"CurrentLevelContent/Character"
+	print(character.position)
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
-	#var character = $CurrentLevelContent/Character
-	#var itemmap = $"CurrentLevelContent/Level1/Floor A/Items"
-	#if itemmap.get_cell_tile_data(itemmap.local_to_map(character.position)) != null:
-		#if itemmap.get_cell_tile_data(itemmap.local_to_map(character.position)).get_custom_data("Name") == "ladderUp":
-			#$"CurrentLevelContent/Level1/Floor A".visible = false
-			#$"CurrentLevelContent/Level1/Floor B".visible = true
 	pass
 
 
-func _on_character_change_floors() -> void:
-	$"CurrentLevelContent/Level1/Floor A".visible = false
-	$"CurrentLevelContent/Level1/Floor B".visible = true
+func _on_character_detected_item() -> void:
+	var tile_name = item_map.get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name");
+	if tile_name == "ladderUp":
+		$"CurrentLevelContent/Level1/Floor A".visible = false
+		$"CurrentLevelContent/Level1/Floor B".visible = true
+		item_map = $"CurrentLevelContent/Level1/Floor B/Items"
+	if tile_name == "hole":
+		pass
+		#check if just climbed up ladder. 
+		#emit change floor
+		#change itemmap to destination floor
+	if tile_name == "exit":
+		pass
+		#exit level
+		
+		

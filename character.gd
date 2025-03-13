@@ -16,10 +16,6 @@ func _physics_process(delta: float) -> void:
 	var collision_info = move_and_collide(((desired_position-self.position))*1)
 	if collision_info:
 		desired_position = lastPosition
-	check_offset()
-	if (moving == true):
-		if(desired_position == self.position):
-			moving = false
 		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,6 +33,12 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("move_up"):
 		desired_position = self.position + Vector2(0,-16)
 		moving = true
+	check_offset()
+	if (moving == true && desired_position == self.position):
+		moving = false
+		print("doneMoving")
+		if(in_item):
+			Detected_item.emit()	
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -52,11 +54,13 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	
 #trying to fix the fact that the character position ends in .99999 after every move
 func check_offset() -> void:
-	print(self.position.x)
-	print(self.position.y)
-	if(round(self.position.x) == desired_position.x):
+	if(snapped(self.position.x,0.0001) == desired_position.x && self.position != desired_position):
+		print(self.position)
+		print(desired_position)
 		self.position = desired_position
-	if(round(self.position.y) - 0.00001 == desired_position.y):
-		self.position = desired_position
-	
+	#if(snapped(self.position.y,0.0001) == desired_position.y && self.position != desired_position):
+		#print(self.position)
+		#print(desired_position)
+		#self.position = desired_position
+	#
 	

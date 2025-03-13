@@ -81,7 +81,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAA
 tile_set = SubResource("TileSet_3tjci")
 
 [node name="Items" type="TileMapLayer" parent="Floor A"]
-tile_map_data = PackedByteArray("AAAEAAEAAgAEAAMAAAA=")
+tile_map_data = PackedByteArray("AAAEAAEAAgAEAAMAAAADAAIAAgAEAAMAAAA=")
 tile_set = ExtResource("3_rmk61")
 
 [node name="Floor B" type="Node2D" parent="."]

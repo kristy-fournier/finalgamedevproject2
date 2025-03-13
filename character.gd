@@ -33,12 +33,12 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("move_up"):
 		desired_position = self.position + Vector2(0,-16)
 		moving = true
-	check_offset()
-	if (moving == true && desired_position == self.position):
+	if (moving == true && (desired_position == self.position.floor() || desired_position == self.position.ceil()) ):
+		self.position = desired_position
 		moving = false
-		print("doneMoving")
 		if(in_item):
-			Detected_item.emit()	
+			Detected_item.emit()
+			in_item = false
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -50,17 +50,3 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	in_item = false
 	print("bye")
-	
-	
-#trying to fix the fact that the character position ends in .99999 after every move
-func check_offset() -> void:
-	if(snapped(self.position.x,0.0001) == desired_position.x && self.position != desired_position):
-		print(self.position)
-		print(desired_position)
-		self.position = desired_position
-	#if(snapped(self.position.y,0.0001) == desired_position.y && self.position != desired_position):
-		#print(self.position)
-		#print(desired_position)
-		#self.position = desired_position
-	#
-	

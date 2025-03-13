@@ -8,17 +8,19 @@ func _ready() -> void:
 	$"CurrentLevelContent/Level1/Floor B".visible = false
 	item_map = $"CurrentLevelContent/Level1/Floor A/Items"
 	character = $"CurrentLevelContent/Character"
-	print(character.position)
+	
 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
 	pass
 
 
 func _on_character_detected_item() -> void:
-	var tile_name = item_map.get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name");
+	var tile_name = item_map.get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
+	print(character.position)
 	if tile_name == "ladderUp":
 		$"CurrentLevelContent/Level1/Floor A".visible = false
 		$"CurrentLevelContent/Level1/Floor B".visible = true
@@ -29,7 +31,7 @@ func _on_character_detected_item() -> void:
 		#emit change floor
 		#change itemmap to destination floor
 	if tile_name == "exit":
+		$"CurrentLevelContent/Level1".delete() 
 		pass
-		#exit level
 		
 		

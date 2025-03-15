@@ -1,31 +1,20 @@
-extends CharacterBody2D
-var lastPosition
+extends Node2D
+
 
 var current_floor
-
-var desired_position
-signal Change_floors
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	desired_position = self.position
+	pass
 
-func _physics_process(delta: float) -> void:
-	var collision_info = move_and_collide(((desired_position -self.position))*1)
-	if collision_info:
-		desired_position = lastPosition
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	lastPosition = self.position
+	var velocity = Vector2.ZERO
 	if Input.is_action_just_pressed("move_right"):
-		desired_position = self.position + Vector2(-16,0)
+		self.position = self.position + Vector2(-16,0)
 	if Input.is_action_just_pressed("move_left"):
-		desired_position = self.position + Vector2(16,0)
+		self.position = self.position + Vector2(16,0)
 	if Input.is_action_just_pressed("move_down"):
-		desired_position = self.position + Vector2(0,16)
+		self.position = self.position + Vector2(0,16)
 	if Input.is_action_just_pressed("move_up"):
-		desired_position = self.position + Vector2(0,-16)
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	Change_floors.emit()
+		self.position = self.position + Vector2(0,-16)

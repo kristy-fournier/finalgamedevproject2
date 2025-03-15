@@ -25,8 +25,14 @@ func _on_character_detected_item() -> void:
 	if tile_name == "ladderUp":
 		#$"CurrentLevelContent/Level1/Floor A".visible = false
 		#$"CurrentLevelContent/Level1/Floor B".visible = true
-		var floorAbove = $CurrentLevelContent/Level.floorOrder[current_floor-1].get_child("Items")
-		var aboveItemTile = floorAbove.get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
+		if $CurrentLevelContent/Level.floorOrder[current_floor-1] != null:
+			var floorAbove = $CurrentLevelContent/Level.floorOrder[current_floor-1].get_child("Items")
+			if floorAbove.get_cell_tile_data(item_map.local_to_map(character.position)) != null:
+				var aboveItemTile = floorAbove.get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
+				if aboveItemTile == "hole":
+					$CurrentLevelContent/Level.floorOrder[current_floor].visible = false
+					floorAbove.visible = true
+		
 		item_map = $"CurrentLevelContent/Level1/Floor B/Items"
 	if tile_name == "hole":
 		pass
@@ -41,7 +47,7 @@ func _on_character_detected_item() -> void:
 func testInit():
 	#initialise level 1 for our submission on monday
 	$floor_ui.currentFloorOrder = [["A", true, false, false, false], ["B", false, true, false, false]]
-	
+	current_floor = 0
 
 
 func _on_floor_ui_menu_close(order) -> void:

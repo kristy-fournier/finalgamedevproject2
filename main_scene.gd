@@ -32,8 +32,6 @@ func _on_character_detected_item() -> void:
 				if aboveItemTile == "hole":
 					$CurrentLevelContent/Level.floorOrder[current_floor].visible = false
 					floorAbove.visible = true
-		
-		item_map = $"CurrentLevelContent/Level1/Floor B/Items"
 	if tile_name == "hole":
 		pass
 		#check if just climbed up ladder. 

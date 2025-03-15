@@ -2,6 +2,7 @@ extends Node
 var item_map
 var character
 
+var floors
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,3 +40,7 @@ func testInit():
 	#initialise level 1 for our submission on monday
 	$floor_ui.currentFloorOrder = [["A", true, false, false, false], ["B", false, true, false, false]]
 	
+
+
+func _on_floor_ui_menu_close() -> void:
+	pass # Replace with function body.

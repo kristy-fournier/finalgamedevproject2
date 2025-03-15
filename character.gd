@@ -37,6 +37,7 @@ func _process(delta: float) -> void:
 		desired_position = self.position + Vector2(0,16)
 	if Input.is_action_just_pressed("move_up") and moving==false:
 		moving = true
+		desired_position = self.position + Vector2(0,-16)
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

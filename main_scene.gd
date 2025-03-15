@@ -2,12 +2,14 @@ extends Node
 var item_map
 var character
 
+var floors
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$"CurrentLevelContent/Level1/Floor B".visible = false
 	item_map = $"CurrentLevelContent/Level1/Floor A/Items"
 	character = $"CurrentLevelContent/Character"
+	
 	
 
 
@@ -33,4 +35,7 @@ func _on_character_detected_item() -> void:
 		$"CurrentLevelContent/Level1".delete() 
 		pass
 		
-		
+
+
+func _on_floor_ui_menu_close() -> void:
+	pass # Replace with function body.

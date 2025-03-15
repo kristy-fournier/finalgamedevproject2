@@ -8,6 +8,7 @@ var menuMode = false
 var swapMode = false
 var viewport_size = get_viewport_rect().size  # Get the viewport size
 var orgPos = null
+signal menu_close(Order)
 
 func _ready():
 	get_node("shadow").hide()
@@ -87,13 +88,14 @@ func _process(delta):
 				swapMode = false
 
 func toggleMenu():
-	if(menuMode == true):
-		self.scale = Vector2(1, 1)
-		self.position = orgPos
+	if(menuMode):
+		#self.scale = Vector2(1, 1)
+		#self.position = orgPos
 		menuMode = false
 		swapMode = false
 		for i in range(0, len(currentFloorOrder), 1):
 			currentFloorOrder[i][4] = false
+		menu_close.emit(currentFloorOrder)
 	elif(menuMode == false):
 		#Change Scale and Position Here
 		menuMode = true

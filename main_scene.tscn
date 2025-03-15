@@ -9,7 +9,7 @@
 script = ExtResource("1_lbvci")
 
 [node name="CurrentLevelContent" type="Node2D" parent="."]
-position = Vector2(80, 15)
+position = Vector2(45, 15)
 scale = Vector2(2, 2)
 
 [node name="Level1" parent="CurrentLevelContent" instance=ExtResource("1_vn6iq")]
@@ -18,5 +18,7 @@ scale = Vector2(2, 2)
 position = Vector2(24, 24)
 
 [node name="floor_ui" parent="." instance=ExtResource("4_ox4v2")]
+position = Vector2(331, 27)
+scale = Vector2(0.6, 0.6)
 
 [connection signal="Detected_item" from="CurrentLevelContent/Character" to="." method="_on_character_detected_item"]

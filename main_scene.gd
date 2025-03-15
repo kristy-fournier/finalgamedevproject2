@@ -9,6 +9,7 @@ func _ready() -> void:
 	item_map = $"CurrentLevelContent/Level1/Floor A/Items"
 	character = $"CurrentLevelContent/Character"
 	
+	
 
 
 
@@ -34,3 +35,7 @@ func _on_character_detected_item() -> void:
 		pass
 		
 		
+func testInit():
+	#initialise level 1 for our submission on monday
+	$floor_ui.currentFloorOrder = [["A", true, false, false, false], ["B", false, true, false, false]]
+	

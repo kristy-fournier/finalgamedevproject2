@@ -88,8 +88,8 @@ func _process(delta):
 
 func toggleMenu():
 	if(menuMode == true):
-		self.scale = Vector2(1, 1)
-		self.position = orgPos
+		#self.scale = Vector2(1, 1)
+		#self.position = orgPos
 		menuMode = false
 		swapMode = false
 		for i in range(0, len(currentFloorOrder), 1):

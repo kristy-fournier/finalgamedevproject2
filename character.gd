@@ -1,7 +1,7 @@
 extends CharacterBody2D
 var lastPosition
 
-var current_floor
+
 var desired_position
 var moving: bool
 var in_item: bool

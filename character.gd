@@ -4,8 +4,8 @@ var lastPosition
 var current_floor
 var desired_position
 var moving: bool
-var overlaps: bool
-signal Change_floors
+var in_item: bool
+signal Detected_item
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	moving = false
@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 	if desired_position.round() == self.position.round():
 		self.position = self.position.round()
 		moving = false
-		if(overlaps):
+		if(in_item):
 			_overlap_handler()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,14 +37,13 @@ func _process(delta: float) -> void:
 		desired_position = self.position + Vector2(0,16)
 	if Input.is_action_just_pressed("move_up") and moving==false:
 		moving = true
-		desired_position = self.position + Vector2(0,-16)
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	overlaps = true
+	in_item = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	overlaps = false
+	in_item = false
 
 func _overlap_handler() -> void:
-	Change_floors.emit()
+	Detected_item.emit()

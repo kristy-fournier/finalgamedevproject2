@@ -66,7 +66,7 @@ func _on_character_detected_item() -> void:
 		if justChangedFloors:
 			justChangedFloors = false
 		else:
-			if $CurrentLevelContent/Level.floorOrder.size() >= current_floor+1:
+			if $CurrentLevelContent/Level.floorOrder.size() > current_floor+1:
 				if $CurrentLevelContent/Level.floorOrder[current_floor+1] != null:
 					var floorBelow = $CurrentLevelContent/Level.floorOrder[current_floor+1]
 					# basically checking the floor above actually exists and has a tilemap

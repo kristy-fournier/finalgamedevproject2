@@ -26,27 +26,27 @@ func _on_character_detected_item() -> void:
 		#$"CurrentLevelContent/Level1/Floor A".visible = false
 		#$"CurrentLevelContent/Level1/Floor B".visible = true
 		if $CurrentLevelContent/Level.floorOrder[current_floor-1] != null:
-			var floorAbove = $CurrentLevelContent/Level.floorOrder[current_floor-1].get_child("Items")
-			if floorAbove.get_cell_tile_data(item_map.local_to_map(character.position)) != null:
-				var aboveItemTile = floorAbove.get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
-				if aboveItemTile == "hole":
-					$CurrentLevelContent/Level.floorOrder[current_floor].visible = false
-					floorAbove.visible = true
-		
-		item_map = $"CurrentLevelContent/Level1/Floor B/Items"
+			var floorAbove = $CurrentLevelContent/Level.floorOrder[current_floor-1]
+			if floorAbove.get_child("Items") != null:
+				if floorAbove.get_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)) != null:
+					var aboveItemTile = floorAbove.get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
+					if aboveItemTile == "hole":
+						$CurrentLevelContent/Level.floorOrder[current_floor].visible = false
+						floorAbove.visible = true
+						item_map = $CurrentLevelContent/Level.floorOrder[current_floor-1].get_child("Items")
 	if tile_name == "hole":
 		pass
 		#check if just climbed up ladder. 
 		#emit change floor
 		#change itemmap to destination floor
 	if tile_name == "exit":
-		$"CurrentLevelContent/Level1".delete() 
+		$"CurrentLevelContent/Level".delete()
 		pass
 		
 		
 func testInit():
 	#initialise level 1 for our submission on monday
-	$floor_ui.currentFloorOrder = [["A", true, false, false, false], ["B", false, true, false, false]]
+	$floor_ui.currentFloorOrder = [["A", false, true, false, false], ["B", true, false, false, false]]
 	current_floor = 0
 
 

@@ -11,6 +11,7 @@ func _ready() -> void:
 	floorOrder = []
 	for i in self.get_children():
 		floorOrder.append(i)
+	floorOrder.reverse()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

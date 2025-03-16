@@ -34,25 +34,24 @@ func _process(delta: float) -> void:
 func _on_character_detected_item() -> void:
 	var tile_name
 	print($CurrentLevelContent/Level.floorOrder)
+	print(current_floor)
 	if item_map.get_cell_tile_data(item_map.local_to_map(character.position)) != null:
 		tile_name = item_map.get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
 	else:
 		tile_name = ""
-	print(character.position)
 	if tile_name == "ladderUp":
-
 		if justChangedFloors:
 			justChangedFloors = false
 		else:
 			# Basically this giant block checks for nulls and for holes (and trapdoors in future) on the floor above to see if you can go up or not
 			# it absolutely needs to be optimised but thats for monday/ next week
-			if $CurrentLevelContent/Level.floorOrder[current_floor-1] != null:
+			if current_floor - 1 >= 0:
 				var floorAbove = $CurrentLevelContent/Level.floorOrder[current_floor-1]
 				# basically checking the floor above actually exists and has a tilemap
 				print(floorAbove)
 				if floorAbove.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)) != null:
 					var aboveItemTile = floorAbove.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
-					print(aboveItemTile)
+					#print(aboveItemTile)
 					if aboveItemTile == "hole":
 						$CurrentLevelContent/Level.floorOrder[current_floor].visible = false
 						floorAbove.visible = true
@@ -61,6 +60,7 @@ func _on_character_detected_item() -> void:
 						$floor_ui.currentFloorOrder[current_floor][1] = false
 						current_floor-=1
 						$floor_ui.currentFloorOrder[current_floor][1] = true
+						
 	if tile_name == "hole":
 		#check if just climbed up ladder. 
 		if justChangedFloors:

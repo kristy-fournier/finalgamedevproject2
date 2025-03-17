@@ -51,7 +51,7 @@ func _on_character_detected_item() -> void:
 				if floorAbove.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)) != null:
 					var aboveItemTile = floorAbove.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
 					#print(aboveItemTile)
-					if aboveItemTile == "hole":
+					if aboveItemTile == "hole" or aboveItemTile == "trapdoor":
 						$CurrentLevelContent/Level.floorOrder[current_floor].visible = false
 						floorAbove.visible = true
 						item_map = floorAbove.find_child("Items")
@@ -77,6 +77,27 @@ func _on_character_detected_item() -> void:
 					current_floor+=1
 					$floor_ui.currentFloorOrder[current_floor][1] = true
 					justChangedFloors = true
+	if tile_name == "trapdoor":
+		print("test")
+		#check if just climbed up ladder. 
+		if justChangedFloors:
+			justChangedFloors = false
+		else:
+			if $CurrentLevelContent/Level.floorOrder.size() > current_floor+1:
+				if $CurrentLevelContent/Level.floorOrder[current_floor+1] != null:
+					var floorBelow = $CurrentLevelContent/Level.floorOrder[current_floor+1]
+					# basically checking the floor above actually exists and has a tilemap
+					if floorBelow.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)) != null:
+						var belowItemTile = floorBelow.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
+						print(belowItemTile)
+						if belowItemTile == "ladderUp":
+							$CurrentLevelContent/Level.floorOrder[current_floor].visible = false
+							floorBelow.visible = true
+							item_map = floorBelow.find_child("Items")
+							$floor_ui.currentFloorOrder[current_floor][1] = false
+							current_floor+=1
+							$floor_ui.currentFloorOrder[current_floor][1] = true
+							justChangedFloors = true
 	
 			#emit change floor
 			#change itemmap to destination floor
@@ -88,8 +109,8 @@ func _on_character_detected_item() -> void:
 		
 func testInit():
 	#initialise level 1 for our submission on monday
-	$floor_ui.currentFloorOrder = [["A", false, false, false, false], ["B", true, false, false, false],["C",false,true,false,false]]
-	item_map = $"CurrentLevelContent/Level/Floor B/Items"
+	$floor_ui.currentFloorOrder = [["A", true, true, false, false], ["B", false, false, false, false],["C",false,false,false,false]]
+	item_map = $CurrentLevelContent/Level.startingFloor.find_child("Items")
 	current_floor = 1
 
 

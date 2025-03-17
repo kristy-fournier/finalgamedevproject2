@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://uwj3kh3et7ci" path="res://Character.tscn" id="1_8wdd1"]
 [ext_resource type="Script" path="res://main_scene.gd" id="1_lbvci"]
-[ext_resource type="PackedScene" uid="uid://pcdvjq4ffigu" path="res://level_2.tscn" id="2_g2gd2"]
+[ext_resource type="PackedScene" uid="uid://dtfjtergc6ubc" path="res://level_3.tscn" id="2_xtcwk"]
 [ext_resource type="PackedScene" uid="uid://d4mtdg31d0xpn" path="res://floor_ui.tscn" id="4_ox4v2"]
 
 [node name="MainScene" type="Node"]
@@ -12,7 +12,7 @@ script = ExtResource("1_lbvci")
 position = Vector2(45, 15)
 scale = Vector2(2, 2)
 
-[node name="Level" parent="CurrentLevelContent" instance=ExtResource("2_g2gd2")]
+[node name="Level" parent="CurrentLevelContent" instance=ExtResource("2_xtcwk")]
 
 [node name="Character" parent="CurrentLevelContent" instance=ExtResource("1_8wdd1")]
 position = Vector2(24, 24)

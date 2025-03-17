@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://relj4dfmpf2x"]
 
-[ext_resource type="PackedScene" uid="uid://dt6cqiobcqqoj" path="res://level.tscn" id="1_aq7qo"]
+[ext_resource type="PackedScene" path="res://level.tscn" id="1_aq7qo"]
 [ext_resource type="Texture2D" uid="uid://bmt4hx0sbaqu5" path="res://SpriteSheet_2.png" id="1_g7wix"]
 [ext_resource type="TileSet" uid="uid://bm3ndhx0mqefn" path="res://Art/2025-03-10_SpriteSheet.tres" id="3_rmk61"]
 [ext_resource type="TileSet" uid="uid://b1xq25eldmm4b" path="res://Art/wall.tres" id="4_ca481"]

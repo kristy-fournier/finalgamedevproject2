@@ -1,13 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://d4mtdg31d0xpn"]
+[gd_scene load_steps=18 format=3 uid="uid://d4mtdg31d0xpn"]
 
 [ext_resource type="Script" path="res://floor_ui.gd" id="1_lv8dk"]
 [ext_resource type="Texture2D" uid="uid://cxh564xeb81bp" path="res://Art/floor_GUI.png" id="1_rt2kn"]
-[ext_resource type="Script" path="res://floor_a_ui.gd" id="2_sph7j"]
-[ext_resource type="Script" path="res://floor_b_ui.gd" id="4_lce5i"]
-[ext_resource type="Script" path="res://floor_c_ui.gd" id="5_j2u6u"]
-[ext_resource type="Script" path="res://floor_d_ui.gd" id="6_y8l06"]
-[ext_resource type="Script" path="res://floor_e_ui.gd" id="7_csh77"]
-[ext_resource type="Script" path="res://floor_f_ui.gd" id="8_sk1qw"]
+[ext_resource type="Script" path="res://floor_letter_ui.gd" id="2_sph7j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_71pf6"]
 atlas = ExtResource("1_rt2kn")
@@ -165,7 +160,8 @@ sprite_frames = SubResource("SpriteFrames_kcpg5")
 sprite_frames = SubResource("SpriteFrames_scxn0")
 
 [node name="floorB_UI" type="Node2D" parent="."]
-script = ExtResource("4_lce5i")
+script = ExtResource("2_sph7j")
+floorLetter = "B"
 
 [node name="floor" type="AnimatedSprite2D" parent="floorB_UI"]
 sprite_frames = SubResource("SpriteFrames_kcpg5")
@@ -174,7 +170,8 @@ sprite_frames = SubResource("SpriteFrames_kcpg5")
 sprite_frames = SubResource("SpriteFrames_scxn0")
 
 [node name="floorC_UI" type="Node2D" parent="."]
-script = ExtResource("5_j2u6u")
+script = ExtResource("2_sph7j")
+floorLetter = "C"
 
 [node name="floor" type="AnimatedSprite2D" parent="floorC_UI"]
 sprite_frames = SubResource("SpriteFrames_kcpg5")
@@ -183,7 +180,8 @@ sprite_frames = SubResource("SpriteFrames_kcpg5")
 sprite_frames = SubResource("SpriteFrames_scxn0")
 
 [node name="floorD_UI" type="Node2D" parent="."]
-script = ExtResource("6_y8l06")
+script = ExtResource("2_sph7j")
+floorLetter = "D"
 
 [node name="floor" type="AnimatedSprite2D" parent="floorD_UI"]
 sprite_frames = SubResource("SpriteFrames_kcpg5")
@@ -192,7 +190,8 @@ sprite_frames = SubResource("SpriteFrames_kcpg5")
 sprite_frames = SubResource("SpriteFrames_scxn0")
 
 [node name="floorE_UI" type="Node2D" parent="."]
-script = ExtResource("7_csh77")
+script = ExtResource("2_sph7j")
+floorLetter = "E"
 
 [node name="floor" type="AnimatedSprite2D" parent="floorE_UI"]
 sprite_frames = SubResource("SpriteFrames_kcpg5")
@@ -201,7 +200,8 @@ sprite_frames = SubResource("SpriteFrames_kcpg5")
 sprite_frames = SubResource("SpriteFrames_scxn0")
 
 [node name="floorF_UI" type="Node2D" parent="."]
-script = ExtResource("8_sk1qw")
+script = ExtResource("2_sph7j")
+floorLetter = "F"
 
 [node name="floor" type="AnimatedSprite2D" parent="floorF_UI"]
 sprite_frames = SubResource("SpriteFrames_kcpg5")

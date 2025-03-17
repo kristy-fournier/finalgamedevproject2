@@ -52,8 +52,8 @@ func _on_character_detected_item() -> void:
 				print(floorAbove)
 				if floorAbove.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)) != null:
 					var aboveItemTile = floorAbove.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
-					#print(aboveItemTile)
-					if aboveItemTile == "hole" or aboveItemTile == "trapdoor":
+					print(aboveItemTile)
+					if aboveItemTile == "hole" or aboveItemTile == "trapdoorOpen":
 						currentLevelNode.floorOrder[current_floor].visible = false
 						floorAbove.visible = true
 						item_map = floorAbove.find_child("Items")
@@ -142,3 +142,22 @@ func _on_floor_ui_menu_close(order) -> void:
 			current_floor = order.find(i)
 		tempOrder.append(currentLevelNode.find_child("Floor " + i[0]))
 	currentLevelNode.floorOrder = tempOrder
+	#keeps track of the floor num of the iteration, to keep track of above and below
+	var iterate_floor_num = 0
+	for floor in currentLevelNode.floorOrder:
+		#iterating through all of the coordinates that have a item in the layer in floor
+		var current_item_map = floor.find_child("Items")
+		for tile_coord in current_item_map.get_used_cells():
+			#print(tile_coord)
+			#If the item is a trapdoor, check if there is a floor under, check if it contains an item at the coord, and if its a ladder, change to open trap 
+			if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "trapdoorClosed"):
+				#check if there is floor below
+				if(currentLevelNode.floorOrder.size() > iterate_floor_num+1):
+					# check if contains an item
+					if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord) != null):
+						#check if its a ladder
+						if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord).get_custom_data("Name") == "ladderUp"):
+							#Setting to coord in tile map MUST BE CHANGED IF TILE MAP IS CHANGED!!!!!!
+							current_item_map.set_cell(tile_coord, 0,  Vector2(3,3))
+		iterate_floor_num += 1
+							

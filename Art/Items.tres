@@ -12,7 +12,7 @@ texture = ExtResource("1_ktovm")
 2:0/0/custom_data_0 = "hole"
 3:0/0 = 0
 3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-3:0/0/custom_data_0 = "ladderup"
+3:0/0/custom_data_0 = "ladderUp"
 0:1/0 = 0
 1:1/0 = 0
 2:1/0 = 0
@@ -36,7 +36,7 @@ texture = ExtResource("1_ktovm")
 3:3/0/custom_data_0 = "hole"
 0:4/0 = 0
 0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-0:4/0/custom_data_0 = "ladderup"
+0:4/0/custom_data_0 = "ladderUp"
 
 [resource]
 physics_layer_0/collision_layer = 12

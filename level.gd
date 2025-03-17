@@ -2,6 +2,7 @@ extends Node2D
 
 var floorOrder
 @export var startingFloor:Node2D
+@export var exitFloor:Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -4,6 +4,8 @@ var character
 var current_floor
 var floors
 var in_menu = false
+var currentLevel = 1
+@onready var currentLevelNode = $"CurrentLevelContent/Level"
 # for the floor checking later,  this is neeeded to not fall down holes you just climbed up
 var justChangedFloors = false
 # Called when the node enters the scene tree for the first time.
@@ -32,7 +34,7 @@ func _process(delta: float) -> void:
 
 func _on_character_detected_item() -> void:
 	var tile_name
-	print($CurrentLevelContent/Level.floorOrder)
+	print(currentLevelNode.floorOrder)
 	print(current_floor)
 	if item_map.get_cell_tile_data(item_map.local_to_map(character.position)) != null:
 		tile_name = item_map.get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
@@ -45,14 +47,14 @@ func _on_character_detected_item() -> void:
 			# Basically this giant block checks for nulls and for holes (and trapdoors in future) on the floor above to see if you can go up or not
 			# it absolutely needs to be optimised but thats for monday/ next week
 			if current_floor - 1 >= 0:
-				var floorAbove = $CurrentLevelContent/Level.floorOrder[current_floor-1]
+				var floorAbove = currentLevelNode.floorOrder[current_floor-1]
 				# basically checking the floor above actually exists and has a tilemap
 				print(floorAbove)
 				if floorAbove.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)) != null:
 					var aboveItemTile = floorAbove.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
 					#print(aboveItemTile)
 					if aboveItemTile == "hole" or aboveItemTile == "trapdoor":
-						$CurrentLevelContent/Level.floorOrder[current_floor].visible = false
+						currentLevelNode.floorOrder[current_floor].visible = false
 						floorAbove.visible = true
 						item_map = floorAbove.find_child("Items")
 						justChangedFloors = true
@@ -64,12 +66,12 @@ func _on_character_detected_item() -> void:
 		if justChangedFloors:
 			justChangedFloors = false
 		else:
-			if $CurrentLevelContent/Level.floorOrder.size() > current_floor+1:
-				if $CurrentLevelContent/Level.floorOrder[current_floor+1] != null:
-					var floorBelow = $CurrentLevelContent/Level.floorOrder[current_floor+1]
+			if currentLevelNode.floorOrder.size() > current_floor+1:
+				if currentLevelNode.floorOrder[current_floor+1] != null:
+					var floorBelow = currentLevelNode.floorOrder[current_floor+1]
 					# basically checking the floor above actually exists and has a tilemap
 					#no need to check the tile below for falling (falling is always allowed)
-					$CurrentLevelContent/Level.floorOrder[current_floor].visible = false
+					currentLevelNode.floorOrder[current_floor].visible = false
 					floorBelow.visible = true
 					item_map = floorBelow.find_child("Items")
 					$floor_ui.currentFloorOrder[current_floor][1] = false
@@ -82,15 +84,15 @@ func _on_character_detected_item() -> void:
 		if justChangedFloors:
 			justChangedFloors = false
 		else:
-			if $CurrentLevelContent/Level.floorOrder.size() > current_floor+1:
-				if $CurrentLevelContent/Level.floorOrder[current_floor+1] != null:
-					var floorBelow = $CurrentLevelContent/Level.floorOrder[current_floor+1]
+			if currentLevelNode.floorOrder.size() > current_floor+1:
+				if currentLevelNode.floorOrder[current_floor+1] != null:
+					var floorBelow = currentLevelNode.floorOrder[current_floor+1]
 					# basically checking the floor above actually exists and has a tilemap
 					if floorBelow.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)) != null:
 						var belowItemTile = floorBelow.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
 						print(belowItemTile)
 						if belowItemTile == "ladderUp":
-							$CurrentLevelContent/Level.floorOrder[current_floor].visible = false
+							currentLevelNode.floorOrder[current_floor].visible = false
 							floorBelow.visible = true
 							item_map = floorBelow.find_child("Items")
 							$floor_ui.currentFloorOrder[current_floor][1] = false
@@ -101,22 +103,42 @@ func _on_character_detected_item() -> void:
 			#emit change floor
 			#change itemmap to destination floor
 	if tile_name == "exit":
-		
+		nextLevel()
 		#$"CurrentLevelContent/Level".queue_free()
 		pass
 		
 		
 func testInit():
 	#initialise level 1 for our submission on monday
-	$floor_ui.currentFloorOrder = [["A", true, true, false, false], ["B", false, false, false, false],["C",false,false,false,false]]
-	item_map = $CurrentLevelContent/Level.startingFloor.find_child("Items")
-	current_floor = 1
+	$floor_ui.currentFloorOrder = [["A", true, false, false, false], ["B", false, true, false, false]]
+	item_map = currentLevelNode.startingFloor.find_child("Items")
+	current_floor = 0
 
+func nextLevel():
+	currentLevel += 1
+	currentLevelNode.queue_free()
+	var nextLevelNode = load("res://level_"+str(currentLevel)+".tscn").instantiate()
+	nextLevelNode.name = "Level"
+	currentLevelNode = nextLevelNode
+	$CurrentLevelContent.add_child(nextLevelNode)
+	character.move_to_front()
+	character.position = Vector2(24,24)
+	var listForFloorUI = []
+	for i in nextLevelNode.floorOrder:
+		var playerOn = false
+		var exitOn = false
+		if i == nextLevelNode.startingFloor:
+			playerOn = true
+		if i == nextLevelNode.exitFloor:
+			exitOn = true
+		listForFloorUI.append([str(i.name)[-1],playerOn,exitOn,false,false])
+	$floor_ui.currentFloorOrder = listForFloorUI
+	item_map = currentLevelNode.startingFloor.find_child("Items")
 
 func _on_floor_ui_menu_close(order) -> void:
 	var tempOrder = []
 	for i in order:
 		if (i[1]):
 			current_floor = order.find(i)
-		tempOrder.append($"CurrentLevelContent/Level".find_child("Floor " + i[0]))
-	$"CurrentLevelContent/Level".floorOrder = tempOrder
+		tempOrder.append(currentLevelNode.find_child("Floor " + i[0]))
+	currentLevelNode.floorOrder = tempOrder

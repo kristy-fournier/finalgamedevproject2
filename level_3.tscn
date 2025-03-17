@@ -5,8 +5,9 @@
 [ext_resource type="TileSet" uid="uid://bm3ndhx0mqefn" path="res://Art/2025-03-10_SpriteSheet.tres" id="3_5hi1q"]
 [ext_resource type="TileSet" uid="uid://b1xq25eldmm4b" path="res://Art/wall.tres" id="4_3m5r8"]
 
-[node name="Level3" node_paths=PackedStringArray("startingFloor") instance=ExtResource("1_cffgt")]
+[node name="Level3" node_paths=PackedStringArray("startingFloor", "exitFloor") instance=ExtResource("1_cffgt")]
 startingFloor = NodePath("Floor A")
+exitFloor = NodePath("Floor A")
 
 [node name="Floor C" parent="." index="0" instance=ExtResource("2_u11di")]
 

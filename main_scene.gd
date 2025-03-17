@@ -8,9 +8,8 @@ var in_menu = false
 var justChangedFloors = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$"CurrentLevelContent/Level/Floor B".visible = false
+	#$"CurrentLevelContent/Level/Floor B".visible = false
 	#this itemmap will have to be called dynamically once we have more levels
-	item_map = $"CurrentLevelContent/Level/Floor A/Items"
 	character = $"CurrentLevelContent/Character"
 	testInit()
 	
@@ -70,15 +69,14 @@ func _on_character_detected_item() -> void:
 				if $CurrentLevelContent/Level.floorOrder[current_floor+1] != null:
 					var floorBelow = $CurrentLevelContent/Level.floorOrder[current_floor+1]
 					# basically checking the floor above actually exists and has a tilemap
-					if floorBelow.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)) != null:
-						#no need to check the tile below for falling (falling is always allowed)
-						$CurrentLevelContent/Level.floorOrder[current_floor].visible = false
-						floorBelow.visible = true
-						item_map = floorBelow.find_child("Items")
-						$floor_ui.currentFloorOrder[current_floor][1] = false
-						current_floor+=1
-						$floor_ui.currentFloorOrder[current_floor][1] = true
-						justChangedFloors = true
+					#no need to check the tile below for falling (falling is always allowed)
+					$CurrentLevelContent/Level.floorOrder[current_floor].visible = false
+					floorBelow.visible = true
+					item_map = floorBelow.find_child("Items")
+					$floor_ui.currentFloorOrder[current_floor][1] = false
+					current_floor+=1
+					$floor_ui.currentFloorOrder[current_floor][1] = true
+					justChangedFloors = true
 	
 			#emit change floor
 			#change itemmap to destination floor
@@ -90,8 +88,9 @@ func _on_character_detected_item() -> void:
 		
 func testInit():
 	#initialise level 1 for our submission on monday
-	$floor_ui.currentFloorOrder = [["A", true, false, false, false], ["B", false, true, false, false]]
-	current_floor = 0
+	$floor_ui.currentFloorOrder = [["A", false, false, false, false], ["B", true, false, false, false],["C",false,true,false,false]]
+	item_map = $"CurrentLevelContent/Level/Floor B/Items"
+	current_floor = 1
 
 
 func _on_floor_ui_menu_close(order) -> void:

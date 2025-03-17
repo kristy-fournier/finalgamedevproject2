@@ -59,7 +59,6 @@ func _on_character_detected_item() -> void:
 						$floor_ui.currentFloorOrder[current_floor][1] = false
 						current_floor-=1
 						$floor_ui.currentFloorOrder[current_floor][1] = true
-						
 	if tile_name == "hole":
 		#check if just climbed up ladder. 
 		if justChangedFloors:

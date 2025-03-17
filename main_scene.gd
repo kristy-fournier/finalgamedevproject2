@@ -21,15 +21,16 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("menu_action"):
-		if(in_menu):
-			$floor_ui.scale = Vector2(0.6,0.6)
-			$floor_ui.position= Vector2(331,27)
-			in_menu = false
-		else:
-			$floor_ui.scale = Vector2(0.8,0.8)
-			$floor_ui.position= Vector2(175,27)
-			in_menu = true
+	#if Input.is_action_just_pressed("menu_action"):
+		#if(in_menu):
+			##$floor_ui.scale = Vector2(0.6,0.6)
+			##$floor_ui.position= Vector2(331,27)
+			#in_menu = false
+		#else:
+			##$floor_ui.scale = Vector2(0.8,0.8)
+			##$floor_ui.position= Vector2(175,27)
+			#in_menu = true
+	pass
 
 
 func _on_character_detected_item() -> void:

@@ -5,6 +5,8 @@ var current_floor
 var floors
 var in_menu = false
 var currentLevel = 1
+#MUST BE CHANGED IF ANY CHANGES TO TILE SET HAPPEN
+const current_tile_set_id = 2
 @onready var currentLevelNode = $"CurrentLevelContent/Level"
 # for the floor checking later,  this is neeeded to not fall down holes you just climbed up
 var justChangedFloors = false
@@ -38,8 +40,10 @@ func _on_character_detected_item() -> void:
 	print(current_floor)
 	if item_map.get_cell_tile_data(item_map.local_to_map(character.position)) != null:
 		tile_name = item_map.get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
+		
 	else:
 		tile_name = ""
+	print(tile_name)
 	if tile_name == "ladderUp":
 		if justChangedFloors:
 			justChangedFloors = false
@@ -61,7 +65,7 @@ func _on_character_detected_item() -> void:
 						$floor_ui.currentFloorOrder[current_floor][1] = false
 						current_floor-=1
 						$floor_ui.currentFloorOrder[current_floor][1] = true
-	if tile_name == "hole":
+	if tile_name == "hole" || tile_name == "trapdoorOpen":
 		#check if just climbed up ladder. 
 		if justChangedFloors:
 			justChangedFloors = false
@@ -158,6 +162,7 @@ func _on_floor_ui_menu_close(order) -> void:
 						#check if its a ladder
 						if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord).get_custom_data("Name") == "ladderUp"):
 							#Setting to coord in tile map MUST BE CHANGED IF TILE MAP IS CHANGED!!!!!!
-							current_item_map.set_cell(tile_coord, 0,  Vector2(3,3))
+							current_item_map.set_cell(tile_coord, 2,  Vector2(3,3))
 		iterate_floor_num += 1
+		print(iterate_floor_num)
 							

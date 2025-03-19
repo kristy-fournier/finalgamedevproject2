@@ -1,0 +1,27 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bkvvmc4spi1ua"]
+
+[ext_resource type="Texture2D" uid="uid://bmt4hx0sbaqu5" path="res://SpriteSheet_2.png" id="1_6svrn"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_87kuj"]
+texture = ExtResource("1_6svrn")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+0:4/0 = 0
+
+[resource]
+physics_layer_0/collision_layer = 2
+sources/0 = SubResource("TileSetAtlasSource_87kuj")

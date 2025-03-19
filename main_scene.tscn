@@ -8,6 +8,11 @@
 [node name="MainScene" type="Node"]
 script = ExtResource("1_lbvci")
 
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 452.0
+offset_bottom = 265.0
+color = Color(0.129412, 0.14902, 0.180392, 1)
+
 [node name="CurrentLevelContent" type="Node2D" parent="."]
 position = Vector2(45, 15)
 scale = Vector2(2, 2)
@@ -18,8 +23,8 @@ scale = Vector2(2, 2)
 position = Vector2(24, 24)
 
 [node name="floor_ui" parent="." instance=ExtResource("4_ox4v2")]
-position = Vector2(331, 27)
-scale = Vector2(0.6, 0.6)
+position = Vector2(334, 24)
+scale = Vector2(0.45, 0.45)
 
 [connection signal="Detected_item" from="CurrentLevelContent/Character" to="." method="_on_character_detected_item"]
 [connection signal="menu_close" from="floor_ui" to="." method="_on_floor_ui_menu_close"]

@@ -2,29 +2,23 @@
 
 [ext_resource type="PackedScene" uid="uid://uwj3kh3et7ci" path="res://Character.tscn" id="1_8wdd1"]
 [ext_resource type="Script" path="res://main_scene.gd" id="1_lbvci"]
-[ext_resource type="PackedScene" uid="uid://relj4dfmpf2x" path="res://level_1.tscn" id="3_mfks5"]
+[ext_resource type="PackedScene" uid="uid://relj4dfmpf2x" path="res://level_1.tscn" id="1_vn6iq"]
 [ext_resource type="PackedScene" uid="uid://d4mtdg31d0xpn" path="res://floor_ui.tscn" id="4_ox4v2"]
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_lbvci")
 
-[node name="Background" type="ColorRect" parent="."]
-offset_right = 452.0
-offset_bottom = 265.0
-color = Color(0.129412, 0.14902, 0.180392, 1)
-
 [node name="CurrentLevelContent" type="Node2D" parent="."]
 position = Vector2(45, 15)
 scale = Vector2(2, 2)
 
-[node name="Level" parent="CurrentLevelContent" instance=ExtResource("3_mfks5")]
+[node name="Level1" parent="CurrentLevelContent" instance=ExtResource("1_vn6iq")]
 
 [node name="Character" parent="CurrentLevelContent" instance=ExtResource("1_8wdd1")]
 position = Vector2(24, 24)
 
 [node name="floor_ui" parent="." instance=ExtResource("4_ox4v2")]
-position = Vector2(334, 24)
-scale = Vector2(0.45, 0.45)
+position = Vector2(331, 27)
+scale = Vector2(0.6, 0.6)
 
 [connection signal="Detected_item" from="CurrentLevelContent/Character" to="." method="_on_character_detected_item"]
-[connection signal="menu_close" from="floor_ui" to="." method="_on_floor_ui_menu_close"]

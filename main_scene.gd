@@ -7,7 +7,8 @@ var in_menu = false
 var currentLevel = 1
 @onready var currentLevelNode = $"CurrentLevelContent/Level"
 # for the floor checking later,  this is neeeded to not fall down holes you just climbed up
-var justChangedFloors = false
+var went_up_a_floor = false
+var went_down_a_floor = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#$"CurrentLevelContent/Level/Floor B".visible = false
@@ -42,8 +43,8 @@ func _on_character_detected_item() -> void:
 	else:
 		tile_name = ""
 	if tile_name == "ladderUp":
-		if justChangedFloors:
-			justChangedFloors = false
+		if went_down_a_floor:
+			went_down_a_floor = false
 		else:
 			# Basically this giant block checks for nulls and for holes (and trapdoors in future) on the floor above to see if you can go up or not
 			# it absolutely needs to be optimised but thats for monday/ next week
@@ -58,14 +59,14 @@ func _on_character_detected_item() -> void:
 						currentLevelNode.floorOrder[current_floor].visible = false
 						floorAbove.visible = true
 						item_map = floorAbove.find_child("Items")
-						justChangedFloors = true
+						went_up_a_floor = true
 						$floor_ui.currentFloorOrder[current_floor][1] = false
 						current_floor-=1
 						$floor_ui.currentFloorOrder[current_floor][1] = true
 	if tile_name == "hole":
 		#check if just climbed up ladder. 
-		if justChangedFloors:
-			justChangedFloors = false
+		if went_up_a_floor:
+			went_up_a_floor = false
 		else:
 			if currentLevelNode.floorOrder.size() > current_floor+1:
 				if currentLevelNode.floorOrder[current_floor+1] != null:
@@ -78,12 +79,12 @@ func _on_character_detected_item() -> void:
 					$floor_ui.currentFloorOrder[current_floor][1] = false
 					current_floor+=1
 					$floor_ui.currentFloorOrder[current_floor][1] = true
-					justChangedFloors = true
+					went_down_a_floor = true
 	if tile_name == "trapdoor":
 		print("test")
 		#check if just climbed up ladder. 
-		if justChangedFloors:
-			justChangedFloors = false
+		if went_up_a_floor:
+			went_up_a_floor = false
 		else:
 			if currentLevelNode.floorOrder.size() > current_floor+1:
 				if currentLevelNode.floorOrder[current_floor+1] != null:
@@ -99,7 +100,7 @@ func _on_character_detected_item() -> void:
 							$floor_ui.currentFloorOrder[current_floor][1] = false
 							current_floor+=1
 							$floor_ui.currentFloorOrder[current_floor][1] = true
-							justChangedFloors = true
+							went_down_a_floor = true
 	
 			#emit change floor
 			#change itemmap to destination floor

@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=4 uid="uid://bkdjxn80y475a"]
+[gd_scene load_steps=5 format=4 uid="uid://beq4djfg6cir4"]
 
-[ext_resource type="PackedScene" path="res://level.tscn" id="1_7np3f"]
+[ext_resource type="PackedScene" uid="uid://cwkt8sl1f3ihq" path="res://level.tscn" id="1_7np3f"]
 [ext_resource type="PackedScene" uid="uid://i2qw3x4cppxc" path="res://floor.tscn" id="2_eek3n"]
 [ext_resource type="TileSet" uid="uid://b1xq25eldmm4b" path="res://Art/wall.tres" id="4_3ff32"]
 [ext_resource type="TileSet" uid="uid://bm3ndhx0mqefn" path="res://Art/2025-03-10_SpriteSheet.tres" id="5_avomu"]
@@ -12,7 +12,7 @@ exitFloor = NodePath("Floor C")
 [node name="Floor C" parent="." index="0" instance=ExtResource("2_eek3n")]
 
 [node name="Floor" type="TileMapLayer" parent="Floor C" index="0"]
-tile_map_data = PackedByteArray("AAABAAEAAgABAAEAAAABAAIAAgABAAEAAAABAAMAAgABAAEAAAADAAMAAgABAAEAAAACAAMAAgABAAEAAAACAAIAAgABAAEAAAADAAIAAgABAAEAAAADAAEAAgABAAEAAAACAAEAAgABAAEAAAA=")
+tile_map_data = PackedByteArray("AAABAAEAAgABAAIAAAABAAIAAgABAAIAAAABAAMAAgABAAIAAAADAAMAAgABAAIAAAACAAMAAgABAAIAAAACAAIAAgABAAIAAAADAAIAAgABAAIAAAADAAEAAgABAAIAAAACAAEAAgABAAIAAAA=")
 tile_set = ExtResource("5_avomu")
 
 [node name="Wall" type="TileMapLayer" parent="Floor C" index="1"]
@@ -26,7 +26,7 @@ tile_set = ExtResource("5_avomu")
 [node name="Floor B" parent="." index="1" instance=ExtResource("2_eek3n")]
 
 [node name="Floor" type="TileMapLayer" parent="Floor B" index="0"]
-tile_map_data = PackedByteArray("AAABAAEAAgABAAEAAAABAAIAAgABAAEAAAABAAMAAgABAAEAAAADAAMAAgABAAEAAAACAAMAAgABAAEAAAACAAIAAgABAAEAAAADAAIAAgABAAEAAAADAAEAAgABAAEAAAACAAEAAgABAAEAAAA=")
+tile_map_data = PackedByteArray("AAABAAEAAAABAAEAAAABAAIAAAABAAEAAAABAAMAAAABAAEAAAADAAMAAAABAAEAAAACAAMAAAABAAEAAAACAAIAAAABAAEAAAADAAIAAAABAAEAAAADAAEAAAABAAEAAAACAAEAAAABAAEAAAA=")
 tile_set = ExtResource("5_avomu")
 
 [node name="Wall" type="TileMapLayer" parent="Floor B" index="1"]

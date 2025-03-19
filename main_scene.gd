@@ -38,7 +38,7 @@ func changeFloors(tileName, goUp:bool):
 	else:
 		if (current_floor + floorDelta >= 0 and goUp) or (current_floor + floorDelta < currentLevelNode.floorOrder.size() and not(goUp)):
 			var floorNext = currentLevelNode.floorOrder[current_floor+floorDelta]
-			# basically checking the floor above actually exists and has a tilemap
+			# basically checking the floor above / below actually exists
 			var deltaItemTile # the tile on the "items" map on the delta floor (ex: a ladder below a hole)
 			if floorNext.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)) != null:
 				deltaItemTile = floorNext.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")

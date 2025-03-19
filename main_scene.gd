@@ -7,6 +7,8 @@ var in_menu = false
 var currentLevel = 1
 #MUST BE CHANGED IF ANY CHANGES TO TILE SET HAPPEN
 const current_tile_set_id = 2
+const trapdoor_open_coord = Vector2(3,3)
+const trapdoor_closed_coord = Vector2(2,3)
 @onready var currentLevelNode = $"CurrentLevelContent/Level"
 # for the floor checking later,  this is neeeded to not fall down holes you just climbed up
 var justChangedFloors = false
@@ -169,18 +171,18 @@ func update_item_tiles() ->void:
 						#check if its a ladder
 						if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord).get_custom_data("Name") == "ladderUp"):
 							#Setting to coord in tile map MUST BE CHANGED IF TILE MAP IS CHANGED!!!!!!
-							current_item_map.set_cell(tile_coord, current_tile_set_id,  Vector2(3,3))
+							current_item_map.set_cell(tile_coord, current_tile_set_id,  trapdoor_open_coord)
 			if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "trapdoorOpen"):
 				#check if there is floor below, if there isnt, close the trapdoor
 				if(currentLevelNode.floorOrder.size() <= iterate_floor_num+1):
-					current_item_map.set_cell(tile_coord, current_tile_set_id,  Vector2(2,3))
+					current_item_map.set_cell(tile_coord, current_tile_set_id,  trapdoor_closed_coord)
 				else:
 					# check if contains an item, if there isnt, close the trapdoor
 					if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord) == null):
-						current_item_map.set_cell(tile_coord, current_tile_set_id,  Vector2(2,3))
+						current_item_map.set_cell(tile_coord, current_tile_set_id,  trapdoor_closed_coord)
 					else:
 						if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord).get_custom_data("Name") != "ladderUp"):
 							#Setting to coord in tile map MUST BE CHANGED IF TILE MAP IS CHANGED!!!!!!
-							current_item_map.set_cell(tile_coord, current_tile_set_id,  Vector2(2,3))
+							current_item_map.set_cell(tile_coord, current_tile_set_id,  trapdoor_closed_coord)
 		iterate_floor_num += 1
 	

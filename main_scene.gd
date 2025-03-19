@@ -40,7 +40,6 @@ func changeFloors(tileName, goUp:bool):
 	if justChangedFloors:
 		justChangedFloors = false
 	else:
-	#if true: # testing without changing indents
 		if (current_floor + floorDelta >= 0 and goUp) or (current_floor + floorDelta < currentLevelNode.floorOrder.size() and not(goUp)):
 			var floorNext = currentLevelNode.floorOrder[current_floor+floorDelta]
 			# basically checking the floor above actually exists and has a tilemap
@@ -57,10 +56,11 @@ func changeFloors(tileName, goUp:bool):
 				currentLevelNode.floorOrder[current_floor].visible = false
 				floorNext.visible = true
 				item_map = floorNext.find_child("Items")
-				justChangedFloors = true
 				$floor_ui.currentFloorOrder[current_floor][1] = false
 				current_floor += floorDelta
 				$floor_ui.currentFloorOrder[current_floor][1] = true
+				# if the thing you just traveled through is a hole, don't block the next itemcheck (because there won't be one below)
+				justChangedFloors = not(deltaItemTile == "" and tileName == "hole")
 	
 
 func _on_character_detected_item() -> void:

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bm3ndhx0mqefn"]
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cw3y4aepe3rgp"]
 
 [ext_resource type="Texture2D" uid="uid://b5hd3cb4y754o" path="res://Art/newItems_v2.png" id="1_ktovm"]
 
@@ -6,10 +6,10 @@
 texture = ExtResource("1_ktovm")
 0:0/0 = 0
 1:0/0 = 0
-1:0/0/custom_data_0 = "trapdoor"
+1:0/0/custom_data_0 = "trapdoorClosed"
 2:0/0 = 0
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-2:0/0/custom_data_0 = "hole"
+2:0/0/custom_data_0 = "trapdoorOpen"
 3:0/0 = 0
 3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:0/0/custom_data_0 = "ladder"

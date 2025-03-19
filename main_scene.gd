@@ -4,6 +4,10 @@ var character
 var current_floor
 var in_menu = false
 var currentLevel = 1
+#MUST BE CHANGED IF ANY CHANGES TO TILE SET HAPPEN
+const current_tile_set_id = 2
+const trapdoor_open_coord = Vector2(3,3)
+const trapdoor_closed_coord = Vector2(2,3)
 @onready var currentLevelNode = $"CurrentLevelContent/Level"
 # for the floor checking later,  this is neeeded to not fall down holes you just climbed up
 var justChangedFloors = false
@@ -38,15 +42,15 @@ func changeFloors(tileName, goUp:bool):
 	else:
 		if (current_floor + floorDelta >= 0 and goUp) or (current_floor + floorDelta < currentLevelNode.floorOrder.size() and not(goUp)):
 			var floorNext = currentLevelNode.floorOrder[current_floor+floorDelta]
-			# basically checking the floor above actually exists and has a tilemap
+			# basically checking the floor above / below actually exists
 			var deltaItemTile # the tile on the "items" map on the delta floor (ex: a ladder below a hole)
 			if floorNext.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)) != null:
 				deltaItemTile = floorNext.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
 			else:
 				deltaItemTile = ""
 			print(deltaItemTile)
-			if (tileName == "ladder" and (deltaItemTile == "hole" or deltaItemTile == "trapdoor")) or (tileName == "trapdoor" and (deltaItemTile== "ladder")) or (tileName == "hole"):
-			#if true:
+			#if (tileName == "ladder" and (deltaItemTile == "hole" or deltaItemTile == "trapdoor")) or (tileName == "trapdoor" and (deltaItemTile== "ladder")) or (tileName == "hole"):
+			if true:
 				# If you're on a build with tile changing swap the if statements above
 				# it'll just only collide with functional tiles b
 				currentLevelNode.floorOrder[current_floor].visible = false
@@ -65,6 +69,7 @@ func _on_character_detected_item() -> void:
 	print(current_floor)
 	if item_map.get_cell_tile_data(item_map.local_to_map(character.position)) != null:
 		tile_name = item_map.get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
+		
 	else:
 		tile_name = ""
 	# everything past here is to be condensed 
@@ -82,6 +87,7 @@ func testInit():
 	$floor_ui.currentFloorOrder = [["A", true, false, false, false], ["B", false, true, false, false]]
 	item_map = currentLevelNode.startingFloor.find_child("Items")
 	current_floor = 0
+	update_item_tiles()
 
 func nextLevel():
 	currentLevel += 1
@@ -112,3 +118,39 @@ func _on_floor_ui_menu_close(order) -> void:
 			current_floor = order.find(i)
 		tempOrder.append(currentLevelNode.find_child("Floor " + i[0]))
 	currentLevelNode.floorOrder = tempOrder
+	#keeps track of the floor num of the iteration, to keep track of above and below
+	update_item_tiles()
+		
+							
+func update_item_tiles() ->void:
+	#keeps track of the floor num of the iteration, to keep track of above and below
+	var iterate_floor_num = 0
+	for floor in currentLevelNode.floorOrder:
+		#iterating through all of the coordinates that have a item in the layer in floor
+		var current_item_map = floor.find_child("Items")
+		for tile_coord in current_item_map.get_used_cells():
+			#print(tile_coord)
+			#If the item is a trapdoor, check if there is a floor under, check if it contains an item at the coord, and if its a ladder, change to open trap 
+			if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "trapdoorClosed"):
+				#check if there is floor below
+				if(currentLevelNode.floorOrder.size() > iterate_floor_num+1):
+					# check if contains an item
+					if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord) != null):
+						#check if its a ladder
+						if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord).get_custom_data("Name") == "ladderUp"):
+							#Setting to coord in tile map MUST BE CHANGED IF TILE MAP IS CHANGED!!!!!!
+							current_item_map.set_cell(tile_coord, current_tile_set_id,  trapdoor_open_coord)
+			if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "trapdoorOpen"):
+				#check if there is floor below, if there isnt, close the trapdoor
+				if(currentLevelNode.floorOrder.size() <= iterate_floor_num+1):
+					current_item_map.set_cell(tile_coord, current_tile_set_id,  trapdoor_closed_coord)
+				else:
+					# check if contains an item, if there isnt, close the trapdoor
+					if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord) == null):
+						current_item_map.set_cell(tile_coord, current_tile_set_id,  trapdoor_closed_coord)
+					else:
+						if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord).get_custom_data("Name") != "ladderUp"):
+							#Setting to coord in tile map MUST BE CHANGED IF TILE MAP IS CHANGED!!!!!!
+							current_item_map.set_cell(tile_coord, current_tile_set_id,  trapdoor_closed_coord)
+		iterate_floor_num += 1
+	

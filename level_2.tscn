@@ -13,7 +13,7 @@ exitFloor = NodePath("Floor C")
 [node name="Floor C" parent="." index="0" instance=ExtResource("2_eek3n")]
 
 [node name="Floor" type="TileMapLayer" parent="Floor C" index="0"]
-tile_map_data = PackedByteArray("AAABAAEAAAADAAAAAAABAAIAAAADAAAAAAABAAMAAAADAAAAAAADAAMAAAADAAAAAAACAAMAAAADAAAAAAACAAIAAAADAAAAAAADAAIAAAADAAAAAAADAAEAAAADAAAAAAACAAEAAAADAAAAAAA=")
+tile_map_data = PackedByteArray("AAABAAEAAAACAAAAAAABAAIAAAACAAAAAAABAAMAAAACAAAAAAADAAMAAAACAAAAAAACAAMAAAACAAAAAAACAAIAAAACAAAAAAADAAIAAAACAAAAAAADAAEAAAACAAAAAAACAAEAAAACAAAAAAA=")
 tile_set = ExtResource("3_yvcwb")
 
 [node name="Wall" type="TileMapLayer" parent="Floor C" index="1"]

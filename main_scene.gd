@@ -100,7 +100,7 @@ func loadLevel(level:int):
 	currentLevelNode = nextLevelNode
 	$CurrentLevelContent.add_child(nextLevelNode)
 	character.move_to_front()
-	#character.position = 
+	character.position = Vector2(24,24)
 	var listForFloorUI = []
 	for i in nextLevelNode.floorOrder:
 		var playerOn = false

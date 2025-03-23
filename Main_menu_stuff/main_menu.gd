@@ -1,22 +1,34 @@
 extends Node2D
 
-signal startLevel(level)
+signal loadLevel(level: int)
 @export var levels_ui_scene: PackedScene
 var menuState = "titleScreen"
 var selectedLevel = [[false, false, false, false, false],[false, false, false, false, false],[false, false, false, false, false],[false, false, false, false, false],[false, false, false, false, false]]
 var page = 1
-const numberOfLevels = 30
+const numberOfLevels = 32 #This needs to be updated to the number of levels in the final product
+var numberOfPages = null #This does not need to be updated.
+var highestUnlockedlevel = 2 #something else needs to change this.
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_node("page_icons/Selected_page_icon").hide()
+	get_node("page_icons").hide()
 	self.hide()
 	get_node("start_button").hide()
 	get_node("quit_button").hide()
 	get_node("playerSelection").hide()	
 	get_node("playerSelection").z_index = 2
 	setupTitleScreen() #Testing only
+	
+	#calculate numberOfPages variable
+	if((numberOfLevels % 15) != 0):
+		numberOfPages = floor(numberOfLevels/15) + 1
+	else:
+		numberOfPages = floor(numberOfLevels/15)
 
 func setupTitleScreen():
+	get_node("page_icons/Selected_page_icon").hide()
+	get_node("page_icons").hide()
 	self.show()
 	get_node("start_button").show()
 	get_node("quit_button").show()
@@ -29,6 +41,7 @@ func setupTitleScreen():
 
 func setupLevelSelect():
 	self.show()
+	get_node("page_icons").show()
 	get_node("start_button").hide()
 	get_node("quit_button").hide()
 	get_node("playerSelection").show()
@@ -40,7 +53,10 @@ func setupLevelSelect():
 	for i in range(1, numberOfLevels + 1, 1):
 		var levels_ui_instance = levels_ui_scene.instantiate()
 		levels_ui_instance.number = i
-		levels_ui_instance.locked = false
+		if(i > highestUnlockedlevel):	
+			levels_ui_instance.locked = true
+		else:
+			levels_ui_instance.locked = false
 		levels_ui_instance.scale = Vector2(2, 2)
 		if(i == (1 + (15 * pageTracker[0]))):
 			levels_ui_instance.background = "purple"
@@ -87,15 +103,66 @@ func setupLevelSelect():
 		elif(i == (15 + (15 * pageTracker[0]))):
 			levels_ui_instance.background = "black"
 			levels_ui_instance.position = get_node("level_slot_15").position
-			print(pageTracker)
 		add_child(levels_ui_instance)	
 		pageTracker[1] += 1
 		if(pageTracker[1] == 15):
 			pageTracker[1] = 0
 			pageTracker[0] += 1
+	
+	if(numberOfPages % 2 != 0):
+		get_node("page_icons/odd_page_icons").show()
+		get_node("page_icons/even_page_icons").hide()
+		if(numberOfPages == 1): #no need for a page ui if there's only one page...
+			get_node("page_icons/odd_page_icons").hide()
+		elif(numberOfPages == 3):
+			get_node("page_icons/odd_page_icons/page_slot_1").hide()
+			get_node("page_icons/odd_page_icons/page_slot_2").hide()
+			get_node("page_icons/odd_page_icons/page_slot_6").hide()
+			get_node("page_icons/odd_page_icons/page_slot_7").hide()
+		elif(numberOfPages == 5):
+			get_node("page_icons/odd_page_icons/page_slot_1").hide()
+			get_node("page_icons/odd_page_icons/page_slot_7").hide()
+		#elif(numberOfPages == 7): #Use all of them, no need to hide any
+	elif(numberOfPages % 2 == 0):
+		get_node("page_icons/even_page_icons").show()
+		get_node("page_icons/odd_page_icons").hide()
+		if(numberOfPages == 2):
+			get_node("page_icons/even_page_icons/page_slot_1").hide()
+			get_node("page_icons/even_page_icons/page_slot_2").hide()
+			get_node("page_icons/even_page_icons/page_slot_5").hide()
+			get_node("page_icons/even_page_icons/page_slot_6").hide()
+		elif(numberOfPages == 4):
+			get_node("page_icons/even_page_icons/page_slot_1").hide()
+			get_node("page_icons/even_page_icons/page_slot_6").hide()
+		#elif(numberOfPages == 6): #Use all of them, no need to hide any
+		
+	get_node("page_icons/Selected_page_icon").show()
+	get_node("page_icons/Selected_page_icon").z_index = 2
+
+
+	#show page 1 of all the levels.
+	for node in get_tree().get_nodes_in_group("page1"):
+		node.show()
+
+
+func update_page(oldPage, newPage):
+	if(oldPage == newPage):
+		print("Error from Main_menu.gd: Called update_page function with 2 equal page values.")
+	else:
+		for node in get_tree().get_nodes_in_group("page" + str(oldPage)):
+			node.hide()
+		for node in get_tree().get_nodes_in_group("page" + str(newPage)):
+			node.show()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float):
+	
+	#update little yellow dot ("Selected_page_icon") to correct location
+	if(numberOfPages % 2 != 0):
+		get_node("page_icons/Selected_page_icon").position = get_node("page_icons/odd_page_icons/page_slot_" + str(page + ((7 - numberOfPages)/2))).position
+	elif(numberOfPages % 2 == 0):
+		get_node("page_icons/Selected_page_icon").position = get_node("page_icons/even_page_icons/page_slot_" + str(page + ((7 - numberOfPages)/2))).position
+	
 	if Input.is_action_just_pressed("move_left"):
 		if(menuState == "titleScreen"):
 			if(get_node("playerSelection").position == get_node("quit_button").position):
@@ -111,7 +178,12 @@ func _process(delta: float):
 						selectedLevel[i][j - 1] = true
 						found = true
 					elif((selectedLevel[i][j] == true) && (j == 0)):
-						page = clamp(page - 1, 1, 999)
+						if(page != 1):
+							page = clamp(page - 1, 1, numberOfPages)
+							update_page(page + 1, page)
+							selectedLevel[i][j] = false
+							selectedLevel[i][4] = true
+						found = true
 					if(found == true):
 						break
 	
@@ -129,9 +201,13 @@ func _process(delta: float):
 						selectedLevel[i][j] = false
 						selectedLevel[i][j + 1] = true
 						found = true
-					elif((selectedLevel[i][j] == true) && (j == 0)):
-						#page = clamp(page + 1, 999, (numberOfLevels // 15))
-						print("w")
+					elif((selectedLevel[i][j] == true) && (j == 4)):
+						if(page != numberOfPages):
+							page = clamp(page + 1, 1, numberOfPages)
+							update_page(page - 1, page)
+							selectedLevel[i][j] = false
+							selectedLevel[i][0] = true
+							found = true
 					if(found == true):
 						break
 						
@@ -164,12 +240,27 @@ func _process(delta: float):
 						break
 				
 				
-	if Input.is_action_just_pressed("menu_confirm"):
+	if Input.is_action_just_pressed("interact"):
 		if(menuState == "titleScreen"):
 			if(get_node("playerSelection").position == get_node("start_button").position):
 				setupLevelSelect()
 			elif(get_node("playerSelection").position == get_node("quit_button").position):
 				get_tree().quit()
+		elif(menuState == "levelSelect"):
+			var found = false
+			for i in range(0, 3, 1):
+				for j in range(0, 5, 1):
+					if(selectedLevel[i][j] == true):
+						if((((i*5)+(j+1))+((page-1)*15) <= numberOfLevels) and ((((i*5)+(j+1))+((page-1)*15) <= highestUnlockedlevel))):
+							self.hide()
+							emit_signal("loadLevel", ((i*5)+(j+1))+((page-1)*15))
+						#else:
+							#insert 'incorrect buzzer' sound here?
+						found = true
+					if(found == true):
+						break
+				if(found == true):
+					break
 	
 	if(selectedLevel[0][0] == true):
 		get_node("playerSelection").position = get_node("level_slot_1").position
@@ -202,11 +293,4 @@ func _process(delta: float):
 	elif(selectedLevel[2][4] == true):
 		get_node("playerSelection").position = get_node("level_slot_15").position
 	
-			
-			
-			
-			
-			
-			
-			
-			
+	

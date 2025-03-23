@@ -5,7 +5,24 @@ var number = 0 #Represents the number of this level (ex: level 2)
 var background = "purple" #Represents the background color that will show up on the level select screen
 
 func _ready():
-	show()
+	hide()
+	#can't divide by 15 because we need 15 to be on page 1, 30 to be on page 2,... ect.
+	if(number < 16):
+		self.add_to_group("page1")
+	elif(number < 31):
+		self.add_to_group("page2")
+	elif(number < 46):
+		self.add_to_group("page3")
+	elif(number < 61):
+		self.add_to_group("page4")
+	elif(number < 76):
+		self.add_to_group("page5")
+	elif(number < 91):
+		self.add_to_group("page6")
+	else:
+		self.add_to_group("page7")
+
+			
 	#Set color of background
 	if(self.background == "purple"):
 		get_node("background").frame = 0

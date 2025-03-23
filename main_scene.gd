@@ -8,6 +8,8 @@ var currentLevel = 1
 const current_tile_set_id = 0
 const trapdoor_open_coord = Vector2(2,0)
 const trapdoor_closed_coord = Vector2(1,0)
+const broken_2_coord = Vector2(1,3)
+const hole_coord = Vector2(2,3)
 @onready var currentLevelNode = $"CurrentLevelContent/Level"
 # for the floor checking later,  this is neeeded to not fall down holes you just climbed up
 var justChangedFloors = false
@@ -16,6 +18,7 @@ func _ready() -> void:
 	#$"CurrentLevelContent/Level/Floor B".visible = false
 	#this itemmap will have to be called dynamically once we have more levels
 	character = $"CurrentLevelContent/Character"
+	character.Done_Moving.connect(_on_character_done_moving)
 	testInit()
 	
 	
@@ -73,6 +76,7 @@ func _on_character_detected_item() -> void:
 	else:
 		tile_name = ""
 	# everything past here is to be condensed 
+	print(tile_name)
 	if tile_name == "ladder":
 		changeFloors("ladder",true)
 	if tile_name == "hole":
@@ -81,6 +85,9 @@ func _on_character_detected_item() -> void:
 		changeFloors("trapdoor",false)
 	if tile_name == "exit":
 		nextLevel()
+	if tile_name == "broken1":
+		item_map.set_cell(item_map.local_to_map(character.position), current_tile_set_id,  broken_2_coord)
+		
 		
 func testInit():
 	#initialise level 1 for our submission on monday
@@ -154,4 +161,9 @@ func update_item_tiles() ->void:
 							#Setting to coord in tile map MUST BE CHANGED IF TILE MAP IS CHANGED!!!!!!
 							current_item_map.set_cell(tile_coord, current_tile_set_id,  trapdoor_closed_coord)
 		iterate_floor_num += 1
-	
+		
+func _on_character_done_moving() -> void:
+	#checking for tiles that need to be broken
+	for tile_coord in item_map.get_used_cells():
+		if(item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "broken2"):
+			item_map.set_cell(tile_coord, current_tile_set_id,  hole_coord)

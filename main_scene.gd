@@ -112,7 +112,7 @@ func testInit():
 func loadLevel(level:int):
 	currentLevel = level
 	currentLevelNode.queue_free()
-	var nextLevelNode = load("res://level_"+str(currentLevel)+".tscn").instantiate()
+	var nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
 	nextLevelNode.name = "Level"
 	# this sets currentLevelNode to nextLevelNode, but they're both used after this point
 	currentLevelNode = nextLevelNode

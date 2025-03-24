@@ -118,6 +118,8 @@ func loadLevel(level:int):
 	currentLevelNode = nextLevelNode
 	$CurrentLevelContent.add_child(nextLevelNode)
 	character.move_to_front()
+	# 2 is the default scale for currentLevelContent (For some reason)
+	$CurrentLevelContent.scale = currentLevelNode.scaleForMainScene*Vector2(2,2)
 	#character.position = Vector2(24,24)
 	character.position = 16 * currentLevelNode.starting_tile + Vector2i(8,8)
 	var listForFloorUI = []

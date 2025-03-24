@@ -10,6 +10,8 @@ const trapdoor_open_coord = Vector2(2,0)
 const trapdoor_closed_coord = Vector2(1,0)
 const broken_2_coord = Vector2(1,3)
 const hole_coord = Vector2(2,3)
+const ladder_grey_coord = Vector2(3,0)
+const ladder_coord = Vector2(0,4)
 @onready var currentLevelNode = $"CurrentLevelContent/Level"
 # for the floor checking later,  this is neeeded to not fall down holes you just climbed up
 var justChangedFloors = false
@@ -145,7 +147,8 @@ func update_item_tiles() ->void:
 					# check if contains an item
 					if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord) != null):
 						#check if its a ladder
-						if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord).get_custom_data("Name") == "ladder"):
+						var item_below  = currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord).get_custom_data("Name")
+						if(item_below == "ladder" || item_below == "ladderGrey"):
 							#Setting to coord in tile map MUST BE CHANGED IF TILE MAP IS CHANGED!!!!!!
 							current_item_map.set_cell(tile_coord, current_tile_set_id,  trapdoor_open_coord)
 			if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "trapdoorOpen"):
@@ -160,6 +163,31 @@ func update_item_tiles() ->void:
 						if(currentLevelNode.floorOrder[iterate_floor_num+1].find_child("Items").get_cell_tile_data(tile_coord).get_custom_data("Name") != "ladder"):
 							#Setting to coord in tile map MUST BE CHANGED IF TILE MAP IS CHANGED!!!!!!
 							current_item_map.set_cell(tile_coord, current_tile_set_id,  trapdoor_closed_coord)
+			#Changing ladder to ladderGrey
+			if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "ladder" && current_item_map.get_cell_tile_data(tile_coord).get_custom_data("LadderType") == 0 ):
+				if(iterate_floor_num > 0):
+					if(currentLevelNode.floorOrder[iterate_floor_num-1].find_child("Items").get_cell_tile_data(tile_coord) != null):
+						var item_above = currentLevelNode.floorOrder[iterate_floor_num-1].find_child("Items").get_cell_tile_data(tile_coord).get_custom_data("Name")
+						print(item_above)
+						if(item_above == "hole" || item_above == "trapdoorOpen" || item_above == "trapdoorClosed"):
+							current_item_map.set_cell(tile_coord, current_tile_set_id,  ladder_grey_coord)
+							break
+			#changing grey ladders to regular ladders
+			if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "ladder" && current_item_map.get_cell_tile_data(tile_coord).get_custom_data("LadderType") == 1 ):
+				if(iterate_floor_num == 0):
+					current_item_map.set_cell(tile_coord, current_tile_set_id,  ladder_coord)
+				else:
+					if(currentLevelNode.floorOrder[iterate_floor_num-1].find_child("Items").get_cell_tile_data(tile_coord) == null):
+						current_item_map.set_cell(tile_coord, current_tile_set_id,  ladder_coord)
+					else:
+						var item_above = currentLevelNode.floorOrder[iterate_floor_num-1].find_child("Items").get_cell_tile_data(tile_coord).get_custom_data("Name")
+						if(item_above != "hole" or item_above != "trapdoorOpen" or item_above != "trapdoorClosed" ):
+							#Setting to coord in tile map MUST BE CHANGED IF TILE MAP IS CHANGED!!!!!!
+							current_item_map.set_cell(tile_coord, current_tile_set_id,  ladder_coord)
+					
+						
+						
+					
 		iterate_floor_num += 1
 		
 func _on_character_done_moving() -> void:

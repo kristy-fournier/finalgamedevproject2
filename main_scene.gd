@@ -3,7 +3,7 @@ var item_map
 var character
 var current_floor
 var in_menu = false
-var currentLevel = 1
+var currentLevel
 #MUST BE CHANGED IF ANY CHANGES TO TILE SET HAPPEN
 const current_tile_set_id = 0
 const trapdoor_open_coord = Vector2(2,0)
@@ -40,6 +40,7 @@ func changeFloors(tileName, goUp:bool):
 	if justChangedFloors:
 		justChangedFloors = false
 	else:
+	#if true:
 		if (current_floor + floorDelta >= 0 and goUp) or (current_floor + floorDelta < currentLevelNode.floorOrder.size() and not(goUp)):
 			var floorNext = currentLevelNode.floorOrder[current_floor+floorDelta]
 			# basically checking the floor above / below actually exists
@@ -49,8 +50,8 @@ func changeFloors(tileName, goUp:bool):
 			else:
 				deltaItemTile = ""
 			print(deltaItemTile)
-			#if (tileName == "ladder" and (deltaItemTile == "hole" or deltaItemTile == "trapdoor")) or (tileName == "trapdoor" and (deltaItemTile== "ladder")) or (tileName == "hole"):
-			if true:
+			if (tileName == "ladder" and (deltaItemTile == "hole" or deltaItemTile == "trapdoorOpen")) or (tileName == "trapdoorOpen" and (deltaItemTile== "ladder")) or (tileName == "hole"):
+			#if true:
 				# If you're on a build with tile changing swap the if statements above
 				# it'll just only collide with functional tiles b
 				currentLevelNode.floorOrder[current_floor].visible = false
@@ -60,7 +61,7 @@ func changeFloors(tileName, goUp:bool):
 				current_floor += floorDelta
 				$floor_ui.currentFloorOrder[current_floor][1] = true
 				# if the thing you just traveled through is a hole, don't block the next itemcheck (because there won't be one below)
-				justChangedFloors = not(deltaItemTile == "" and tileName == "hole")
+				justChangedFloors = not((deltaItemTile == "" or deltaItemTile=="hole") and tileName == "hole")
 	
 
 func _on_character_detected_item() -> void:
@@ -78,19 +79,21 @@ func _on_character_detected_item() -> void:
 	if tile_name == "hole":
 		changeFloors("hole",false)
 	if tile_name == "trapdoorOpen":
-		changeFloors("trapdoor",false)
+		changeFloors("trapdoorOpen",false)
 	if tile_name == "exit":
-		nextLevel()
+		currentLevel+=1
+		loadLevel(currentLevel)
 		
 func testInit():
 	#initialise level 1 for our submission on monday
-	$floor_ui.currentFloorOrder = [["A", true, false, false, false], ["B", false, true, false, false]]
-	item_map = currentLevelNode.startingFloor.find_child("Items")
-	current_floor = 0
-	update_item_tiles()
+	#$floor_ui.currentFloorOrder = [["A", true, false, false, false], ["B", false, true, false, false]]
+	#item_map = currentLevelNode.startingFloor.find_child("Items")
+	#current_floor = 0
+	#update_item_tiles()
+	loadLevel(1)
 
-func nextLevel():
-	currentLevel += 1
+func loadLevel(level:int):
+	currentLevel = level
 	currentLevelNode.queue_free()
 	var nextLevelNode = load("res://level_"+str(currentLevel)+".tscn").instantiate()
 	nextLevelNode.name = "Level"

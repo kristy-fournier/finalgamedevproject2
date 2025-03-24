@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://uwj3kh3et7ci" path="res://Character.tscn" id="1_8wdd1"]
 [ext_resource type="Script" path="res://main_scene.gd" id="1_lbvci"]
-[ext_resource type="PackedScene" uid="uid://relj4dfmpf2x" path="res://level_1.tscn" id="3_mfks5"]
+[ext_resource type="PackedScene" uid="uid://relj4dfmpf2x" path="res://Levels/level_1.tscn" id="2_3he0t"]
 [ext_resource type="PackedScene" uid="uid://d4mtdg31d0xpn" path="res://floor_ui.tscn" id="4_ox4v2"]
 
 [node name="MainScene" type="Node"]
@@ -17,8 +17,7 @@ color = Color(0.129412, 0.14902, 0.180392, 1)
 position = Vector2(45, 15)
 scale = Vector2(2, 2)
 
-[node name="Level" parent="CurrentLevelContent" instance=ExtResource("3_mfks5")]
-starting_tile = Vector2i(0, 0)
+[node name="Level" parent="CurrentLevelContent" instance=ExtResource("2_3he0t")]
 
 [node name="Character" parent="CurrentLevelContent" instance=ExtResource("1_8wdd1")]
 position = Vector2(24, 24)

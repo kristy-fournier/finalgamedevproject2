@@ -37,6 +37,9 @@ texture = ExtResource("1_ktovm")
 0:4/0 = 0
 0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:4/0/custom_data_0 = "ladder"
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
 
 [resource]
 physics_layer_0/collision_layer = 12

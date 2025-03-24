@@ -77,15 +77,26 @@ func _process(delta):
 		#update border of sprite
 		if(currentFloorOrder[floorPos][4] == true): #if the floor is selected
 			get_node("floorBorder").show()
-			get_node("floorBorder").frame = 3
+			get_node("floorBorder").animation = "ghost"
+			get_node("floorBorder").play()
+			get_node("floorBorder").offset = Vector2(-8,2)
 		elif((currentFloorOrder[floorPos][1] == true) and (currentFloorOrder[floorPos][2] == true)): #Both the player and the goal are on this floor
 			get_node("floorBorder").show()
+			get_node("floorBorder").animation = "default"
+			get_node("floorBorder").offset = Vector2(0,0)
+			get_node("floorBorder").pause()
 			get_node("floorBorder").frame = 2
 		elif(currentFloorOrder[floorPos][1] == true): #only the player is on this floor
 			get_node("floorBorder").show()
+			get_node("floorBorder").animation = "default"
+			get_node("floorBorder").offset = Vector2(0,0)
+			get_node("floorBorder").pause()
 			get_node("floorBorder").frame = 0
 		elif(currentFloorOrder[floorPos][2] == true): #only the goal is on this floor
 			get_node("floorBorder").show()
+			get_node("floorBorder").animation = "default"
+			get_node("floorBorder").offset = Vector2(0,0)
+			get_node("floorBorder").pause()
 			get_node("floorBorder").frame = 1
 		else:
 			get_node("floorBorder").hide()

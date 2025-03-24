@@ -29,16 +29,16 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("menu_action"):
+	if Input.is_action_just_pressed("menu_action") and character.moving == false:
 		if(in_menu):
 			in_menu = false
-			character.visible = true
 			# Hide and unhide the correct floors based on where character was before
 			for i in currentLevelNode.floorOrder:
 				if i == current_floor_node:
 					i.visible = true
 				else:
 					i.visible = false
+			character.visible = true
 		else:
 			in_menu = true
 			character.visible = false

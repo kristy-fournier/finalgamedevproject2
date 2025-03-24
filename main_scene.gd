@@ -2,6 +2,7 @@ extends Node
 var item_map
 var character
 var current_floor
+var current_floor_node
 var in_menu = false
 var currentLevel
 
@@ -31,11 +32,24 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("menu_action"):
 		if(in_menu):
 			in_menu = false
+			character.visible = true
+			# Hide and unhide the correct floors based on where character was before
+			for i in currentLevelNode.floorOrder:
+				if i == current_floor_node:
+					i.visible = true
+				else:
+					i.visible = false
 		else:
 			in_menu = true
+			character.visible = false
+			# saved so you can go back to it later when the menu is closed
+			current_floor_node = currentLevelNode.floorOrder[current_floor]
 	if in_menu:
-		character.visible = false
-		
+		for i in $floor_ui.currentFloorOrder:
+			if i[4]:
+				currentLevelNode.find_child("Floor "+ str(i[0])).visible = true
+			else:
+				currentLevelNode.find_child("Floor "+ str(i[0])).visible = false
 
 func changeFloors(tileName, goUp:bool):
 	var floorDelta:int # -1 or 1
@@ -100,6 +114,7 @@ func loadLevel(level:int):
 	currentLevelNode.queue_free()
 	var nextLevelNode = load("res://level_"+str(currentLevel)+".tscn").instantiate()
 	nextLevelNode.name = "Level"
+	# this sets currentLevelNode to nextLevelNode, but they're both used after this point
 	currentLevelNode = nextLevelNode
 	$CurrentLevelContent.add_child(nextLevelNode)
 	character.move_to_front()

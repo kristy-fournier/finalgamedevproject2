@@ -4,13 +4,17 @@ var character
 var current_floor
 var in_menu = false
 var currentLevel
+
 #MUST BE CHANGED IF ANY CHANGES TO TILE SET HAPPEN
 const current_tile_set_id = 0
 const trapdoor_open_coord = Vector2(2,0)
 const trapdoor_closed_coord = Vector2(1,0)
+
+# this line below should actually be removed, since the game should start with no level loaded (in the menu)
 @onready var currentLevelNode = $"CurrentLevelContent/Level"
 # for the floor checking later,  this is neeeded to not fall down holes you just climbed up
 var justChangedFloors = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#$"CurrentLevelContent/Level/Floor B".visible = false
@@ -29,6 +33,9 @@ func _process(delta: float) -> void:
 			in_menu = false
 		else:
 			in_menu = true
+	if in_menu:
+		character.visible = false
+		
 
 func changeFloors(tileName, goUp:bool):
 	var floorDelta:int # -1 or 1
@@ -40,7 +47,6 @@ func changeFloors(tileName, goUp:bool):
 	if justChangedFloors:
 		justChangedFloors = false
 	else:
-	#if true:
 		if (current_floor + floorDelta >= 0 and goUp) or (current_floor + floorDelta < currentLevelNode.floorOrder.size() and not(goUp)):
 			var floorNext = currentLevelNode.floorOrder[current_floor+floorDelta]
 			# basically checking the floor above / below actually exists
@@ -51,9 +57,6 @@ func changeFloors(tileName, goUp:bool):
 				deltaItemTile = ""
 			print(deltaItemTile)
 			if (tileName == "ladder" and (deltaItemTile == "hole" or deltaItemTile == "trapdoorOpen")) or (tileName == "trapdoorOpen" and (deltaItemTile== "ladder")) or (tileName == "hole"):
-			#if true:
-				# If you're on a build with tile changing swap the if statements above
-				# it'll just only collide with functional tiles b
 				currentLevelNode.floorOrder[current_floor].visible = false
 				floorNext.visible = true
 				item_map = floorNext.find_child("Items")
@@ -66,30 +69,30 @@ func changeFloors(tileName, goUp:bool):
 
 func _on_character_detected_item() -> void:
 	var tile_name
-	print(currentLevelNode.floorOrder)
-	print(current_floor)
+	#print(currentLevelNode.floorOrder)
+	#print(current_floor)
 	if item_map.get_cell_tile_data(item_map.local_to_map(character.position)) != null:
 		tile_name = item_map.get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
-		
 	else:
 		tile_name = ""
-	# everything past here is to be condensed 
 	if tile_name == "ladder":
 		changeFloors("ladder",true)
-	if tile_name == "hole":
+	elif tile_name == "hole":
 		changeFloors("hole",false)
-	if tile_name == "trapdoorOpen":
+	elif tile_name == "trapdoorOpen":
 		changeFloors("trapdoorOpen",false)
+	elif tile_name == "key":
+		for i in $floor_ui.currentFloorOrder:
+			if i[3] == true:
+				i[3] = false
+				break
 	if tile_name == "exit":
 		currentLevel+=1
 		loadLevel(currentLevel)
 		
 func testInit():
-	#initialise level 1 for our submission on monday
-	#$floor_ui.currentFloorOrder = [["A", true, false, false, false], ["B", false, true, false, false]]
-	#item_map = currentLevelNode.startingFloor.find_child("Items")
-	#current_floor = 0
-	#update_item_tiles()
+	# in future this will be handled by the level picker in the menu
+	# Hence the title TESTinit
 	loadLevel(1)
 
 func loadLevel(level:int):
@@ -100,16 +103,20 @@ func loadLevel(level:int):
 	currentLevelNode = nextLevelNode
 	$CurrentLevelContent.add_child(nextLevelNode)
 	character.move_to_front()
-	character.position = Vector2(24,24)
+	#character.position = Vector2(24,24)
+	character.position = 16 * currentLevelNode.starting_tile + Vector2i(8,8)
 	var listForFloorUI = []
 	for i in nextLevelNode.floorOrder:
 		var playerOn = false
 		var exitOn = false
+		var locked = false
 		if i == nextLevelNode.startingFloor:
 			playerOn = true
 		if i == nextLevelNode.exitFloor:
 			exitOn = true
-		listForFloorUI.append([str(i.name)[-1],playerOn,exitOn,false,false])
+		if i.locked == true:
+			locked = true
+		listForFloorUI.append([str(i.name)[-1],playerOn,exitOn,locked,false])
 	$floor_ui.currentFloorOrder = listForFloorUI
 	current_floor = currentLevelNode.floorOrder.find(currentLevelNode.startingFloor)
 	item_map = currentLevelNode.startingFloor.find_child("Items")
@@ -125,7 +132,6 @@ func _on_floor_ui_menu_close(order) -> void:
 	#keeps track of the floor num of the iteration, to keep track of above and below
 	update_item_tiles()
 		
-							
 func update_item_tiles() ->void:
 	#keeps track of the floor num of the iteration, to keep track of above and below
 	var iterate_floor_num = 0

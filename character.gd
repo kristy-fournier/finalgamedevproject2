@@ -1,6 +1,7 @@
 extends CharacterBody2D
 var lastPosition
 
+@onready var musicList = [load("res://Sound/move_1.mp3"),load("res://Sound/move_2.mp3"),load("res://Sound/move_3.mp3")]
 
 var desired_position
 var moving: bool
@@ -34,15 +35,19 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("move_left") and moving==false:
 			desired_position = self.position + Vector2(-16,0)
 			moving = true
+			$MoveSound.play()
 		if Input.is_action_just_pressed("move_right") and moving==false:
 			moving = true
 			desired_position = self.position + Vector2(16,0)
+			$MoveSound.play()
 		if Input.is_action_just_pressed("move_down") and moving==false:
 			moving = true
 			desired_position = self.position + Vector2(0,16)
+			$MoveSound.play()
 		if Input.is_action_just_pressed("move_up") and moving==false:
 			moving = true
 			desired_position = self.position + Vector2(0,-16)
+			$MoveSound.play()
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

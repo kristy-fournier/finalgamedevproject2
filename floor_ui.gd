@@ -43,7 +43,7 @@ func _process(delta):
 							else:
 								currentFloorOrder[i - 1][4] = true
 							break
-
+				$ClickPlayer.play()
 			if Input.is_action_just_pressed("move_down"):
 				if(currentFloorOrder[len(currentFloorOrder) - 1][4] == true):
 					currentFloorOrder[len(currentFloorOrder) - 1][4] = false
@@ -66,7 +66,7 @@ func _process(delta):
 							else:
 								currentFloorOrder[i + 1][4] = true
 							break
-
+				$ClickPlayer.play()
 		if(swapMode == true):
 			
 			if Input.is_action_just_pressed("move_up"):
@@ -74,18 +74,21 @@ func _process(delta):
 					if(currentFloorOrder[i][4] == true):
 						moveFloorUp(currentFloorOrder, i)
 						break
-			
+				$ClickPlayer.play()
 			if Input.is_action_just_pressed("move_down"):
 				for i in range(0, len(currentFloorOrder), 1):
 					if(currentFloorOrder[i][4] == true):
 						moveFloorDown(currentFloorOrder, i)
 						break
-
+				$ClickPlayer.play()
 		if Input.is_action_just_pressed("interact"): #might need to change this, if a new input map was created while I was working independantly on this.
 			if (swapMode == false):
 				swapMode = true
 			else:
 				swapMode = false
+			$ClickPlayer.pitch_scale = 2
+			$ClickPlayer.play()
+			$ClickPlayer.pitch_scale = 1
 
 func toggleMenu():
 	if(menuMode):

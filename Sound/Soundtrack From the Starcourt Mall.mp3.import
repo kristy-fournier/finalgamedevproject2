@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://x45f7bkmdjy6"
+path="res://.godot/imported/Soundtrack From the Starcourt Mall.mp3-c9783b236cc3efa7dc5141819cc357ef.mp3str"
+
+[deps]
+
+source_file="res://Sound/Soundtrack From the Starcourt Mall.mp3"
+dest_files=["res://.godot/imported/Soundtrack From the Starcourt Mall.mp3-c9783b236cc3efa7dc5141819cc357ef.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

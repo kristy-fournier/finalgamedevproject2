@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4v764owb8p0"]
+[gd_scene load_steps=6 format=3 uid="uid://c4v764owb8p0"]
 
 [ext_resource type="PackedScene" uid="uid://uwj3kh3et7ci" path="res://Character.tscn" id="1_8wdd1"]
 [ext_resource type="Script" path="res://main_scene.gd" id="1_lbvci"]
 [ext_resource type="PackedScene" uid="uid://relj4dfmpf2x" path="res://Levels/level_1.tscn" id="2_3he0t"]
 [ext_resource type="PackedScene" uid="uid://d4mtdg31d0xpn" path="res://floor_ui.tscn" id="4_ox4v2"]
+[ext_resource type="AudioStream" uid="uid://x45f7bkmdjy6" path="res://Sound/Soundtrack From the Starcourt Mall.mp3" id="5_rp7y4"]
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_lbvci")
@@ -31,6 +32,12 @@ position = Vector2(24, 24)
 [node name="floor_ui" parent="." instance=ExtResource("4_ox4v2")]
 position = Vector2(349, 22)
 scale = Vector2(0.45, 0.45)
+
+[node name="BGMPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_rp7y4")
+volume_db = -25.0
+autoplay = true
+parameters/looping = true
 
 [connection signal="Detected_item" from="CurrentLevelContent/Character" to="." method="_on_character_detected_item"]
 [connection signal="menu_close" from="floor_ui" to="." method="_on_floor_ui_menu_close"]

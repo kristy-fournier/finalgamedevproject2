@@ -1,11 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://y444dyok5i2s"]
+[gd_scene load_steps=10 format=3 uid="uid://y444dyok5i2s"]
 
 [ext_resource type="Script" path="res://Main_menu_stuff/main_menu.gd" id="1_jetss"]
 [ext_resource type="Texture2D" uid="uid://cljmgd80tok23" path="res://Art/start_quit.png" id="1_nbql8"]
 [ext_resource type="PackedScene" uid="uid://p1l776ulwc4j" path="res://Main_menu_stuff/levels_ui.tscn" id="2_lj3p5"]
 [ext_resource type="Texture2D" uid="uid://cxh564xeb81bp" path="res://Art/floor_GUI.png" id="2_t7uoi"]
 [ext_resource type="Texture2D" uid="uid://bw46g6doc28ns" path="res://Art/mainMenuLevels.png" id="3_736bg"]
-[ext_resource type="Texture2D" uid="uid://bgtt3bpgj01dn" path="res://Art/ghost_select.png" id="6_6wcg4"]
 [ext_resource type="Texture2D" uid="uid://r7qnvy75735i" path="res://Art/GUIpageMenu.png" id="6_yg02p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x0mjl"]
@@ -15,22 +14,6 @@ region = Rect2(0, 96, 42, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivcoe"]
 atlas = ExtResource("3_736bg")
 region = Rect2(32, 80, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aywp1"]
-atlas = ExtResource("6_6wcg4")
-region = Rect2(0, 0, 58, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pmp8p"]
-atlas = ExtResource("6_6wcg4")
-region = Rect2(0, 20, 58, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t35kx"]
-atlas = ExtResource("6_6wcg4")
-region = Rect2(0, 40, 58, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hwb85"]
-atlas = ExtResource("6_6wcg4")
-region = Rect2(0, 20, 58, 20)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g2v34"]
 animations = [{
@@ -43,23 +26,6 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aywp1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pmp8p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t35kx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hwb85")
-}],
-"loop": true,
-"name": &"ghost",
 "speed": 5.0
 }]
 
@@ -84,8 +50,6 @@ region_rect = Rect2(0, 16, 42, 16)
 [node name="playerSelection" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_g2v34")
-animation = &"ghost"
-frame_progress = 0.647395
 
 [node name="level_slot_1" type="Marker2D" parent="."]
 position = Vector2(72, 40)

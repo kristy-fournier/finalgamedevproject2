@@ -6,8 +6,9 @@
 [ext_resource type="TileSet" uid="uid://b1xq25eldmm4b" path="res://Art/wall.tres" id="4_1ftml"]
 [ext_resource type="TileSet" uid="uid://cw3y4aepe3rgp" path="res://Art/Items.tres" id="5_07ds6"]
 
-[node name="Level4" node_paths=PackedStringArray("startingFloor") instance=ExtResource("1_bcf31")]
+[node name="Level4" node_paths=PackedStringArray("startingFloor", "exitFloor") instance=ExtResource("1_bcf31")]
 startingFloor = NodePath("Floor A")
+exitFloor = NodePath("Floor B")
 starting_tile = Vector2i(1, 1)
 
 [node name="Floor A" parent="." index="0" instance=ExtResource("2_7fefr")]

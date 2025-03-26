@@ -12,7 +12,11 @@ const trapdoor_open_coord = Vector2(2,0)
 const trapdoor_closed_coord = Vector2(1,0)
 
 const broken_2_coord = Vector2(1,3)
-const hole_coord = Vector2(2,3)
+const hole_coord = Vector2(2,2)
+const broken_hole_coord = Vector2(2,3)
+const ground_hole_coord = Vector2(1,4)
+const ground_broken_hole_coord = Vector2(3,4)
+const ground_broken_2_coord = Vector2(2,4)
 const ladder_grey_coord = Vector2(3,0)
 const ladder_coord = Vector2(0,4)
 
@@ -114,7 +118,11 @@ func _on_character_detected_item() -> void:
 		currentLevel+=1
 		loadLevel(currentLevel)
 	if tile_name == "broken1":
-		item_map.set_cell(item_map.local_to_map(character.position), current_tile_set_id,  broken_2_coord)
+		print(current_floor)
+		if current_floor + 1 == currentLevelNode.floorOrder.size():
+			item_map.set_cell(item_map.local_to_map(character.position), current_tile_set_id,  ground_broken_2_coord)
+		else:
+			item_map.set_cell(item_map.local_to_map(character.position), current_tile_set_id,  broken_2_coord)
 		
 func testInit():
 	# in future this will be handled by the level picker in the menu
@@ -198,7 +206,7 @@ func update_item_tiles() ->void:
 						print(item_above)
 						if(item_above == "hole" || item_above == "trapdoorOpen" || item_above == "trapdoorClosed"):
 							current_item_map.set_cell(tile_coord, current_tile_set_id,  ladder_grey_coord)
-							break
+							continue
 			#changing grey ladders to regular ladders
 			if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "ladder" && current_item_map.get_cell_tile_data(tile_coord).get_custom_data("LadderType") == 1 ):
 				if(iterate_floor_num == 0):
@@ -211,6 +219,21 @@ func update_item_tiles() ->void:
 						if(item_above != "hole" or item_above != "trapdoorOpen" or item_above != "trapdoorClosed" ):
 							#Setting to coord in tile map MUST BE CHANGED IF TILE MAP IS CHANGED!!!!!!
 							current_item_map.set_cell(tile_coord, current_tile_set_id,  ladder_coord)
+			#changing holes if they are on the ground floor and checking for ladders 
+			if (current_item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "hole" && iterate_floor_num + 1 == currentLevelNode.floorOrder.size()):
+				print("hi")
+				#checking if the hole type is a non broken one
+				if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("HoleType") == 0 || current_item_map.get_cell_tile_data(tile_coord).get_custom_data("HoleType") == 1):
+					current_item_map.set_cell(tile_coord, current_tile_set_id, ground_hole_coord)
+				if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("HoleType") == 2 || current_item_map.get_cell_tile_data(tile_coord).get_custom_data("HoleType") == 3):
+					current_item_map.set_cell(tile_coord, current_tile_set_id, ground_broken_hole_coord)
+			if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "groundHole" && iterate_floor_num + 1 != currentLevelNode.floorOrder.size()):
+				if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("HoleType") == 0):
+					current_item_map.set_cell(tile_coord, current_tile_set_id, hole_coord)
+				if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("HoleType") == 2):
+					current_item_map.set_cell(tile_coord, current_tile_set_id, broken_hole_coord)
+					
+				
 					
 						
 						
@@ -221,4 +244,6 @@ func _on_character_done_moving() -> void:
 	#checking for tiles that need to be broken
 	for tile_coord in item_map.get_used_cells():
 		if(item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "broken2"):
-			item_map.set_cell(tile_coord, current_tile_set_id,  hole_coord)
+			item_map.set_cell(tile_coord, current_tile_set_id,  broken_hole_coord)
+		if (item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "groundBroken2"):
+			item_map.set_cell(tile_coord, current_tile_set_id,  ground_broken_hole_coord)

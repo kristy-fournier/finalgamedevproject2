@@ -22,6 +22,10 @@ func _ready() -> void:
 	#this itemmap will have to be called dynamically once we have more levels
 	character = $"CurrentLevelContent/Character"
 	testInit()
+	$Main_menu.disabled = false
+	character.in_menu = true
+	in_menu = true
+	$CurrentLevelContent.visible = false
 	
 	
 
@@ -110,6 +114,11 @@ func testInit():
 	loadLevel(1)
 
 func loadLevel(level:int):
+	$Main_menu.disabled = false
+	character.in_menu = false
+	in_menu = false
+	$CurrentLevelContent.visible = true
+	character.visible = true
 	currentLevel = level
 	currentLevelNode.queue_free()
 	var nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
@@ -181,3 +190,7 @@ func update_item_tiles() ->void:
 							current_item_map.set_cell(tile_coord, current_tile_set_id,  trapdoor_closed_coord)
 		iterate_floor_num += 1
 	
+
+
+func _on_main_menu_load_level(level: int) -> void:
+	loadLevel(level)

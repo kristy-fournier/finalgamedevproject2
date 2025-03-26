@@ -9,6 +9,7 @@
 [node name="Level1" node_paths=PackedStringArray("startingFloor", "exitFloor") instance=ExtResource("1_aq7qo")]
 startingFloor = NodePath("Floor A")
 exitFloor = NodePath("Floor B")
+starting_tile = Vector2i(1, 1)
 
 [node name="Floor B" parent="." index="0" instance=ExtResource("4_ydpn3")]
 
@@ -35,5 +36,5 @@ tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAA
 tile_set = ExtResource("4_ca481")
 
 [node name="Items" type="TileMapLayer" parent="Floor A" index="2"]
-tile_map_data = PackedByteArray("AAAEAAEAAAAAAAQAAAADAAIAAAAAAAQAAAA=")
+tile_map_data = PackedByteArray("AAAEAAEAAAAAAAQAAAADAAMAAAACAAIAAAACAAMAAAAAAAMAAAA=")
 tile_set = ExtResource("3_rmk61")

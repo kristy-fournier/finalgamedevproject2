@@ -57,3 +57,11 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 func _overlap_handler() -> void:
 	Detected_item.emit()
 	in_item = false
+
+func _on_draw() -> void:
+	$CollisionShape2D.disabled = false
+	$Area2D/CollisionShape2D.disabled = false
+	
+func _on_hidden() -> void:
+	$CollisionShape2D.disabled = true
+	$Area2D/CollisionShape2D.disabled = true

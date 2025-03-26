@@ -1,10 +1,11 @@
 extends Node
 var item_map
-var character
+@onready var character = $"CurrentLevelContent/Character"
 var current_floor
 var current_floor_node
 var in_menu = false
 var currentLevel
+var in_main_menu
 
 #MUST BE CHANGED IF ANY CHANGES TO TILE SET HAPPEN
 const current_tile_set_id = 0
@@ -20,11 +21,10 @@ var justChangedFloors = false
 func _ready() -> void:
 	#$"CurrentLevelContent/Level/Floor B".visible = false
 	#this itemmap will have to be called dynamically once we have more levels
-	character = $"CurrentLevelContent/Character"
-	testInit()
+	#testInit()
 	$Main_menu.disabled = false
 	character.in_menu = true
-	in_menu = true
+	in_main_menu = true
 	$CurrentLevelContent.visible = false
 	
 	
@@ -33,7 +33,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("menu_action") and character.moving == false:
+	if Input.is_action_just_pressed("menu_action") and character.moving == false and not(in_main_menu):
 		if(in_menu):
 			in_menu = false
 			# Hide and unhide the correct floors based on where character was before
@@ -114,9 +114,9 @@ func testInit():
 	loadLevel(1)
 
 func loadLevel(level:int):
-	$Main_menu.disabled = false
+	$Main_menu.disabled = true
 	character.in_menu = false
-	in_menu = false
+	in_main_menu = false
 	$CurrentLevelContent.visible = true
 	character.visible = true
 	currentLevel = level
@@ -156,6 +156,7 @@ func _on_floor_ui_menu_close(order) -> void:
 		tempOrder.append(currentLevelNode.find_child("Floor " + i[0]))
 	currentLevelNode.floorOrder = tempOrder
 	#keeps track of the floor num of the iteration, to keep track of above and below
+	justChangedFloors = true
 	update_item_tiles()
 		
 func update_item_tiles() ->void:

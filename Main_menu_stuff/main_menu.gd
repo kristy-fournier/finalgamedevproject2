@@ -258,6 +258,7 @@ func _process(delta: float):
 								self.hide()
 								emit_signal("loadLevel", ((i*5)+(j+1))+((page-1)*15))
 								disabled = true
+								print("i just loaded a level")
 							#else:
 								#insert 'incorrect buzzer' sound here?
 							found = true

@@ -56,6 +56,7 @@ func _process(delta: float) -> void:
 					i.visible = false
 			character.visible = true
 		else:
+			await get_tree().create_timer(0.4).timeout
 			in_menu = true
 			character.visible = false
 			# saved so you can go back to it later when the menu is closed

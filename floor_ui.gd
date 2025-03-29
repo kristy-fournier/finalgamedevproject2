@@ -14,7 +14,6 @@ func _ready():
 	get_node("shadow").hide()
 	orgPos = self.position #keep track of the original position
 
-
 func _process(delta):
 	
 	if Input.is_action_just_pressed("menu_action"):
@@ -92,6 +91,7 @@ func toggleMenu():
 	if(menuMode == true):
 		#self.scale = Vector2(1, 1)
 		#self.position = orgPos
+		get_node("machine").turn_off()
 		menuMode = false
 		swapMode = false
 		for i in range(0, len(currentFloorOrder), 1):
@@ -101,7 +101,9 @@ func toggleMenu():
 		#Change Scale and Position Here
 		menuMode = true
 		swapMode = false
-		currentFloorOrder[0][4] = true #change this to check first that floor isnt locked
+		get_node("machine").turn_on() 
+		currentFloorOrder[0][4] = true
+		
 
 func moveFloorUp(floorOrder: Array, index: int):
 	if(floorOrder[index][3] == true):

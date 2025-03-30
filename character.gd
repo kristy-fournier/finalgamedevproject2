@@ -7,6 +7,7 @@ var moving: bool
 var in_item: bool
 var in_menu = false
 signal Detected_item
+signal Done_Moving
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	moving = false
@@ -18,6 +19,8 @@ func _physics_process(delta: float) -> void:
 		desired_position = lastPosition
 	if desired_position.round() == self.position.round():
 		self.position = self.position.round()
+		if(moving == true):
+			Done_Moving.emit()
 		moving = false
 		if(in_item):
 			_overlap_handler()

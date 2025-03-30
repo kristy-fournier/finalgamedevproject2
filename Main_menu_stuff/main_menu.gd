@@ -7,7 +7,7 @@ var selectedLevel = [[false, false, false, false, false],[false, false, false, f
 var page = 1
 const numberOfLevels = 32 #This needs to be updated to the number of levels in the final product
 var numberOfPages = null #This does not need to be updated.
-var highestUnlockedlevel = 2 #something else needs to change this.
+var highestUnlockedlevel = 4 #something else needs to change this.
 var disabled = true
 
 # Called when the node enters the scene tree for the first time.
@@ -258,7 +258,7 @@ func _process(delta: float):
 								self.hide()
 								emit_signal("loadLevel", ((i*5)+(j+1))+((page-1)*15))
 								disabled = true
-								print("i just loaded a level")
+								#print("i just loaded a level")
 							#else:
 								#insert 'incorrect buzzer' sound here?
 							found = true

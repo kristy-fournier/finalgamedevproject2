@@ -12,6 +12,7 @@ var disabled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	highestUnlockedlevel = SaveHandler.loadFromFile()
 	get_node("page_icons/Selected_page_icon").hide()
 	get_node("page_icons").hide()
 	self.hide()

@@ -172,6 +172,7 @@ func loadLevel(level:int):
 	item_map = currentLevelNode.startingFloor.find_child("Items")
 	$TutorialText.loadLevelTutorial(level,1)
 	update_item_tiles()
+	SaveHandler.unlockCheck(level)
 
 func _on_floor_ui_menu_close(order) -> void:
 	var tempOrder = []

@@ -100,18 +100,17 @@ animations = [{
 script = ExtResource("1_8kn74")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-0.437496, 13.4375)
 scale = Vector2(0.12975, 0.12975)
 texture = ExtResource("1_uj8lg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -15)
 scale = Vector2(2.91667, 2.91667)
 sprite_frames = SubResource("SpriteFrames_nkrt2")
 frame = 11
 frame_progress = 1.0
 
 [node name="endPos" type="Marker2D" parent="."]
-position = Vector2(-424, 96)
 
 [node name="tweenDuration" type="Timer" parent="."]
 wait_time = 0.4

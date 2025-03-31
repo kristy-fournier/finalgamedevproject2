@@ -139,3 +139,6 @@ func moveFloorDown(floorOrder: Array, index: int):
 	var temp = floorOrder[index]
 	floorOrder[index] = floorOrder[farthestUnlockedFloorIndex]
 	floorOrder[farthestUnlockedFloorIndex] = temp
+
+func _on_main_scene_get_center(center: Vector2) -> void:
+	get_node("machine").Lvlcenter = center

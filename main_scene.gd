@@ -6,6 +6,7 @@ var current_floor_node
 var in_menu = false
 var currentLevel
 var in_main_menu
+signal get_center(center: Vector2)
 
 #MUST BE CHANGED IF ANY CHANGES TO TILE SET HAPPEN
 const current_tile_set_id = 0
@@ -168,6 +169,14 @@ func loadLevel(level:int):
 	current_floor = currentLevelNode.floorOrder.find(currentLevelNode.startingFloor)
 	item_map = currentLevelNode.startingFloor.find_child("Items")
 	update_item_tiles()
+	
+	var tilemap = currentLevelNode.get_node("Floor A/Wall")
+	var used_rect = tilemap.get_used_rect()
+	var tile_size = tilemap.tile_set.tile_size
+	var center_tile = Vector2(used_rect.position) + Vector2(used_rect.size) / 2.0
+	var center_world = (center_tile * Vector2(tile_size)) + tilemap.position  # Converts tile coords to world (local)
+	var center_global = tilemap.to_global(center_world)  # Converts local to global position
+	emit_signal("get_center", center_global)
 
 func _on_floor_ui_menu_close(order) -> void:
 	var tempOrder = []

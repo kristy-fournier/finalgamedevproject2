@@ -20,6 +20,7 @@ position = Vector2(45, 15)
 scale = Vector2(2, 2)
 
 [node name="Level" parent="CurrentLevelContent" instance=ExtResource("2_avony")]
+position = Vector2(0.5, 0)
 
 [node name="Character" parent="CurrentLevelContent" instance=ExtResource("1_8wdd1")]
 position = Vector2(24, 24)
@@ -30,6 +31,7 @@ scale = Vector2(0.45, 0.45)
 
 [node name="Main_menu" parent="." instance=ExtResource("5_80nnh")]
 
+[connection signal="get_center" from="." to="floor_ui" method="_on_main_scene_get_center"]
 [node name="TutorialText" parent="." instance=ExtResource("6_ftq74")]
 position = Vector2(200, 200)
 

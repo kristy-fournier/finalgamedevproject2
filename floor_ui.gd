@@ -16,7 +16,7 @@ func _ready():
 
 func _process(delta):
 	
-	if Input.is_action_just_pressed("menu_action"):
+	if Input.is_action_just_pressed("menu_action") and get_parent().in_main_menu == false:
 		toggleMenu()
 		
 	#When menuMode == true, this function allows the player to select the floors

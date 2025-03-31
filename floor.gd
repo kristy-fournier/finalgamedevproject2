@@ -14,12 +14,10 @@ func _process(delta: float) -> void:
 
 func disableFloor():
 	for i in self.get_children():
-		if i is not box_type:
-			i.enabled = true
+		i.enabled = false
 func enableFloor():
 	for i in self.get_children():
-		if i is not box_type:
-			i.enabled = true
+		i.enabled = true
 
 
 func _on_hidden() -> void:

@@ -23,5 +23,5 @@ tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAA
 tile_set = ExtResource("4_u8slk")
 
 [node name="Items" type="TileMapLayer" parent="Floor A" index="2"]
-tile_map_data = PackedByteArray("AAAEAAEAAAAAAAQAAAADAAMAAAACAAIAAAACAAMAAAAAAAMAAAA=")
-tile_set = ExtResource("3_rmk61")
+tile_map_data = PackedByteArray("AAABAAEAAAACAAEAAAA=")
+tile_set = ExtResource("5_8c4um")

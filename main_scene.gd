@@ -38,6 +38,8 @@ func _ready() -> void:
 	character.in_menu = true
 	in_main_menu = true
 	$CurrentLevelContent.visible = false
+	$floor_ui.visible = false
+	$TutorialText.visible = false
 	
 	
 
@@ -85,7 +87,7 @@ func changeFloors(tileName, goUp:bool):
 				deltaItemTile = floorNext.find_child("Items").get_cell_tile_data(item_map.local_to_map(character.position)).get_custom_data("Name")
 			else:
 				deltaItemTile = ""
-			print(deltaItemTile)
+			#print(deltaItemTile)
 			if (tileName == "ladder" and (deltaItemTile == "hole" or deltaItemTile == "trapdoorOpen")) or (tileName == "trapdoorOpen" and (deltaItemTile== "ladder")) or (tileName == "hole"):
 				currentLevelNode.floorOrder[current_floor].visible = false
 				floorNext.visible = true
@@ -128,17 +130,17 @@ func _on_character_detected_item() -> void:
 		else:
 			item_map.set_cell(item_map.local_to_map(character.position), current_tile_set_id,  broken_2_coord)
 		
-func testInit():
-	# in future this will be handled by the level picker in the menu
-	# Hence the title TESTinit
-	loadLevel(1)
+#func testInit():
+	## in future this will be handled by the level picker in the menu
+	## Hence the title TESTinit
+	#loadLevel(1)
 
 func loadLevel(level:int):
 	$Main_menu.disabled = true
 	character.in_menu = false
 	in_main_menu = false
 	$CurrentLevelContent.visible = true
-	character.visible = true
+	$TutorialText.visible = true
 	currentLevel = level
 	currentLevelNode.queue_free()
 	var nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
@@ -150,7 +152,8 @@ func loadLevel(level:int):
 	# 2 is the default scale for currentLevelContent (For some reason)
 	$CurrentLevelContent.scale = currentLevelNode.scaleForMainScene*Vector2(2,2)
 	#character.position = Vector2(24,24)
-	character.position = 16 * currentLevelNode.starting_tile + Vector2i(8,8)
+	character.setPosition(16*currentLevelNode.starting_tile + Vector2i(8,8))
+	character.visible = true
 	var listForFloorUI = []
 	for i in nextLevelNode.floorOrder:
 		var playerOn = false
@@ -164,8 +167,10 @@ func loadLevel(level:int):
 			locked = true
 		listForFloorUI.append([str(i.name)[-1],playerOn,exitOn,locked,false])
 	$floor_ui.currentFloorOrder = listForFloorUI
+	$floor_ui.visible = true
 	current_floor = currentLevelNode.floorOrder.find(currentLevelNode.startingFloor)
 	item_map = currentLevelNode.startingFloor.find_child("Items")
+	$TutorialText.loadLevelTutorial(level,1)
 	update_item_tiles()
 
 func _on_floor_ui_menu_close(order) -> void:
@@ -176,10 +181,9 @@ func _on_floor_ui_menu_close(order) -> void:
 		tempOrder.append(currentLevelNode.find_child("Floor " + i[0]))
 	currentLevelNode.floorOrder = tempOrder
 	#keeps track of the floor num of the iteration, to keep track of above and below
-	justChangedFloors = true
 	update_item_tiles()
 		
-func update_item_tiles() ->void:
+func update_item_tiles() -> void:
 	#keeps track of the floor num of the iteration, to keep track of above and below
 	var iterate_floor_num = 0
 	for floor in currentLevelNode.floorOrder:
@@ -259,7 +263,6 @@ func _on_character_done_moving() -> void:
 			item_map.set_cell(tile_coord, current_tile_set_id,  broken_hole_coord)
 		if (item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "groundBroken2"):
 			item_map.set_cell(tile_coord, current_tile_set_id,  ground_broken_hole_coord)
-	
 
 func _on_main_menu_load_level(level: int) -> void:
 	loadLevel(level)

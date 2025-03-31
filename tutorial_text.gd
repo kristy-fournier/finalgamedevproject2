@@ -96,6 +96,8 @@ func loadLevelTutorial(levelNum:int,tutorialNum:int):
 		for i in currentTutorial:
 			if not(i.ends_with(".png")):
 				$RichTextLabel.append_text(i)
+			elif i.contains("arrows") or i.contains("wasd"):
+				$RichTextLabel.append_text("[img=50]res://Art/Controller Glyphs/"+i+"[/img]")
 			else:
 				$RichTextLabel.append_text("[img=25]res://Art/Controller Glyphs/"+i+"[/img]")
 	else:
@@ -107,8 +109,8 @@ func changeTo(keyboard:bool):
 	if keyboard == true:
 		upIn = "Keyboard Light/W_Key_Light.png"
 		downIn = "Keyboard Light/S_Key_Light.png"
-		direcIn1 = "Keyboard Light/W_Key_Light.png"
-		direcIn2 = "Keyboard Light/Arrow_Up_Key_Light.png"
+		direcIn1 = "Keyboard Light/wasd.png"
+		direcIn2 = "Keyboard Light/arrows.png"
 		selectIn = "Keyboard Light/Space_Key_Light.png"
 		menuIn = "Keyboard Light/Tab_Key_Light.png"
 	else:

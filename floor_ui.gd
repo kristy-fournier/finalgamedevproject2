@@ -14,9 +14,10 @@ func _ready():
 	get_node("shadow").hide()
 	orgPos = self.position #keep track of the original position
 
+
 func _process(delta):
 	
-	if Input.is_action_just_pressed("menu_action"):
+	if Input.is_action_just_pressed("menu_action") and get_parent().in_main_menu == false:
 		toggleMenu()
 		
 	#When menuMode == true, this function allows the player to select the floors
@@ -88,7 +89,7 @@ func _process(delta):
 				swapMode = false
 
 func toggleMenu():
-	if(menuMode):
+	if(menuMode == true):
 		#self.scale = Vector2(1, 1)
 		#self.position = orgPos
 		menuMode = false

@@ -47,6 +47,10 @@ func _process(delta: float) -> void:
 			moving = true
 			desired_position = self.position + Vector2(0,-16)
 
+func setPosition(newPos:Vector2i):
+	self.position = Vector2(newPos)
+	self.lastPosition = Vector2(newPos)
+	self.desired_position = Vector2(newPos)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	in_item = true
@@ -57,3 +61,11 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 func _overlap_handler() -> void:
 	Detected_item.emit()
 	in_item = false
+
+func _on_draw() -> void:
+	$CollisionShape2D.disabled = false
+	$Area2D/CollisionShape2D.disabled = false
+	
+func _on_hidden() -> void:
+	$CollisionShape2D.disabled = true
+	$Area2D/CollisionShape2D.disabled = true

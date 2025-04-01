@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcalod4e61jle"]
+
+[ext_resource type="Texture2D" uid="uid://b5hd3cb4y754o" path="res://Art/newItems_v2.png" id="1_wawev"]
+[ext_resource type="Script" path="res://box.gd" id="1_wehex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qtc20"]
+size = Vector2(16, 16)
+
+[node name="Box" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_wehex")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wawev")
+region_enabled = true
+region_rect = Rect2(48.9388, 17.0296, 14.2199, 14.2199)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qtc20")

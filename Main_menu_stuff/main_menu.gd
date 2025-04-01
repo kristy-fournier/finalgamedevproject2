@@ -17,6 +17,7 @@ func _ready():
 	if highestUnlockedlevel > numberOfLevels:
 		highestUnlockedlevel = numberOfLevels
 		SaveHandler.saveToFile(highestUnlockedlevel)
+	get_node("title").hide()
 	get_node("page_icons/Selected_page_icon").hide()
 	get_node("page_icons").hide()
 	self.hide()
@@ -34,6 +35,7 @@ func _ready():
 		numberOfPages = floor(numberOfLevels/15)
 
 func setupTitleScreen():
+	get_node("title").show()
 	get_node("page_icons/Selected_page_icon").hide()
 	get_node("page_icons").hide()
 	self.show()
@@ -48,6 +50,7 @@ func setupTitleScreen():
 
 func setupLevelSelect():
 	self.show()
+	get_node("title").hide()
 	get_node("page_icons").show()
 	get_node("start_button").hide()
 	get_node("quit_button").hide()

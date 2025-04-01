@@ -10,10 +10,12 @@ config_version=5
 
 [application]
 
-config/name="FinalProject"
+config/name="Scared Shiftless"
 run/main_scene="res://main_scene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.18359, 0.18359, 0.18359, 1)
+boot_splash/show_image=false
+config/icon="res://icon.png"
 
 [autoload]
 

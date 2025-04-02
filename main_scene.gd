@@ -202,9 +202,10 @@ func update_item_tiles() -> void:
 		#iterating through all of the coordinates that have a item in the layer in floor
 		var current_item_map = floor.find_child("Items")
 		for tile_coord in current_item_map.get_used_cells():
-			#print(tile_coord)
+			
 			#If the item is a trapdoor, check if there is a floor under, check if it contains an item at the coord, and if its a ladder, change to open trap 
 			if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "trapdoorClosed"):
+				
 				#check if there is floor below
 				if(currentLevelNode.floorOrder.size() > iterate_floor_num+1):
 					# check if contains an item

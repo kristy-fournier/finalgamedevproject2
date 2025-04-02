@@ -66,6 +66,8 @@ func _process(delta: float) -> void:
 			character.visible = false
 			# saved so you can go back to it later when the menu is closed
 			current_floor_node = currentLevelNode.floorOrder[current_floor]
+	if Input.is_action_just_pressed("reset") and not(in_main_menu) and not(in_menu):
+		loadLevel(currentLevel)
 	if in_menu:
 		for i in $floor_ui.currentFloorOrder:
 			if i[4]:
@@ -176,6 +178,7 @@ func loadLevel(level:int):
 	item_map = currentLevelNode.startingFloor.find_child("Items")
 	$TutorialText.loadLevelTutorial(level,1)
 	update_item_tiles()
+	SaveHandler.unlockCheck(level)
 	
 	var tilemap = currentLevelNode.get_node("Floor A/Wall")
 	var used_rect = tilemap.get_used_rect()

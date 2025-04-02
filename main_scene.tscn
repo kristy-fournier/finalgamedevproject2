@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://x7lkk08esa7s" path="res://Levels/level_1.tscn" id="2_avony"]
 [ext_resource type="PackedScene" uid="uid://d4mtdg31d0xpn" path="res://floor_ui.tscn" id="4_ox4v2"]
 [ext_resource type="PackedScene" uid="uid://y444dyok5i2s" path="res://Main_menu_stuff/main_menu.tscn" id="5_80nnh"]
-[ext_resource type="PackedScene" uid="uid://bmxeil3vv1kli" path="res://tutorial_text.tscn" id="6_ftq74"]
+[ext_resource type="PackedScene" path="res://tutorial_text.tscn" id="6_ftq74"]
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_lbvci")
@@ -31,10 +31,10 @@ scale = Vector2(0.45, 0.45)
 
 [node name="Main_menu" parent="." instance=ExtResource("5_80nnh")]
 
-[connection signal="get_center" from="." to="floor_ui" method="_on_main_scene_get_center"]
 [node name="TutorialText" parent="." instance=ExtResource("6_ftq74")]
 position = Vector2(200, 200)
 
+[connection signal="get_center" from="." to="floor_ui" method="_on_main_scene_get_center"]
 [connection signal="Detected_item" from="CurrentLevelContent/Character" to="." method="_on_character_detected_item"]
 [connection signal="Detected_item" from="CurrentLevelContent/Character" to="TutorialText" method="_on_character_detected_item"]
 [connection signal="menu_close" from="floor_ui" to="." method="_on_floor_ui_menu_close"]

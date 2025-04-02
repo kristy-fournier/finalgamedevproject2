@@ -5,13 +5,19 @@ signal loadLevel(level: int)
 var menuState = "titleScreen"
 var selectedLevel = [[false, false, false, false, false],[false, false, false, false, false],[false, false, false, false, false],[false, false, false, false, false],[false, false, false, false, false]]
 var page = 1
-const numberOfLevels = 32 #This needs to be updated to the number of levels in the final product
+const numberOfLevels = 5 #This needs to be updated to the number of levels in the final product
 var numberOfPages = null #This does not need to be updated.
-var highestUnlockedlevel = 4 #something else needs to change this.
+var highestUnlockedlevel = 1 #something else needs to change this.
 var disabled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# load highest level from file, and make sure it isn't over the total levels in the game
+	highestUnlockedlevel = SaveHandler.loadFromFile()
+	if highestUnlockedlevel > numberOfLevels:
+		highestUnlockedlevel = numberOfLevels
+		SaveHandler.saveToFile(highestUnlockedlevel)
+	get_node("title").hide()
 	get_node("page_icons/Selected_page_icon").hide()
 	get_node("page_icons").hide()
 	self.hide()
@@ -29,6 +35,7 @@ func _ready():
 		numberOfPages = floor(numberOfLevels/15)
 
 func setupTitleScreen():
+	get_node("title").show()
 	get_node("page_icons/Selected_page_icon").hide()
 	get_node("page_icons").hide()
 	self.show()
@@ -43,6 +50,7 @@ func setupTitleScreen():
 
 func setupLevelSelect():
 	self.show()
+	get_node("title").hide()
 	get_node("page_icons").show()
 	get_node("start_button").hide()
 	get_node("quit_button").hide()

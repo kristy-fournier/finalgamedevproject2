@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://d4mtdg31d0xpn"]
+[gd_scene load_steps=24 format=3 uid="uid://d4mtdg31d0xpn"]
 
 [ext_resource type="Script" path="res://floor_ui.gd" id="1_lv8dk"]
 [ext_resource type="Texture2D" uid="uid://cxh564xeb81bp" path="res://Art/floor_GUI.png" id="1_rt2kn"]
 [ext_resource type="Script" path="res://floor_letter_ui.gd" id="2_sph7j"]
 [ext_resource type="Texture2D" uid="uid://bgtt3bpgj01dn" path="res://Art/ghost_select.png" id="4_gdg6r"]
+[ext_resource type="PackedScene" path="res://machine.tscn" id="5_ra4oc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_71pf6"]
 atlas = ExtResource("1_rt2kn")
@@ -248,3 +249,5 @@ sprite_frames = SubResource("SpriteFrames_kcpg5")
 [node name="floorBorder" type="AnimatedSprite2D" parent="floorF_UI"]
 sprite_frames = SubResource("SpriteFrames_scxn0")
 animation = &"ghost"
+
+[node name="machine" parent="." instance=ExtResource("5_ra4oc")]

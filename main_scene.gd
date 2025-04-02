@@ -120,6 +120,7 @@ func _on_character_detected_item() -> void:
 	elif tile_name == "trapdoorOpen":
 		changeFloors("trapdoorOpen",false)
 	elif tile_name == "key":
+		item_map.set_cell(item_map.local_to_map(character.position), current_tile_set_id,  Vector2(-1,-1))
 		for i in $floor_ui.currentFloorOrder:
 			if i[3] == true:
 				i[3] = false

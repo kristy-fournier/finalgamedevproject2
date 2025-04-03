@@ -60,7 +60,7 @@ offset_right = 1926.0
 offset_bottom = 1055.0
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
-text = "Press [img=150]res://Art/Controller Glyphs/Keyboard Light/C_Key_Light.png[/img] to see the Credits
+text = "Press [img=150]res://Art/Controller Glyphs/Keyboard Light/C_Key_Light.png[/img]/[img=150]res://Art/Controller Glyphs/Xbox 360/360_X.png[/img] to see the Credits
 "
 
 [node name="playerSelection" type="AnimatedSprite2D" parent="."]

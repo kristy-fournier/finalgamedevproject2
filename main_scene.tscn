@@ -35,6 +35,27 @@ scale = Vector2(0.45, 0.45)
 position = Vector2(200, 200)
 
 [node name="Credits" type="Node2D" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Credits"]
+offset_right = 414.0
+offset_bottom = 236.0
+color = Color(0.0294061, 3.34238e-05, 0.108735, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Credits"]
+offset_left = 23.0
+offset_top = 22.0
+offset_right = 376.0
+offset_bottom = 208.0
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "Developed by Ghost House Games:
+Aidan Chow
+Sam Gunn
+Kristy Fournier
+Liam Mcanulty
+
+Controller glyphs by [url=https://thoseawesomeguys.com/prompts/]XELU[/url]."
 
 [connection signal="get_center" from="." to="floor_ui" method="_on_main_scene_get_center"]
 [connection signal="Detected_item" from="CurrentLevelContent/Character" to="." method="_on_character_detected_item"]

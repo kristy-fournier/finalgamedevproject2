@@ -82,7 +82,12 @@ func _process(delta: float) -> void:
 					character.visible = false
 			else:
 				currentLevelNode.find_child("Floor "+ str(i[0])).visible = false
-
+	if Input.is_action_just_pressed("credits") and in_main_menu:
+		$Credits.visible = not($Credits.visible)
+		$Main_menu.visible = not($Main_menu.visible)
+	elif Input.is_action_just_pressed("menu_action") and $Credits.visible:
+		$Credits.visible = not($Credits.visible)
+		$Main_menu.visible = not($Main_menu.visible)
 func changeFloors(tileName, goUp:bool):
 	var floorDelta:int # -1 or 1
 	# the change in floor when this (hypothetical) action is complete
@@ -310,11 +315,12 @@ func update_item_tiles() -> void:
 		
 func _on_character_done_moving() -> void:
 	#checking for tiles that need to be broken
-	for tile_coord in item_map.get_used_cells():
-		if(item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "broken2"):
-			item_map.set_cell(tile_coord, current_tile_set_id,  broken_hole_coord)
-		if (item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "groundBroken2"):
-			item_map.set_cell(tile_coord, current_tile_set_id,  ground_broken_hole_coord)
+	if not(in_main_menu):
+		for tile_coord in item_map.get_used_cells():
+			if(item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "broken2"):
+				item_map.set_cell(tile_coord, current_tile_set_id,  broken_hole_coord)
+			if (item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "groundBroken2"):
+				item_map.set_cell(tile_coord, current_tile_set_id,  ground_broken_hole_coord)
 
 func _on_main_menu_load_level(level: int) -> void:
 	loadLevel(level)

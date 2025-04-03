@@ -1,0 +1,216 @@
+[gd_scene load_steps=11 format=3 uid="uid://y444dyok5i2s"]
+
+[ext_resource type="Script" path="res://Main_menu_stuff/main_menu.gd" id="1_jetss"]
+[ext_resource type="Texture2D" uid="uid://cljmgd80tok23" path="res://Art/start_quit.png" id="1_nbql8"]
+[ext_resource type="PackedScene" uid="uid://p1l776ulwc4j" path="res://Main_menu_stuff/levels_ui.tscn" id="2_lj3p5"]
+[ext_resource type="Texture2D" uid="uid://cxh564xeb81bp" path="res://Art/floor_GUI.png" id="2_t7uoi"]
+[ext_resource type="Texture2D" uid="uid://bw46g6doc28ns" path="res://Art/mainMenuLevels.png" id="3_736bg"]
+[ext_resource type="Texture2D" uid="uid://slr0vcwhqpg8" path="res://Art/title.png" id="4_o10qw"]
+[ext_resource type="Texture2D" uid="uid://r7qnvy75735i" path="res://Art/GUIpageMenu.png" id="6_yg02p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0mjl"]
+atlas = ExtResource("2_t7uoi")
+region = Rect2(0, 96, 42, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivcoe"]
+atlas = ExtResource("3_736bg")
+region = Rect2(32, 80, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g2v34"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0mjl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivcoe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Main_menu" type="Node2D"]
+script = ExtResource("1_jetss")
+levels_ui_scene = ExtResource("2_lj3p5")
+
+[node name="start_button" type="Sprite2D" parent="."]
+position = Vector2(104, 176)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_nbql8")
+region_enabled = true
+region_rect = Rect2(0, 0, 42, 16)
+
+[node name="quit_button" type="Sprite2D" parent="."]
+position = Vector2(296, 176)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_nbql8")
+region_enabled = true
+region_rect = Rect2(0, 16, 42, 16)
+
+[node name="title" type="Sprite2D" parent="."]
+position = Vector2(200, 88)
+scale = Vector2(0.124074, 0.124074)
+texture = ExtResource("4_o10qw")
+
+[node name="Credits Warning" type="RichTextLabel" parent="title"]
+offset_left = -1580.0
+offset_top = 919.0
+offset_right = 1926.0
+offset_bottom = 1055.0
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "Press [img=150]res://Art/Controller Glyphs/Keyboard Light/C_Key_Light.png[/img]/[img=150]res://Art/Controller Glyphs/Xbox 360/360_X.png[/img] to see the Credits
+"
+
+[node name="playerSelection" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_g2v34")
+
+[node name="level_slot_1" type="Marker2D" parent="."]
+position = Vector2(72, 40)
+
+[node name="level_slot_2" type="Marker2D" parent="."]
+position = Vector2(136, 40)
+
+[node name="level_slot_3" type="Marker2D" parent="."]
+position = Vector2(200, 40)
+
+[node name="level_slot_4" type="Marker2D" parent="."]
+position = Vector2(264, 40)
+
+[node name="level_slot_5" type="Marker2D" parent="."]
+position = Vector2(328, 40)
+
+[node name="level_slot_6" type="Marker2D" parent="."]
+position = Vector2(72, 104)
+
+[node name="level_slot_7" type="Marker2D" parent="."]
+position = Vector2(136, 104)
+
+[node name="level_slot_8" type="Marker2D" parent="."]
+position = Vector2(200, 104)
+
+[node name="level_slot_9" type="Marker2D" parent="."]
+position = Vector2(264, 104)
+
+[node name="level_slot_10" type="Marker2D" parent="."]
+position = Vector2(328, 104)
+
+[node name="level_slot_11" type="Marker2D" parent="."]
+position = Vector2(72, 168)
+
+[node name="level_slot_12" type="Marker2D" parent="."]
+position = Vector2(136, 168)
+
+[node name="level_slot_13" type="Marker2D" parent="."]
+position = Vector2(200, 168)
+
+[node name="level_slot_14" type="Marker2D" parent="."]
+position = Vector2(264, 168)
+
+[node name="level_slot_15" type="Marker2D" parent="."]
+position = Vector2(328, 168)
+
+[node name="page_icons" type="Node2D" parent="."]
+
+[node name="Selected_page_icon" type="Sprite2D" parent="page_icons"]
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 5, 5, 5)
+
+[node name="odd_page_icons" type="Node2D" parent="page_icons"]
+
+[node name="page_slot_1" type="Sprite2D" parent="page_icons/odd_page_icons"]
+position = Vector2(104, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)
+
+[node name="page_slot_2" type="Sprite2D" parent="page_icons/odd_page_icons"]
+position = Vector2(136, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)
+
+[node name="page_slot_3" type="Sprite2D" parent="page_icons/odd_page_icons"]
+position = Vector2(168, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)
+
+[node name="page_slot_4" type="Sprite2D" parent="page_icons/odd_page_icons"]
+position = Vector2(200, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)
+
+[node name="page_slot_5" type="Sprite2D" parent="page_icons/odd_page_icons"]
+position = Vector2(232, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)
+
+[node name="page_slot_6" type="Sprite2D" parent="page_icons/odd_page_icons"]
+position = Vector2(264, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)
+
+[node name="page_slot_7" type="Sprite2D" parent="page_icons/odd_page_icons"]
+position = Vector2(296, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)
+
+[node name="even_page_icons" type="Node2D" parent="page_icons"]
+
+[node name="page_slot_1" type="Sprite2D" parent="page_icons/even_page_icons"]
+position = Vector2(120, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)
+
+[node name="page_slot_2" type="Sprite2D" parent="page_icons/even_page_icons"]
+position = Vector2(152, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)
+
+[node name="page_slot_3" type="Sprite2D" parent="page_icons/even_page_icons"]
+position = Vector2(184, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)
+
+[node name="page_slot_4" type="Sprite2D" parent="page_icons/even_page_icons"]
+position = Vector2(216, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)
+
+[node name="page_slot_5" type="Sprite2D" parent="page_icons/even_page_icons"]
+position = Vector2(248, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)
+
+[node name="page_slot_6" type="Sprite2D" parent="page_icons/even_page_icons"]
+position = Vector2(280, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("6_yg02p")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 5)

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmxeil3vv1kli"]
+
+[ext_resource type="Script" path="res://tutorial_text.gd" id="1_3sc7d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhhrh"]
+bg_color = Color(0.226707, 0.226707, 0.226707, 0.72549)
+
+[node name="TutorialText" type="Node2D"]
+script = ExtResource("1_3sc7d")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -500.0
+offset_top = -25.0
+offset_right = 500.0
+offset_bottom = 25.0
+theme_override_styles/background = SubResource("StyleBoxFlat_rhhrh")
+bbcode_enabled = true

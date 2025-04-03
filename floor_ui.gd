@@ -16,7 +16,7 @@ func _ready():
 
 func _process(delta):
 	
-	if Input.is_action_just_pressed("menu_action"):
+	if Input.is_action_just_pressed("menu_action") and get_parent().in_main_menu == false:
 		toggleMenu()
 		
 	#When menuMode == true, this function allows the player to select the floors
@@ -91,9 +91,10 @@ func _process(delta):
 			$ClickPlayer.pitch_scale = 1
 
 func toggleMenu():
-	if(menuMode):
+	if(menuMode == true):
 		#self.scale = Vector2(1, 1)
 		#self.position = orgPos
+		get_node("machine").turn_off()
 		menuMode = false
 		swapMode = false
 		for i in range(0, len(currentFloorOrder), 1):
@@ -103,7 +104,9 @@ func toggleMenu():
 		#Change Scale and Position Here
 		menuMode = true
 		swapMode = false
-		currentFloorOrder[0][4] = true #change this to check first that floor isnt locked
+		get_node("machine").turn_on() 
+		currentFloorOrder[0][4] = true
+		
 
 func moveFloorUp(floorOrder: Array, index: int):
 	if(floorOrder[index][3] == true):
@@ -139,3 +142,6 @@ func moveFloorDown(floorOrder: Array, index: int):
 	var temp = floorOrder[index]
 	floorOrder[index] = floorOrder[farthestUnlockedFloorIndex]
 	floorOrder[farthestUnlockedFloorIndex] = temp
+
+func _on_main_scene_get_center(center: Vector2) -> void:
+	get_node("machine").Lvlcenter = center

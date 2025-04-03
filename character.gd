@@ -7,18 +7,22 @@ var desired_position
 var moving: bool
 var in_item: bool
 var in_menu = false
+var levelSize = 1
 signal Detected_item
+signal Done_Moving
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	moving = false
 	desired_position = self.position
 
 func _physics_process(delta: float) -> void:
-	var collision_info = move_and_collide(((desired_position-self.position))*1)
+	var collision_info = move_and_collide(((desired_position-self.position))*levelSize*delta*40)
 	if collision_info:
 		desired_position = lastPosition
 	if desired_position.round() == self.position.round():
 		self.position = self.position.round()
+		if(moving == true):
+			Done_Moving.emit()
 		moving = false
 		if(in_item):
 			_overlap_handler()
@@ -49,6 +53,10 @@ func _process(delta: float) -> void:
 			desired_position = self.position + Vector2(0,-16)
 			$MoveSound.play()
 
+func setPosition(newPos:Vector2i):
+	self.position = Vector2(newPos)
+	self.lastPosition = Vector2(newPos)
+	self.desired_position = Vector2(newPos)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	in_item = true

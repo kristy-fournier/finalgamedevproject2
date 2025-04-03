@@ -6,6 +6,8 @@ var current_floor_node
 var in_menu = false
 var currentLevel
 var in_main_menu
+var current_floor_letter
+@onready var main_menu = find_child("Main_menu")
 signal get_center(center: Vector2)
 
 #MUST BE CHANGED IF ANY CHANGES TO TILE SET HAPPEN
@@ -37,7 +39,7 @@ func _ready() -> void:
 	#this itemmap will have to be called dynamically once we have more levels
 	character.Done_Moving.connect(_on_character_done_moving)
 	#testInit()
-	$Main_menu.disabled = false
+	main_menu.disabled = false
 	character.in_menu = true
 	in_main_menu = true
 	$CurrentLevelContent.visible = false
@@ -66,12 +68,18 @@ func _process(delta: float) -> void:
 			character.visible = false
 			# saved so you can go back to it later when the menu is closed
 			current_floor_node = currentLevelNode.floorOrder[current_floor]
+			current_floor_letter = current_floor_node.name.rsplit(" ",1)[1]
+			print(current_floor_letter)
 	if Input.is_action_just_pressed("reset") and not(in_main_menu) and not(in_menu):
 		loadLevel(currentLevel)
 	if in_menu:
 		for i in $floor_ui.currentFloorOrder:
 			if i[4]:
 				currentLevelNode.find_child("Floor "+ str(i[0])).visible = true
+				if i[0] == current_floor_letter:
+					character.visible = true
+				else:
+					character.visible = false
 			else:
 				currentLevelNode.find_child("Floor "+ str(i[0])).visible = false
 
@@ -141,14 +149,20 @@ func _on_character_detected_item() -> void:
 	#loadLevel(1)
 
 func loadLevel(level:int):
-	$Main_menu.disabled = true
+	main_menu.disabled = true
 	character.in_menu = false
 	in_main_menu = false
 	$CurrentLevelContent.visible = true
 	$TutorialText.visible = true
 	currentLevel = level
 	currentLevelNode.queue_free()
-	var nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
+	# testing loading personal levels
+	var nextLevelNode
+	if level == 1:
+		nextLevelNode = load("res://kristylevels/level_1.tscn").instantiate()
+	else:
+		nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
+	#testing ends here MAKE SURE TO REVERT THIS PART
 	nextLevelNode.name = "Level"
 	# this sets currentLevelNode to nextLevelNode, but they're both used after this point
 	currentLevelNode = nextLevelNode
@@ -176,6 +190,7 @@ func loadLevel(level:int):
 	current_floor = currentLevelNode.floorOrder.find(currentLevelNode.startingFloor)
 	item_map = currentLevelNode.startingFloor.find_child("Items")
 	$TutorialText.loadLevelTutorial(level,1)
+	character.levelSize = currentLevelNode.scaleForMainScene
 	update_item_tiles()
 	SaveHandler.unlockCheck(level)
 	

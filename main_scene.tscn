@@ -34,6 +34,8 @@ scale = Vector2(0.45, 0.45)
 [node name="TutorialText" parent="." instance=ExtResource("6_ftq74")]
 position = Vector2(200, 200)
 
+[node name="Credits" type="Node2D" parent="."]
+
 [connection signal="get_center" from="." to="floor_ui" method="_on_main_scene_get_center"]
 [connection signal="Detected_item" from="CurrentLevelContent/Character" to="." method="_on_character_detected_item"]
 [connection signal="Detected_item" from="CurrentLevelContent/Character" to="TutorialText" method="_on_character_detected_item"]

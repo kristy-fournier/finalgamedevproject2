@@ -6,6 +6,7 @@ var desired_position
 var moving: bool
 var in_item: bool
 var in_menu = false
+var levelSize = 1
 signal Detected_item
 signal Done_Moving
 # Called when the node enters the scene tree for the first time.
@@ -14,7 +15,7 @@ func _ready() -> void:
 	desired_position = self.position
 
 func _physics_process(delta: float) -> void:
-	var collision_info = move_and_collide(((desired_position-self.position))*1)
+	var collision_info = move_and_collide(((desired_position-self.position))*levelSize*delta*40)
 	if collision_info:
 		desired_position = lastPosition
 	if desired_position.round() == self.position.round():

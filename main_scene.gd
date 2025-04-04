@@ -74,7 +74,7 @@ func _process(delta: float) -> void:
 			current_floor_letter = current_floor_node.name.rsplit(" ",1)[1]
 			print(current_floor_letter)
 	if Input.is_action_just_pressed("reset") and not(in_main_menu) and not(in_menu):
-		loadLevel(currentLevel)
+		loadLevel(currentLevel,true)
 	if in_menu:
 		for i in $floor_ui.currentFloorOrder:
 			if i[4]:
@@ -158,7 +158,7 @@ func _on_character_detected_item() -> void:
 	## Hence the title TESTinit
 	#loadLevel(1)
 
-func loadLevel(level:int):
+func loadLevel(level:int,resetMode:bool=false):
 	$Credits.visible = false
 	main_menu.disabled = true
 	character.in_menu = false
@@ -170,7 +170,7 @@ func loadLevel(level:int):
 	# testing loading personal levels
 	var nextLevelNode
 	if level == 1:
-		nextLevelNode = load("res://kristylevels/level_2.tscn").instantiate()
+		nextLevelNode = load("res://kristylevels/level_3.tscn").instantiate()
 	else:
 		nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
 	#testing ends here MAKE SURE TO REVERT THIS PART
@@ -204,11 +204,12 @@ func loadLevel(level:int):
 	character.levelSize = currentLevelNode.scaleForMainScene
 	update_item_tiles()
 	SaveHandler.unlockCheck(level)
-	var prevSong = $BGMPlayer.stream
-	$BGMPlayer.stop()
-	while $BGMPlayer.stream == prevSong:
-		$BGMPlayer.stream = levelSongs[randi() % levelSongs.size()]
-	$BGMPlayer.play()
+	if not(resetMode):
+		var prevSong = $BGMPlayer.stream
+		$BGMPlayer.stop()
+		while $BGMPlayer.stream == prevSong:
+			$BGMPlayer.stream = levelSongs[randi() % levelSongs.size()]
+		$BGMPlayer.play()
 	
 	var tilemap = currentLevelNode.get_node("Floor A/Wall")
 	var used_rect = tilemap.get_used_rect()

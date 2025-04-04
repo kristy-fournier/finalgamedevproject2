@@ -7,7 +7,9 @@ var selectedLevel = [[false, false, false, false, false],[false, false, false, f
 var page = 1
 const numberOfLevels = 5 #This needs to be updated to the number of levels in the final product
 var numberOfPages = null #This does not need to be updated.
+
 var highestUnlockedlevel = 1 #something else needs to change this.
+
 var disabled = true
 
 # Called when the node enters the scene tree for the first time.

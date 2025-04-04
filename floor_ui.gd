@@ -28,30 +28,33 @@ func _process(delta):
 				if(currentFloorOrder[0][4] == true):
 					currentFloorOrder[0][4] = false
 					#Check if the above floor (in this case bottom floor) is a locked floor. If so, 'skip over' it.
-					if(currentFloorOrder[len(currentFloorOrder) - 1][3] == true):
-						currentFloorOrder[len(currentFloorOrder) - 2][4] = true
-					else:
-						currentFloorOrder[len(currentFloorOrder) - 1][4] = true
+					#if(currentFloorOrder[len(currentFloorOrder) - 1][3] == true):
+						#currentFloorOrder[len(currentFloorOrder) - 2][4] = true
+					#else:
+						#currentFloorOrder[len(currentFloorOrder) - 1][4] = true
+					currentFloorOrder[len(currentFloorOrder) - 1][4] = true
 					
 				else:
 					for i in range(0, len(currentFloorOrder), 1):
 						if(currentFloorOrder[i][4] == true):
 							currentFloorOrder[i][4] = false
 							#Check if the above floor is a locked floor. If so, 'skip over' it.
-							if(currentFloorOrder[i - 1][3] == true):
-								currentFloorOrder[i - 2][4] = true
-							else:
-								currentFloorOrder[i - 1][4] = true
+							#if(currentFloorOrder[i - 1][3] == true):
+								#currentFloorOrder[i - 2][4] = true
+							#else:
+								#currentFloorOrder[i - 1][4] = true
+							currentFloorOrder[i - 1][4] = true
 							break
 
 			if Input.is_action_just_pressed("move_down"):
 				if(currentFloorOrder[len(currentFloorOrder) - 1][4] == true):
 					currentFloorOrder[len(currentFloorOrder) - 1][4] = false
 					#Check if the floor below (in this case the top floor) is a locked floor. If so, 'skip over' it.
-					if(currentFloorOrder[0][3] == true):
-						currentFloorOrder[1][4] = true
-					else:
-						currentFloorOrder[0][4] = true
+					#if(currentFloorOrder[0][3] == true):
+						#currentFloorOrder[1][4] = true
+					#else:
+						#currentFloorOrder[0][4] = true
+					currentFloorOrder[0][4] = true
 
 				else:
 					for i in range(0, len(currentFloorOrder), 1):
@@ -59,12 +62,13 @@ func _process(delta):
 							currentFloorOrder[i][4] = false
 							#Check if the floor below is a locked floor. If so, 'skip over' it.
 							#extra check if the locked floor is at the bottom because when when using .pop() the list gets shorter which may cause an error
-							if((currentFloorOrder[i + 1][3] == true) and (i + 1 == len(currentFloorOrder)-1)):
-								currentFloorOrder[0][4] = true
-							elif(currentFloorOrder[i + 1][3] == true):
-								currentFloorOrder[i + 2][4] = true
-							else:
-								currentFloorOrder[i + 1][4] = true
+							#if((currentFloorOrder[i + 1][3] == true) and (i + 1 == len(currentFloorOrder)-1)):
+								#currentFloorOrder[0][4] = true
+							#elif(currentFloorOrder[i + 1][3] == true):
+								#currentFloorOrder[i + 2][4] = true
+							#else:
+								#currentFloorOrder[i + 1][4] = true
+							currentFloorOrder[i + 1][4] = true
 							break
 
 		if(swapMode == true):
@@ -83,7 +87,14 @@ func _process(delta):
 
 		if Input.is_action_just_pressed("interact"): #might need to change this, if a new input map was created while I was working independantly on this.
 			if (swapMode == false):
-				swapMode = true
+				#Don't turn on swamMode if the currently selected floor is locked
+				for i in range(0, len(currentFloorOrder), 1):
+					if(currentFloorOrder[i][4] == true): 
+						if(currentFloorOrder[i][3] == false):
+							swapMode = true
+						else:
+							swapMode = false
+							#Put buzzer sound effect
 			else:
 				swapMode = false
 

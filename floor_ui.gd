@@ -86,9 +86,7 @@ func _process(delta):
 				swapMode = true
 			else:
 				swapMode = false
-			$ClickPlayer.pitch_scale = 2
 			$ClickPlayer.play()
-			$ClickPlayer.pitch_scale = 1
 
 func toggleMenu():
 	if(menuMode == true):

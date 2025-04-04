@@ -302,15 +302,6 @@ func update_item_tiles() -> void:
 						current_item_map.set_cell(tile_coord, current_tile_set_id, hole_coord)
 					if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("HoleType") == 2 || current_item_map.get_cell_tile_data(tile_coord).get_custom_data("HoleType") == 3 ):
 							current_item_map.set_cell(tile_coord, current_tile_set_id, broken_hole_coord)
-		
-			
-			
-					
-				
-					
-						
-						
-					
 		iterate_floor_num += 1
 		
 func _on_character_done_moving() -> void:

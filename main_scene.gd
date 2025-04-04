@@ -7,6 +7,7 @@ var in_menu = false
 var currentLevel
 var in_main_menu
 var current_floor_letter
+@onready var levelSongs = [load("res://Sound/ghost1.wav"),load("res://Sound/ghost2.wav"),load("res://Sound/ghost3.wav")] 
 @onready var main_menu = find_child("Main_menu")
 signal get_center(center: Vector2)
 
@@ -35,6 +36,8 @@ var justChangedFloors = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$BGMPlayer.stream = load("res://Sound/ghostMain.wav")
+	$BGMPlayer.play()
 	#$"CurrentLevelContent/Level/Floor B".visible = false
 	#this itemmap will have to be called dynamically once we have more levels
 	character.Done_Moving.connect(_on_character_done_moving)
@@ -198,6 +201,11 @@ func loadLevel(level:int):
 	character.levelSize = currentLevelNode.scaleForMainScene
 	update_item_tiles()
 	SaveHandler.unlockCheck(level)
+	var prevSong = $BGMPlayer.stream
+	$BGMPlayer.stop()
+	while $BGMPlayer.stream == prevSong:
+		$BGMPlayer.stream = levelSongs[randi() % levelSongs.size()]
+	$BGMPlayer.play()
 	
 	var tilemap = currentLevelNode.get_node("Floor A/Wall")
 	var used_rect = tilemap.get_used_rect()

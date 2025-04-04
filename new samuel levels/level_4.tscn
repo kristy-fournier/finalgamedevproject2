@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://c8mahvi08t6xu"]
+[gd_scene load_steps=6 format=4 uid="uid://brenoodc2r2jk"]
 
 [ext_resource type="PackedScene" uid="uid://cwkt8sl1f3ihq" path="res://level.tscn" id="1_ggbxe"]
 [ext_resource type="PackedScene" uid="uid://i2qw3x4cppxc" path="res://floor.tscn" id="2_l6tlv"]
@@ -10,6 +10,7 @@
 startingFloor = NodePath("Floor A")
 exitFloor = NodePath("Floor C")
 starting_tile = Vector2i(4, 4)
+scaleForMainScene = 0.72
 
 [node name="Floor A" parent="." index="0" instance=ExtResource("2_l6tlv")]
 

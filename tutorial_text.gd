@@ -11,6 +11,7 @@ var upIn # W or D-pad up
 var downIn # s or dpad down
 var selectIn #space or "A"
 var menuIn # Tab or Select (Or "B"?)
+var resetIn # R or "Y"
 #follows a format of tutorialText[levelNum][tutorialNum]
 
 var tutorialText
@@ -33,6 +34,9 @@ func setTutorialText():
 		},
 		4:{
 			1:["Trapdoors are like holes, \nbut only when ladders are below"]
+		},
+		5:{
+			1:["Use ",resetIn," to reset"]
 		}
 	}
 
@@ -113,6 +117,7 @@ func changeTo(keyboard:bool):
 		direcIn2 = "Keyboard Light/arrows.png"
 		selectIn = "Keyboard Light/Space_Key_Light.png"
 		menuIn = "Keyboard Light/Tab_Key_Light.png"
+		resetIn = "Keyboard Light/R_Key_Light.png"
 	else:
 		upIn = "Xbox 360/360_Dpad_Up.png"
 		downIn = "Xbox 360/360_Dpad_Down.png"
@@ -120,6 +125,7 @@ func changeTo(keyboard:bool):
 		direcIn2 = "Xbox 360/360_Left_Stick.png"
 		selectIn = "Xbox 360/360_A.png"
 		menuIn = "Xbox 360/360_B.png"
+		resetIn = "Xbox 360/360_Y.png"
 	setTutorialText()
 		
 

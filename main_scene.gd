@@ -88,11 +88,11 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("credits") and in_main_menu:
 		$Credits.visible = not($Credits.visible)
 		$Main_menu.visible = not($Main_menu.visible)
-		$Main_menu.disabled = true
+		$Main_menu.disabled = not($Main_menu.disabled)
 	elif Input.is_action_just_pressed("menu_action") and $Credits.visible:
 		$Credits.visible = not($Credits.visible)
 		$Main_menu.visible = not($Main_menu.visible)
-		$Main_menu.disabled = false
+		$Main_menu.disabled = not($Main_menu.disabled)
 func changeFloors(tileName, goUp:bool):
 	var floorDelta:int # -1 or 1
 	# the change in floor when this (hypothetical) action is complete

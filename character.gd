@@ -1,8 +1,6 @@
 extends CharacterBody2D
 var lastPosition
 
-@onready var musicList = [load("res://Sound/move_1.mp3"),load("res://Sound/move_2.mp3"),load("res://Sound/move_3.mp3")]
-
 var desired_position
 var moving: bool
 var in_item: bool

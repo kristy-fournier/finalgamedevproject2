@@ -6,7 +6,7 @@
 [ext_resource type="TileSet" uid="uid://b1xq25eldmm4b" path="res://Art/wall.tres" id="4_o7p6y"]
 [ext_resource type="TileSet" uid="uid://cw3y4aepe3rgp" path="res://Art/Items.tres" id="5_8tv6u"]
 
-[node name="Level0" instance=ExtResource("1_iylxv")]
+[node name="Level" instance=ExtResource("1_iylxv")]
 
 [node name="Floor A" parent="." index="0" instance=ExtResource("2_80hh1")]
 

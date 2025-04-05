@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://floor_letter_ui.gd" id="2_sph7j"]
 [ext_resource type="Texture2D" uid="uid://bgtt3bpgj01dn" path="res://Art/ghost_select.png" id="4_gdg6r"]
 [ext_resource type="AudioStream" uid="uid://cwtic8ileagkg" path="res://Sound/click.mp3" id="4_i3it0"]
-[ext_resource type="PackedScene" path="res://machine.tscn" id="5_ra4oc"]
+[ext_resource type="PackedScene" uid="uid://b0n6a1fpqymxs" path="res://machine.tscn" id="5_ra4oc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_71pf6"]
 atlas = ExtResource("1_rt2kn")

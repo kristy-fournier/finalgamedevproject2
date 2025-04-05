@@ -1,0 +1,5 @@
+Level 1. medium  somewhat easydifficulty, can get trapped but only need to make one real decision
+Level 2. hard difficulty, alot of floors and pathways. Level broken into 3 rings, need to go inside and out of the rings
+Level 3. medium, cannot get trapped, there are alot of paths to take
+Level 4. easy/medium sorta introductory to key
+Level 5. medium

@@ -120,11 +120,14 @@ func changeFloors(tileName, goUp:bool):
 				$floor_ui.currentFloorOrder[current_floor][1] = false
 				current_floor += floorDelta
 				$floor_ui.currentFloorOrder[current_floor][1] = true
+				if deltaItemTile == "hole" and tileName=="hole":
+					changeFloors("hole",false)
 				# if the thing you just traveled through is a hole, don't block the next itemcheck (because there won't be one below)
 				justChangedFloors = not((deltaItemTile == "" or deltaItemTile=="hole") and tileName == "hole")
 	
 
 func _on_character_detected_item() -> void:
+	# BTW this function isn't called on detected items anymore, it's when the character moves
 	var tile_name
 	#print(currentLevelNode.floorOrder)
 	#print(current_floor)
@@ -146,10 +149,10 @@ func _on_character_detected_item() -> void:
 			if i[3] == true:
 				i[3] = false
 				break
-	if tile_name == "exit":
+	elif tile_name == "exit":
 		currentLevel+=1
 		loadLevel(currentLevel)
-	if tile_name == "broken1":
+	elif tile_name == "broken1":
 		if current_floor + 1 == currentLevelNode.floorOrder.size():
 			item_map.set_cell(item_map.local_to_map(character.position), current_tile_set_id,  ground_broken_2_coord)
 		else:
@@ -172,7 +175,7 @@ func loadLevel(level:int,resetMode:bool=false):
 	# testing loading personal levels
 	var nextLevelNode
 	if level == 1:
-		nextLevelNode = load("res://kristylevels/level_glitch_test.tscn").instantiate()
+		nextLevelNode = load("res://Levels/Aidan_lvls/level_0.3.tscn").instantiate()
 	else:
 		nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
 	#testing ends here MAKE SURE TO REVERT THIS PART

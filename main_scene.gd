@@ -100,9 +100,10 @@ func changeFloors(tileName, goUp:bool):
 		floorDelta = -1
 	else:
 		floorDelta = 1
-	if justChangedFloors:
-		justChangedFloors = false
-	else:
+	#if justChangedFloors:
+		#justChangedFloors = false
+	#else:
+	if true:
 		if (current_floor + floorDelta >= 0 and goUp) or (current_floor + floorDelta < currentLevelNode.floorOrder.size() and not(goUp)):
 			var floorNext = currentLevelNode.floorOrder[current_floor+floorDelta]
 			# basically checking the floor above / below actually exists
@@ -171,7 +172,7 @@ func loadLevel(level:int,resetMode:bool=false):
 	# testing loading personal levels
 	var nextLevelNode
 	if level == 1:
-		nextLevelNode = load("res://kristylevels/level_3.tscn").instantiate()
+		nextLevelNode = load("res://kristylevels/level_glitch_test.tscn").instantiate()
 	else:
 		nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
 	#testing ends here MAKE SURE TO REVERT THIS PART

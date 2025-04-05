@@ -63,7 +63,7 @@ Liam Mcanulty
 Controller glyphs by [url=https://thoseawesomeguys.com/prompts/]XELU[/url]."
 
 [connection signal="get_center" from="." to="floor_ui" method="_on_main_scene_get_center"]
-[connection signal="Detected_item" from="CurrentLevelContent/Character" to="." method="_on_character_detected_item"]
 [connection signal="Detected_item" from="CurrentLevelContent/Character" to="TutorialText" method="_on_character_detected_item"]
+[connection signal="Done_Moving" from="CurrentLevelContent/Character" to="." method="_on_character_detected_item"]
 [connection signal="menu_close" from="floor_ui" to="." method="_on_floor_ui_menu_close"]
 [connection signal="loadLevel" from="Main_menu" to="." method="_on_main_menu_load_level"]

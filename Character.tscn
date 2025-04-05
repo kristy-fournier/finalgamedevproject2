@@ -1,13 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://uwj3kh3et7ci"]
+[gd_scene load_steps=7 format=3 uid="uid://uwj3kh3et7ci"]
 
 [ext_resource type="Script" path="res://character.gd" id="1_1le3x"]
 [ext_resource type="Texture2D" uid="uid://bmt4hx0sbaqu5" path="res://Art/SpriteSheet_2.png" id="1_joxj6"]
+[ext_resource type="AudioStream" uid="uid://dp0bvkt1jc7or" path="res://Sound/move_2.mp3" id="3_qtlvn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nw6uq"]
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bor0h"]
 size = Vector2(15.5556, 15.5556)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_r5vmw"]
+random_pitch = 1.15
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("3_qtlvn")
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 collision_mask = 2
@@ -34,6 +41,9 @@ collision_mask = 12
 position = Vector2(1.78814e-07, -1.78814e-07)
 scale = Vector2(0.9, 0.9)
 shape = SubResource("RectangleShape2D_bor0h")
+
+[node name="MoveSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_r5vmw")
 
 [connection signal="draw" from="." to="." method="_on_draw"]
 [connection signal="hidden" from="." to="." method="_on_hidden"]

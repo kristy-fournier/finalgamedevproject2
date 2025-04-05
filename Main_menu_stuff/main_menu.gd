@@ -178,6 +178,7 @@ func _process(delta: float):
 			if(menuState == "titleScreen"):
 				if(get_node("playerSelection").position == get_node("quit_button").position):
 					get_node("playerSelection").position = get_node("start_button").position
+					$ClickPlayer.play()
 			if(menuState == "levelSelect"):
 				var found = false
 				for i in range(0, 3, 1):
@@ -188,6 +189,7 @@ func _process(delta: float):
 							selectedLevel[i][j] = false
 							selectedLevel[i][j - 1] = true
 							found = true
+							$ClickPlayer.play()
 						elif((selectedLevel[i][j] == true) && (j == 0)):
 							if(page != 1):
 								page = clamp(page - 1, 1, numberOfPages)
@@ -195,6 +197,7 @@ func _process(delta: float):
 								selectedLevel[i][j] = false
 								selectedLevel[i][4] = true
 							found = true
+							$ClickPlayer.play()
 						if(found == true):
 							break
 		
@@ -202,6 +205,7 @@ func _process(delta: float):
 			if(menuState == "titleScreen"):
 				if(get_node("playerSelection").position == get_node("start_button").position):
 					get_node("playerSelection").position = get_node("quit_button").position
+					$ClickPlayer.play()
 			if(menuState == "levelSelect"):
 				var found = false
 				for i in range(0, 3, 1):
@@ -211,6 +215,7 @@ func _process(delta: float):
 						if((selectedLevel[i][j] == true) && (j != 4)):
 							selectedLevel[i][j] = false
 							selectedLevel[i][j + 1] = true
+							$ClickPlayer.play()
 							found = true
 						elif((selectedLevel[i][j] == true) && (j == 4)):
 							if(page != numberOfPages):
@@ -218,6 +223,7 @@ func _process(delta: float):
 								update_page(page - 1, page)
 								selectedLevel[i][j] = false
 								selectedLevel[i][0] = true
+								$ClickPlayer.play()
 								found = true
 						if(found == true):
 							break
@@ -233,6 +239,7 @@ func _process(delta: float):
 							selectedLevel[i][j] = false
 							selectedLevel[i - 1][j] = true
 							found = true
+							$ClickPlayer.play()
 						if(found == true):
 							break
 		
@@ -246,6 +253,7 @@ func _process(delta: float):
 						if((selectedLevel[i][j] == true) && (i != 2)):
 							selectedLevel[i][j] = false
 							selectedLevel[i + 1][j] = true
+							$ClickPlayer.play()
 							found = true
 						if(found == true):
 							break
@@ -254,8 +262,10 @@ func _process(delta: float):
 		if Input.is_action_just_pressed("interact"):
 			if(menuState == "titleScreen"):
 				if(get_node("playerSelection").position == get_node("start_button").position):
+					$ClickPlayer.play()
 					setupLevelSelect()
 				elif(get_node("playerSelection").position == get_node("quit_button").position):
+					$ClickPlayer.play()
 					get_tree().quit()
 			elif(menuState == "levelSelect"):
 				var found = false
@@ -264,10 +274,12 @@ func _process(delta: float):
 						if(selectedLevel[i][j] == true):
 							if((((i*5)+(j+1))+((page-1)*15) <= numberOfLevels) and ((((i*5)+(j+1))+((page-1)*15) <= highestUnlockedlevel))):
 								self.hide()
+								$ClickPlayer.play()
 								emit_signal("loadLevel", ((i*5)+(j+1))+((page-1)*15))
 								disabled = true
 								#print("i just loaded a level")
-							#else:
+							else:
+								$ErrorPlayer.play()
 								#insert 'incorrect buzzer' sound here?
 							found = true
 						if(found == true):

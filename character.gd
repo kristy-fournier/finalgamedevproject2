@@ -1,11 +1,11 @@
 extends CharacterBody2D
 var lastPosition
 
-
 var desired_position
 var moving: bool
 var in_item: bool
 var in_menu = false
+var levelSize = 1
 signal Detected_item
 signal Done_Moving
 # Called when the node enters the scene tree for the first time.
@@ -14,7 +14,7 @@ func _ready() -> void:
 	desired_position = self.position
 
 func _physics_process(delta: float) -> void:
-	var collision_info = move_and_collide(((desired_position-self.position))*1)
+	var collision_info = move_and_collide(((desired_position-self.position))*levelSize*delta*40)
 	if collision_info:
 		desired_position = lastPosition
 	if desired_position.round() == self.position.round():
@@ -37,15 +37,19 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("move_left") and moving==false:
 			desired_position = self.position + Vector2(-16,0)
 			moving = true
+			$MoveSound.play()
 		if Input.is_action_just_pressed("move_right") and moving==false:
 			moving = true
 			desired_position = self.position + Vector2(16,0)
+			$MoveSound.play()
 		if Input.is_action_just_pressed("move_down") and moving==false:
 			moving = true
 			desired_position = self.position + Vector2(0,16)
+			$MoveSound.play()
 		if Input.is_action_just_pressed("move_up") and moving==false:
 			moving = true
 			desired_position = self.position + Vector2(0,-16)
+			$MoveSound.play()
 
 func setPosition(newPos:Vector2i):
 	self.position = Vector2(newPos)

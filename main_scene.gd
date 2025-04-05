@@ -6,6 +6,9 @@ var current_floor_node
 var in_menu = false
 var currentLevel
 var in_main_menu
+var current_floor_letter
+@onready var levelSongs = [load("res://Sound/ghost1.wav"),load("res://Sound/ghost2.wav"),load("res://Sound/ghost3.wav")] 
+@onready var main_menu = find_child("Main_menu")
 signal get_center(center: Vector2)
 
 #MUST BE CHANGED IF ANY CHANGES TO TILE SET HAPPEN
@@ -33,11 +36,13 @@ var justChangedFloors = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$BGMPlayer.stream = load("res://Sound/ghostMain.wav")
+	$BGMPlayer.play()
 	#$"CurrentLevelContent/Level/Floor B".visible = false
 	#this itemmap will have to be called dynamically once we have more levels
 	character.Done_Moving.connect(_on_character_done_moving)
 	#testInit()
-	$Main_menu.disabled = false
+	main_menu.disabled = false
 	character.in_menu = true
 	in_main_menu = true
 	$CurrentLevelContent.visible = false
@@ -66,15 +71,28 @@ func _process(delta: float) -> void:
 			character.visible = false
 			# saved so you can go back to it later when the menu is closed
 			current_floor_node = currentLevelNode.floorOrder[current_floor]
+			current_floor_letter = current_floor_node.name.rsplit(" ",1)[1]
+			print(current_floor_letter)
 	if Input.is_action_just_pressed("reset") and not(in_main_menu) and not(in_menu):
 		loadLevel(currentLevel)
 	if in_menu:
 		for i in $floor_ui.currentFloorOrder:
 			if i[4]:
 				currentLevelNode.find_child("Floor "+ str(i[0])).visible = true
+				if i[0] == current_floor_letter:
+					character.visible = true
+				else:
+					character.visible = false
 			else:
 				currentLevelNode.find_child("Floor "+ str(i[0])).visible = false
-
+	if Input.is_action_just_pressed("credits") and in_main_menu:
+		$Credits.visible = not($Credits.visible)
+		$Main_menu.visible = not($Main_menu.visible)
+		$Main_menu.disabled = not($Main_menu.disabled)
+	elif Input.is_action_just_pressed("menu_action") and $Credits.visible:
+		$Credits.visible = not($Credits.visible)
+		$Main_menu.visible = not($Main_menu.visible)
+		$Main_menu.disabled = not($Main_menu.disabled)
 func changeFloors(tileName, goUp:bool):
 	var floorDelta:int # -1 or 1
 	# the change in floor when this (hypothetical) action is complete
@@ -142,14 +160,18 @@ func _on_character_detected_item() -> void:
 	#loadLevel(1)
 
 func loadLevel(level:int):
-	$Main_menu.disabled = true
+	$Credits.visible = false
+	main_menu.disabled = true
 	character.in_menu = false
 	in_main_menu = false
 	$CurrentLevelContent.visible = true
 	$TutorialText.visible = true
 	currentLevel = level
 	currentLevelNode.queue_free()
-	var nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
+	# testing loading personal levels
+	var nextLevelNode
+	nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
+	#testing ends here MAKE SURE TO REVERT THIS PART
 	nextLevelNode.name = "Level"
 	# this sets currentLevelNode to nextLevelNode, but they're both used after this point
 	currentLevelNode = nextLevelNode
@@ -177,8 +199,14 @@ func loadLevel(level:int):
 	current_floor = currentLevelNode.floorOrder.find(currentLevelNode.startingFloor)
 	item_map = currentLevelNode.startingFloor.find_child("Items")
 	$TutorialText.loadLevelTutorial(level,1)
+	character.levelSize = currentLevelNode.scaleForMainScene
 	update_item_tiles()
 	SaveHandler.unlockCheck(level)
+	var prevSong = $BGMPlayer.stream
+	$BGMPlayer.stop()
+	while $BGMPlayer.stream == prevSong:
+		$BGMPlayer.stream = levelSongs[randi() % levelSongs.size()]
+	$BGMPlayer.play()
 	
 	var tilemap = currentLevelNode.get_node("Floor A/Wall")
 	var used_rect = tilemap.get_used_rect()
@@ -284,24 +312,16 @@ func update_item_tiles() -> void:
 						current_item_map.set_cell(tile_coord, current_tile_set_id, hole_coord)
 					if(current_item_map.get_cell_tile_data(tile_coord).get_custom_data("HoleType") == 2 || current_item_map.get_cell_tile_data(tile_coord).get_custom_data("HoleType") == 3 ):
 							current_item_map.set_cell(tile_coord, current_tile_set_id, broken_hole_coord)
-		
-			
-			
-					
-				
-					
-						
-						
-					
 		iterate_floor_num += 1
 		
 func _on_character_done_moving() -> void:
 	#checking for tiles that need to be broken
-	for tile_coord in item_map.get_used_cells():
-		if(item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "broken2"):
-			item_map.set_cell(tile_coord, current_tile_set_id,  broken_hole_coord)
-		if (item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "groundBroken2"):
-			item_map.set_cell(tile_coord, current_tile_set_id,  ground_broken_hole_coord)
+	if not(in_main_menu):
+		for tile_coord in item_map.get_used_cells():
+			if(item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "broken2"):
+				item_map.set_cell(tile_coord, current_tile_set_id,  broken_hole_coord)
+			if (item_map.get_cell_tile_data(tile_coord).get_custom_data("Name") == "groundBroken2"):
+				item_map.set_cell(tile_coord, current_tile_set_id,  ground_broken_hole_coord)
 
 func _on_main_menu_load_level(level: int) -> void:
 	loadLevel(level)

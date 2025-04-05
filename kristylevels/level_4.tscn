@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://c4mo8d7bjh4tl"]
+[gd_scene load_steps=6 format=3 uid="uid://h3olgae81yfo"]
 
 [ext_resource type="PackedScene" uid="uid://cwkt8sl1f3ihq" path="res://level.tscn" id="1_tm567"]
 [ext_resource type="PackedScene" uid="uid://i2qw3x4cppxc" path="res://floor.tscn" id="2_cevmi"]
@@ -11,13 +11,10 @@
 [node name="Floor A" parent="." index="0" instance=ExtResource("2_cevmi")]
 
 [node name="Floor" type="TileMapLayer" parent="Floor A" index="0"]
-tile_map_data = PackedByteArray("AAADAAEAAAACAAAAAAADAAIAAAACAAAAAAADAAMAAAACAAAAAAADAAQAAAACAAAAAAADAAUAAAACAAAAAAABAAMAAAACAAAAAAACAAMAAAACAAAAAAAEAAMAAAACAAAAAAAFAAMAAAACAAAAAAA=")
 tile_set = ExtResource("3_bvdec")
 
 [node name="Wall" type="TileMapLayer" parent="Floor A" index="1"]
-tile_map_data = PackedByteArray("AAACAAAAAgAAAAAAAAACAAEAAgAAAAAAAAACAAIAAgAAAAAAAAABAAIAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAAQAAgAAAAAAAAABAAQAAgAAAAAAAAACAAQAAgAAAAAAAAACAAUAAgAAAAAAAAACAAYAAgAAAAAAAAAEAAYAAgAAAAAAAAAEAAUAAgAAAAAAAAAEAAQAAgAAAAAAAAAFAAQAAgAAAAAAAAAGAAQAAgAAAAAAAAADAAYAAgAAAAAAAAAGAAMAAgAAAAAAAAAGAAIAAgAAAAAAAAAFAAIAAgAAAAAAAAAEAAIAAgAAAAAAAAAEAAEAAgAAAAAAAAAEAAAAAgAAAAAAAAADAAAAAgAAAAAAAAA=")
 tile_set = ExtResource("4_ukj7h")
 
 [node name="Items" type="TileMapLayer" parent="Floor A" index="2"]
-tile_map_data = PackedByteArray("AAADAAMAAAACAAIAAAA=")
 tile_set = ExtResource("5_htjgx")

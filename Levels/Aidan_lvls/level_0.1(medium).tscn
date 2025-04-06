@@ -1,70 +1,70 @@
 [gd_scene load_steps=6 format=4 uid="uid://83i0swl6hhfi"]
 
-[ext_resource type="PackedScene" uid="uid://cwkt8sl1f3ihq" path="res://level.tscn" id="1_8mucu"]
-[ext_resource type="PackedScene" uid="uid://i2qw3x4cppxc" path="res://floor.tscn" id="2_10mhw"]
-[ext_resource type="TileSet" uid="uid://bkvvmc4spi1ua" path="res://Art/Floor.tres" id="3_sm7ng"]
-[ext_resource type="TileSet" uid="uid://b1xq25eldmm4b" path="res://Art/wall.tres" id="4_1265i"]
-[ext_resource type="TileSet" uid="uid://cw3y4aepe3rgp" path="res://Art/Items.tres" id="5_4nxni"]
+[ext_resource type="PackedScene" uid="uid://cwkt8sl1f3ihq" path="res://level.tscn" id="1_p438j"]
+[ext_resource type="PackedScene" uid="uid://i2qw3x4cppxc" path="res://floor.tscn" id="2_pg7yo"]
+[ext_resource type="TileSet" uid="uid://bkvvmc4spi1ua" path="res://Art/Floor.tres" id="3_haf5q"]
+[ext_resource type="TileSet" uid="uid://b1xq25eldmm4b" path="res://Art/wall.tres" id="4_obg16"]
+[ext_resource type="TileSet" uid="uid://cw3y4aepe3rgp" path="res://Art/Items.tres" id="5_kwjp6"]
 
-[node name="Level3" node_paths=PackedStringArray("startingFloor", "exitFloor") instance=ExtResource("1_8mucu")]
+[node name="Level3" node_paths=PackedStringArray("startingFloor", "exitFloor") instance=ExtResource("1_p438j")]
 startingFloor = NodePath("Floor A")
 exitFloor = NodePath("Floor A")
 starting_tile = Vector2i(1, 5)
 scaleForMainScene = 0.8
 
-[node name="Floor D" parent="." index="0" instance=ExtResource("2_10mhw")]
+[node name="Floor D" parent="." index="0" instance=ExtResource("2_pg7yo")]
 locked = true
 
 [node name="Floor" type="TileMapLayer" parent="Floor D" index="0"]
 tile_map_data = PackedByteArray("AAABAAEAAAADAAAAAAABAAIAAAADAAAAAAABAAMAAAADAAAAAAADAAMAAAADAAAAAAACAAMAAAADAAAAAAACAAIAAAADAAAAAAADAAIAAAADAAAAAAADAAEAAAADAAAAAAACAAEAAAADAAAAAAAEAAEAAAADAAAAAAAFAAEAAAADAAAAAAAFAAIAAAADAAAAAAAFAAMAAAADAAAAAAAFAAQAAAADAAAAAAAFAAUAAAADAAAAAAAEAAUAAAADAAAAAAADAAUAAAADAAAAAAACAAUAAAADAAAAAAACAAQAAAADAAAAAAABAAQAAAADAAAAAAABAAUAAAADAAAAAAADAAQAAAADAAAAAAAEAAMAAAADAAAAAAAEAAQAAAADAAAAAAAEAAIAAAADAAAAAAA=")
-tile_set = ExtResource("3_sm7ng")
+tile_set = ExtResource("3_haf5q")
 
 [node name="Wall" type="TileMapLayer" parent="Floor D" index="1"]
 tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAAQAAgAAAAAAAAADAAAAAgAAAAAAAAACAAAAAgAAAAAAAAABAAAAAgAAAAAAAAAEAAAAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAAYAAgAAAAAAAAABAAYAAgAAAAAAAAACAAYAAgAAAAAAAAADAAYAAgAAAAAAAAAEAAYAAgAAAAAAAAAFAAYAAgAAAAAAAAAGAAYAAgAAAAAAAAAGAAUAAgAAAAAAAAAGAAQAAgAAAAAAAAAGAAMAAgAAAAAAAAAGAAIAAgAAAAAAAAAGAAEAAgAAAAAAAAAGAAAAAgAAAAAAAAAFAAAAAgAAAAAAAAA=")
-tile_set = ExtResource("4_1265i")
+tile_set = ExtResource("4_obg16")
 
 [node name="Items" type="TileMapLayer" parent="Floor D" index="2"]
 tile_map_data = PackedByteArray("AAACAAIAAAACAAIAAAADAAMAAAACAAIAAAAEAAIAAAACAAIAAAAFAAQAAAAAAAQAAAA=")
-tile_set = ExtResource("5_4nxni")
+tile_set = ExtResource("5_kwjp6")
 
-[node name="Floor C" parent="." index="1" instance=ExtResource("2_10mhw")]
+[node name="Floor C" parent="." index="1" instance=ExtResource("2_pg7yo")]
 
 [node name="Floor" type="TileMapLayer" parent="Floor C" index="0"]
 tile_map_data = PackedByteArray("AAABAAEAAAADAAAAAAABAAIAAAADAAAAAAABAAMAAAADAAAAAAADAAMAAAADAAAAAAACAAMAAAADAAAAAAACAAIAAAADAAAAAAADAAIAAAADAAAAAAADAAEAAAADAAAAAAACAAEAAAADAAAAAAAEAAEAAAADAAAAAAAFAAEAAAADAAAAAAAFAAIAAAADAAAAAAAFAAMAAAADAAAAAAAFAAQAAAADAAAAAAAFAAUAAAADAAAAAAAEAAUAAAADAAAAAAADAAUAAAADAAAAAAACAAUAAAADAAAAAAACAAQAAAADAAAAAAABAAQAAAADAAAAAAABAAUAAAADAAAAAAADAAQAAAADAAAAAAAEAAMAAAADAAAAAAAEAAQAAAADAAAAAAAEAAIAAAADAAAAAAA=")
-tile_set = ExtResource("3_sm7ng")
+tile_set = ExtResource("3_haf5q")
 
 [node name="Wall" type="TileMapLayer" parent="Floor C" index="1"]
 tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAAQAAgAAAAAAAAADAAAAAgAAAAAAAAACAAAAAgAAAAAAAAABAAAAAgAAAAAAAAAEAAAAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAAYAAgAAAAAAAAABAAYAAgAAAAAAAAACAAYAAgAAAAAAAAADAAYAAgAAAAAAAAAEAAYAAgAAAAAAAAAFAAYAAgAAAAAAAAAGAAYAAgAAAAAAAAAGAAUAAgAAAAAAAAAGAAQAAgAAAAAAAAAGAAMAAgAAAAAAAAAGAAIAAgAAAAAAAAAGAAEAAgAAAAAAAAAGAAAAAgAAAAAAAAAFAAAAAgAAAAAAAAADAAQAAgAAAAAAAAADAAUAAgAAAAAAAAADAAIAAgAAAAAAAAADAAEAAgAAAAAAAAA=")
-tile_set = ExtResource("4_1265i")
+tile_set = ExtResource("4_obg16")
 
 [node name="Items" type="TileMapLayer" parent="Floor C" index="2"]
 tile_map_data = PackedByteArray("AAADAAMAAAACAAIAAAAFAAUAAAABAAEAAAA=")
-tile_set = ExtResource("5_4nxni")
+tile_set = ExtResource("5_kwjp6")
 
-[node name="Floor B" parent="." index="2" instance=ExtResource("2_10mhw")]
+[node name="Floor B" parent="." index="2" instance=ExtResource("2_pg7yo")]
 
 [node name="Floor" type="TileMapLayer" parent="Floor B" index="0"]
 tile_map_data = PackedByteArray("AAABAAEAAAADAAAAAAABAAIAAAADAAAAAAABAAMAAAADAAAAAAADAAMAAAADAAAAAAACAAMAAAADAAAAAAACAAIAAAADAAAAAAADAAIAAAADAAAAAAADAAEAAAADAAAAAAACAAEAAAADAAAAAAAEAAEAAAADAAAAAAAFAAEAAAADAAAAAAAFAAIAAAADAAAAAAAFAAMAAAADAAAAAAAFAAQAAAADAAAAAAAFAAUAAAADAAAAAAAEAAUAAAADAAAAAAADAAUAAAADAAAAAAACAAUAAAADAAAAAAACAAQAAAADAAAAAAABAAQAAAADAAAAAAABAAUAAAADAAAAAAADAAQAAAADAAAAAAAEAAMAAAADAAAAAAAEAAQAAAADAAAAAAAEAAIAAAADAAAAAAA=")
-tile_set = ExtResource("3_sm7ng")
+tile_set = ExtResource("3_haf5q")
 
 [node name="Wall" type="TileMapLayer" parent="Floor B" index="1"]
 tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAAQAAgAAAAAAAAADAAAAAgAAAAAAAAACAAAAAgAAAAAAAAABAAAAAgAAAAAAAAAEAAAAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAAYAAgAAAAAAAAABAAYAAgAAAAAAAAACAAYAAgAAAAAAAAADAAYAAgAAAAAAAAAEAAYAAgAAAAAAAAAFAAYAAgAAAAAAAAAGAAYAAgAAAAAAAAAGAAUAAgAAAAAAAAAGAAQAAgAAAAAAAAAGAAMAAgAAAAAAAAAGAAIAAgAAAAAAAAAGAAEAAgAAAAAAAAAGAAAAAgAAAAAAAAAFAAAAAgAAAAAAAAADAAQAAgAAAAAAAAADAAUAAgAAAAAAAAA=")
-tile_set = ExtResource("4_1265i")
+tile_set = ExtResource("4_obg16")
 
 [node name="Items" type="TileMapLayer" parent="Floor B" index="2"]
 tile_map_data = PackedByteArray("AAACAAQAAAACAAIAAAADAAMAAAACAAIAAAAFAAQAAAACAAIAAAA=")
-tile_set = ExtResource("5_4nxni")
+tile_set = ExtResource("5_kwjp6")
 
-[node name="Floor A" parent="." index="3" instance=ExtResource("2_10mhw")]
+[node name="Floor A" parent="." index="3" instance=ExtResource("2_pg7yo")]
 
 [node name="Floor" type="TileMapLayer" parent="Floor A" index="0"]
 tile_map_data = PackedByteArray("AAABAAEAAAACAAAAAAABAAIAAAACAAAAAAABAAMAAAACAAAAAAADAAMAAAACAAAAAAACAAMAAAACAAAAAAACAAIAAAACAAAAAAADAAIAAAACAAAAAAADAAEAAAACAAAAAAACAAEAAAACAAAAAAAEAAEAAAACAAAAAAAFAAEAAAACAAAAAAAFAAIAAAACAAAAAAAFAAMAAAACAAAAAAAFAAQAAAACAAAAAAAFAAUAAAACAAAAAAAEAAUAAAACAAAAAAADAAUAAAACAAAAAAACAAUAAAACAAAAAAACAAQAAAACAAAAAAABAAQAAAACAAAAAAABAAUAAAACAAAAAAADAAQAAAACAAAAAAAEAAMAAAACAAAAAAAEAAQAAAACAAAAAAAEAAIAAAACAAAAAAA=")
-tile_set = ExtResource("3_sm7ng")
+tile_set = ExtResource("3_haf5q")
 
 [node name="Wall" type="TileMapLayer" parent="Floor A" index="1"]
 tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAAQAAgAAAAAAAAADAAAAAgAAAAAAAAACAAAAAgAAAAAAAAABAAAAAgAAAAAAAAAEAAAAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAAYAAgAAAAAAAAABAAYAAgAAAAAAAAACAAYAAgAAAAAAAAADAAYAAgAAAAAAAAAEAAYAAgAAAAAAAAAFAAYAAgAAAAAAAAAGAAYAAgAAAAAAAAAGAAUAAgAAAAAAAAAGAAQAAgAAAAAAAAAGAAMAAgAAAAAAAAAGAAIAAgAAAAAAAAAGAAEAAgAAAAAAAAAGAAAAAgAAAAAAAAAFAAAAAgAAAAAAAAABAAMAAgAAAAAAAAACAAMAAgAAAAAAAAADAAIAAgAAAAAAAAADAAEAAgAAAAAAAAA=")
-tile_set = ExtResource("4_1265i")
+tile_set = ExtResource("4_obg16")
 
 [node name="Items" type="TileMapLayer" parent="Floor A" index="2"]
 tile_map_data = PackedByteArray("AAADAAMAAAACAAIAAAABAAEAAAACAAEAAAA=")
-tile_set = ExtResource("5_4nxni")
+tile_set = ExtResource("5_kwjp6")

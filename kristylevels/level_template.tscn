@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://d3twde85vi366"]
+
+[ext_resource type="PackedScene" uid="uid://cwkt8sl1f3ihq" path="res://level.tscn" id="1_iylxv"]
+[ext_resource type="PackedScene" uid="uid://i2qw3x4cppxc" path="res://floor.tscn" id="2_80hh1"]
+[ext_resource type="TileSet" uid="uid://bkvvmc4spi1ua" path="res://Art/Floor.tres" id="3_ptc77"]
+[ext_resource type="TileSet" uid="uid://b1xq25eldmm4b" path="res://Art/wall.tres" id="4_o7p6y"]
+[ext_resource type="TileSet" uid="uid://cw3y4aepe3rgp" path="res://Art/Items.tres" id="5_8tv6u"]
+
+[node name="Level" instance=ExtResource("1_iylxv")]
+
+[node name="Floor A" parent="." index="0" instance=ExtResource("2_80hh1")]
+
+[node name="Floor" type="TileMapLayer" parent="Floor A" index="0"]
+tile_set = ExtResource("3_ptc77")
+
+[node name="Wall" type="TileMapLayer" parent="Floor A" index="1"]
+tile_set = ExtResource("4_o7p6y")
+
+[node name="Items" type="TileMapLayer" parent="Floor A" index="2"]
+tile_set = ExtResource("5_8tv6u")

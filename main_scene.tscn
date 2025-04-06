@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4v764owb8p0"]
+[gd_scene load_steps=8 format=3 uid="uid://c4v764owb8p0"]
 
 [ext_resource type="PackedScene" uid="uid://uwj3kh3et7ci" path="res://Character.tscn" id="1_8wdd1"]
 [ext_resource type="Script" path="res://main_scene.gd" id="1_lbvci"]
 [ext_resource type="PackedScene" uid="uid://x7lkk08esa7s" path="res://Levels/level_1.tscn" id="2_avony"]
 [ext_resource type="PackedScene" uid="uid://d4mtdg31d0xpn" path="res://floor_ui.tscn" id="4_ox4v2"]
 [ext_resource type="PackedScene" uid="uid://y444dyok5i2s" path="res://Main_menu_stuff/main_menu.tscn" id="5_80nnh"]
+[ext_resource type="AudioStream" uid="uid://d01kvo0u31wbh" path="res://Sound/ghostMain.wav" id="5_frta4"]
 [ext_resource type="PackedScene" path="res://tutorial_text.tscn" id="6_ftq74"]
 
 [node name="MainScene" type="Node"]
@@ -29,13 +30,40 @@ position = Vector2(24, 24)
 position = Vector2(334, 24)
 scale = Vector2(0.45, 0.45)
 
+[node name="BGMPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_frta4")
+volume_db = -10.0
+
 [node name="Main_menu" parent="." instance=ExtResource("5_80nnh")]
 
 [node name="TutorialText" parent="." instance=ExtResource("6_ftq74")]
 position = Vector2(200, 200)
 
+[node name="Credits" type="Node2D" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Credits"]
+offset_right = 414.0
+offset_bottom = 236.0
+color = Color(0.0294061, 3.34238e-05, 0.108735, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Credits"]
+offset_left = 23.0
+offset_top = 22.0
+offset_right = 376.0
+offset_bottom = 208.0
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "Developed by Ghost House Games:
+Aidan Chow
+Sam Gunn
+Kristy Fournier
+Liam Mcanulty
+
+Controller glyphs by [url=https://thoseawesomeguys.com/prompts/]XELU[/url]."
+
 [connection signal="get_center" from="." to="floor_ui" method="_on_main_scene_get_center"]
-[connection signal="Detected_item" from="CurrentLevelContent/Character" to="." method="_on_character_detected_item"]
 [connection signal="Detected_item" from="CurrentLevelContent/Character" to="TutorialText" method="_on_character_detected_item"]
+[connection signal="Done_Moving" from="CurrentLevelContent/Character" to="." method="_on_character_detected_item"]
 [connection signal="menu_close" from="floor_ui" to="." method="_on_floor_ui_menu_close"]
 [connection signal="loadLevel" from="Main_menu" to="." method="_on_main_menu_load_level"]

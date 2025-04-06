@@ -1,0 +1,46 @@
+Level Order:
+Level 1-6 (Already Made and decided)
+L7
+L8
+K5
+K2
+A5
+A4
+K3
+S4
+S6
+A1
+A2
+K4
+A3
+S5
+K1
+S1
+S3
+K6
+S2
+
+Kristy Levels:
+Level 1:
+	Fairly complex, should go near the middle-end
+Level 2:
+	Tutorial level, introduces cracked floors, should go after the other tutorials (level 7) if possible
+Level 3:
+	Easy-medium, originally meant to be a basic level after trapdoors are introduced
+Level 4:
+	Medium, not hard but has traps for players who don't look ahead. Ideally sort of early middle (level 16-18)
+Level 5:
+	Tutorial level, introduces keys, requires navigating 3 floors with holes to get the key and access the exit
+	Possible tutorial text: "Hmm, a locked floor? Maybe you can find a key(./?/!)" (I can't decide on the punctuation)
+Level 6:
+	Most complex of my set, Requires following a path to get the key, return to the start, and follow a new path to fall onto the door
+
+Sam Levels:
+
+Level 1. medium  somewhat easydifficulty, can get trapped but only need to make one real decision
+Level 2. hard difficulty, alot of floors and pathways. Level broken into 3 rings, need to go inside and out of the rings
+Level 3. medium, cannot get trapped, there are alot of paths to take
+Level 4. easy/medium sorta introductory to key
+Level 5. medium
+Level 6  medium
+

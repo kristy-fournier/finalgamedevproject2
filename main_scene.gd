@@ -192,10 +192,8 @@ func loadLevel(level:int,resetMode:bool=false):
 		currentLevelNode.queue_free()
 		# testing loading personal levels
 		var nextLevelNode
-		if level == 1:
-			nextLevelNode = load("res://kristylevels/level_6.tscn").instantiate()
-		else:
-			nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
+		
+		nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
 		#testing ends here MAKE SURE TO REVERT THIS PART
 		nextLevelNode.name = "Level"
 		# this sets currentLevelNode to nextLevelNode, but they're both used after this point

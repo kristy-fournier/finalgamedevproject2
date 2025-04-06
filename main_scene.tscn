@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d4mtdg31d0xpn" path="res://floor_ui.tscn" id="4_ox4v2"]
 [ext_resource type="PackedScene" uid="uid://y444dyok5i2s" path="res://Main_menu_stuff/main_menu.tscn" id="5_80nnh"]
 [ext_resource type="AudioStream" uid="uid://d01kvo0u31wbh" path="res://Sound/ghostMain.wav" id="5_frta4"]
-[ext_resource type="PackedScene" uid="uid://bmxeil3vv1kli" path="res://tutorial_text.tscn" id="6_ftq74"]
+[ext_resource type="PackedScene" path="res://tutorial_text.tscn" id="6_ftq74"]
 
 [node name="MainScene" type="Node"]
 script = ExtResource("1_lbvci")

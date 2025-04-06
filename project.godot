@@ -28,13 +28,6 @@ window/size/viewport_width=400
 window/size/viewport_height=225
 window/stretch/mode="canvas_items"
 
-[file_customization]
-
-folder_colors={
-"res://Levels/Aidan_lvls/": "red",
-"res://kristylevels/": "purple"
-}
-
 [input]
 
 move_up={

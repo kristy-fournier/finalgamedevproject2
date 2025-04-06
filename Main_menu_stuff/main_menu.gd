@@ -6,9 +6,9 @@ var menuState = "titleScreen"
 var selectedLevel = [[false, false, false, false, false],[false, false, false, false, false],[false, false, false, false, false],[false, false, false, false, false],[false, false, false, false, false]]
 var page = 1
 
-const numberOfLevels = 7 #This needs to be updated to the number of levels in the final product
+const numberOfLevels = 25 #This needs to be updated to the number of levels in the final product
 var numberOfPages = null #This does not need to be updated.
-var highestUnlockedlevel = 7 #something else needs to change this.
+var highestUnlockedlevel = 1 #something else needs to change this.
 var disabled = true
 
 # Called when the node enters the scene tree for the first time.

@@ -87,12 +87,12 @@ func _process(delta: float) -> void:
 				currentLevelNode.find_child("Floor "+ str(i[0])).visible = false
 	if Input.is_action_just_pressed("credits") and in_main_menu:
 		$Credits.visible = not($Credits.visible)
-		$Main_menu.visible = not($Main_menu.visible)
-		$Main_menu.disabled = not($Main_menu.disabled)
+		main_menu.visible = not(main_menu.visible)
+		main_menu.disabled = not(main_menu.disabled)
 	elif Input.is_action_just_pressed("menu_action") and $Credits.visible:
 		$Credits.visible = not($Credits.visible)
-		$Main_menu.visible = not($Main_menu.visible)
-		$Main_menu.disabled = not($Main_menu.disabled)
+		main_menu.visible = not(main_menu.visible)
+		main_menu.disabled = not(main_menu.disabled)
 func changeFloors(tileName, goUp:bool):
 	var floorDelta:int # -1 or 1
 	# the change in floor when this (hypothetical) action is complete
@@ -163,58 +163,76 @@ func _on_character_detected_item() -> void:
 	## Hence the title TESTinit
 	#loadLevel(1)
 
+func loadMainMenu():
+	$BGMPlayer.stream = load("res://Sound/ghostMain.wav")
+	$BGMPlayer.play()
+	main_menu.queue_free()
+	main_menu = load("res://Main_menu_stuff/main_menu.tscn").instantiate()
+	self.add_child(main_menu)
+	$Credits.move_to_front()
+	main_menu.disabled = false
+	main_menu.connect("loadLevel",loadLevel,1)
+	character.in_menu = true
+	in_main_menu = true
+	$CurrentLevelContent.visible = false
+	$floor_ui.visible = false
+	$TutorialText.visible = false
+
 func loadLevel(level:int,resetMode:bool=false):
-	$Credits.visible = false
-	main_menu.disabled = true
-	character.in_menu = false
-	in_main_menu = false
-	$CurrentLevelContent.visible = true
-	$TutorialText.visible = true
-	currentLevel = level
-	currentLevelNode.queue_free()
-	# testing loading personal levels
-	var nextLevelNode
-	if level == 1:
-		nextLevelNode = load("res://kristylevels/level_5.tscn").instantiate()
+	if level > main_menu.numberOfLevels:
+		loadMainMenu()
 	else:
-		nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
-	#testing ends here MAKE SURE TO REVERT THIS PART
-	nextLevelNode.name = "Level"
-	# this sets currentLevelNode to nextLevelNode, but they're both used after this point
-	currentLevelNode = nextLevelNode
-	$CurrentLevelContent.add_child(nextLevelNode)
-	character.move_to_front()
-	# 2 is the default scale for currentLevelContent (For some reason)
-	$CurrentLevelContent.scale = currentLevelNode.scaleForMainScene*Vector2(2,2)
-	#character.position = Vector2(24,24)
-	character.setPosition(16*currentLevelNode.starting_tile + Vector2i(8,8))
-	character.visible = true
-	var listForFloorUI = []
-	for i in nextLevelNode.floorOrder:
-		var playerOn = false
-		var exitOn = false
-		var locked = false
-		if i == nextLevelNode.startingFloor:
-			playerOn = true
-		if i == nextLevelNode.exitFloor:
-			exitOn = true
-		if i.locked == true:
-			locked = true
-		listForFloorUI.append([str(i.name)[-1],playerOn,exitOn,locked,false])
-	$floor_ui.currentFloorOrder = listForFloorUI
-	$floor_ui.visible = true
-	current_floor = currentLevelNode.floorOrder.find(currentLevelNode.startingFloor)
-	item_map = currentLevelNode.startingFloor.find_child("Items")
-	$TutorialText.loadLevelTutorial(level,1)
-	character.levelSize = currentLevelNode.scaleForMainScene
-	update_item_tiles()
-	SaveHandler.unlockCheck(level)
-	if not(resetMode):
-		var prevSong = $BGMPlayer.stream
-		$BGMPlayer.stop()
-		while $BGMPlayer.stream == prevSong:
-			$BGMPlayer.stream = levelSongs[randi() % levelSongs.size()]
-		$BGMPlayer.play()
+		$Credits.visible = false
+		main_menu.disabled = true
+		character.in_menu = false
+		in_main_menu = false
+		$CurrentLevelContent.visible = true
+		$TutorialText.visible = true
+		currentLevel = level
+		currentLevelNode.queue_free()
+		# testing loading personal levels
+		var nextLevelNode
+		if level == 1:
+			nextLevelNode = load("res://kristylevels/level_5.tscn").instantiate()
+		else:
+			nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
+		#testing ends here MAKE SURE TO REVERT THIS PART
+		nextLevelNode.name = "Level"
+		# this sets currentLevelNode to nextLevelNode, but they're both used after this point
+		currentLevelNode = nextLevelNode
+		$CurrentLevelContent.add_child(nextLevelNode)
+		character.move_to_front()
+		# 2 is the default scale for currentLevelContent (For some reason)
+		$CurrentLevelContent.scale = currentLevelNode.scaleForMainScene*Vector2(2,2)
+		#character.position = Vector2(24,24)
+		character.setPosition(16*currentLevelNode.starting_tile + Vector2i(8,8))
+		character.visible = true
+		var listForFloorUI = []
+		for i in nextLevelNode.floorOrder:
+			var playerOn = false
+			var exitOn = false
+			var locked = false
+			if i == nextLevelNode.startingFloor:
+				playerOn = true
+			if i == nextLevelNode.exitFloor:
+				exitOn = true
+			if i.locked == true:
+				locked = true
+			listForFloorUI.append([str(i.name)[-1],playerOn,exitOn,locked,false])
+		$floor_ui.currentFloorOrder = listForFloorUI
+		$floor_ui.visible = true
+		current_floor = currentLevelNode.floorOrder.find(currentLevelNode.startingFloor)
+		item_map = currentLevelNode.startingFloor.find_child("Items")
+		$TutorialText.loadLevelTutorial(level,1)
+		character.levelSize = currentLevelNode.scaleForMainScene
+		update_item_tiles()
+		SaveHandler.unlockCheck(level)
+		if not(resetMode):
+			var prevSong = $BGMPlayer.stream
+			$BGMPlayer.stop()
+			while $BGMPlayer.stream == prevSong:
+				$BGMPlayer.stream = levelSongs[randi() % levelSongs.size()]
+			$BGMPlayer.play()
 	
 	var tilemap = currentLevelNode.get_node("Floor A/Wall")
 	var used_rect = tilemap.get_used_rect()

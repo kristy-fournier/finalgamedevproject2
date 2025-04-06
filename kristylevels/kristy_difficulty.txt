@@ -10,4 +10,5 @@ Level 5:
 	Tutorial level, introduces keys, requires navigating 3 floors with holes to get the key and access the exit
 	Possible tutorial text: "Hmm, a locked floor? Maybe you can find a key(./?/!)" (I can't decide on the punctuation)
 Level 6:
+	Most complex of my set, Requires following a path to get the key, return to the start, and follow a new path to fall onto the door
 	

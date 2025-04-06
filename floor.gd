@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var is_on: bool
+## Is the floor locked in this position in the floor switcher
 @export var locked: bool
 const box_type = preload("res://box.gd")
 # Called when the node enters the scene tree for the first time.

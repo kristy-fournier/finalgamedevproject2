@@ -92,12 +92,14 @@ func _process(delta):
 					if(currentFloorOrder[i][4] == true): 
 						if(currentFloorOrder[i][3] == false):
 							swapMode = true
+							$ClickPlayer.play()
 						else:
 							swapMode = false
 							#Put buzzer sound effect
+							$ErrorPlayer.play()
 			else:
 				swapMode = false
-			$ClickPlayer.play()
+				$ClickPlayer.play()
 
 func toggleMenu():
 	if(menuMode == true):

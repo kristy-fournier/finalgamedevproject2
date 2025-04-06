@@ -3,3 +3,4 @@ Level 2. hard difficulty, alot of floors and pathways. Level broken into 3 rings
 Level 3. medium, cannot get trapped, there are alot of paths to take
 Level 4. easy/medium sorta introductory to key
 Level 5. medium
+Level 6  medium

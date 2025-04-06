@@ -175,7 +175,7 @@ func loadLevel(level:int,resetMode:bool=false):
 	# testing loading personal levels
 	var nextLevelNode
 	if level == 1:
-		nextLevelNode = load("res://Levels/Aidan_lvls/level_0.3.tscn").instantiate()
+		nextLevelNode = load("res://kristylevels/level_5.tscn").instantiate()
 	else:
 		nextLevelNode = load("res://Levels/level_"+str(currentLevel)+".tscn").instantiate()
 	#testing ends here MAKE SURE TO REVERT THIS PART

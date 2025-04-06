@@ -37,7 +37,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAA
 tile_set = ExtResource("4_o1fis")
 
 [node name="Items" type="TileMapLayer" parent="Floor C" index="2"]
-tile_map_data = PackedByteArray("AAABAAQAAAACAAEAAAAFAAEAAAABAAAAAAAFAAMAAAADAAAAAAA=")
+tile_map_data = PackedByteArray("AAABAAQAAAACAAEAAAAFAAEAAAADAAIAAAA=")
 tile_set = ExtResource("5_06848")
 
 [node name="Floor B" parent="." index="2" instance=ExtResource("2_dvpa6")]
@@ -52,5 +52,5 @@ tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAA
 tile_set = ExtResource("4_o1fis")
 
 [node name="Items" type="TileMapLayer" parent="Floor B" index="2"]
-tile_map_data = PackedByteArray("AAAFAAMAAAACAAAAAAABAAMAAAABAAEAAAA=")
+tile_map_data = PackedByteArray("AAAFAAMAAAACAAIAAAABAAMAAAABAAEAAAA=")
 tile_set = ExtResource("5_06848")

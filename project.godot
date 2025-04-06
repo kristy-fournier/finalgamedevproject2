@@ -31,7 +31,8 @@ window/stretch/mode="canvas_items"
 [file_customization]
 
 folder_colors={
-"res://Levels/Aidan_lvls/": "red"
+"res://Levels/Aidan_lvls/": "red",
+"res://kristylevels/": "purple"
 }
 
 [input]

@@ -12,12 +12,12 @@ var downIn # s or dpad down
 var selectIn #space or "A"
 var menuIn # Tab or Select (Or "B"?)
 var resetIn # R or "Y"
-#follows a format of tutorialText[levelNum][tutorialNum]
 
 var tutorialText
 
 func setTutorialText():
-	# for some reason variables in 
+	# for some reason variables in dictionaries don't get changed properly so we have to recall this every time
+	#follows a format of tutorialText[levelNum][tutorialNum]
 	tutorialText = {
 		1:{
 			1:["Use ",direcIn1," or ",direcIn2," to move"],
@@ -30,12 +30,15 @@ func setTutorialText():
 			4:["Now that there’s a hole above the ladder,\nyou can use it to move between floors."]
 		},
 		3:{
-			1:["In SpiritConnect, white shows your \nlocation and green shows the exit"]
+			1:["You can fall down holes at any time\nBe careful!"]
 		},
 		4:{
-			1:["Trapdoors are like holes, \nbut only when ladders are below"]
+			1:["In SpiritConnect, white shows your \nlocation and green shows the exit"]
 		},
 		5:{
+			1:["Trapdoors are like holes, \nbut only when ladders are below"]
+		},
+		6:{
 			1:["Use ",resetIn," to reset"]
 		}
 	}

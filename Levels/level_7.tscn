@@ -10,7 +10,7 @@
 startingFloor = NodePath("Floor A")
 exitFloor = NodePath("Floor A")
 starting_tile = Vector2i(3, 7)
-scaleForMainScene = 0.5
+scaleForMainScene = 0.6
 
 [node name="Floor C" parent="." index="0" instance=ExtResource("2_80hh1")]
 

@@ -10,6 +10,7 @@
 startingFloor = NodePath("Floor A")
 exitFloor = NodePath("Floor A")
 starting_tile = Vector2i(1, 1)
+scaleForMainScene = 0.9
 
 [node name="Floor B" parent="." index="0" instance=ExtResource("2_80hh1")]
 locked = true

@@ -55,7 +55,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("menu_action") and character.moving == false and not(in_main_menu):
+	if Input.is_action_just_pressed("return_to_menu"): # returntomenu is mapped to start and escape
+		loadMainMenu();
+	elif Input.is_action_just_pressed("menu_action") and character.moving == false and not(in_main_menu):
 		if(in_menu):
 			in_menu = false
 			# Hide and unhide the correct floors based on where character was before

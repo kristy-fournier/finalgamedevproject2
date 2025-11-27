@@ -40,6 +40,12 @@ func setTutorialText():
 		},
 		6:{
 			1:["Use ",resetIn," to reset"]
+		},
+		9:{
+			1:["Keys unlock locked floors, from the top down"]
+		},
+		10:{
+			1:["Cracked floors can only be walked on once"]
 		}
 	}
 
